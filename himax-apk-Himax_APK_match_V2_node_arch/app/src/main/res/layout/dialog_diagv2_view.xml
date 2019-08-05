@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_diag_v2_all_view"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/diag_v2_event"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+
+            android:text="Event stack :" />
+
+        <EditText
+            android:id="@+id/diag_v2_event_text"
+            style="@style/btnStylelemon_chiffon"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="stack"
+            android:ems="10"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/diag_v2_siir"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+
+            android:text="Sram IIR :" />
+
+        <EditText
+            android:id="@+id/diag_v2_siir_text"
+            style="@style/btnStylelemon_chiffon"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="iir_s"
+
+            android:ems="10"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/diag_v2_sdc"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+
+            android:text="Sram DC :" />
+
+        <EditText
+            android:id="@+id/diag_v2_sdc_text"
+            style="@style/btnStylelemon_chiffon"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="s_dc"
+            android:ems="10"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/diag_v2_sbank"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+
+            android:text="Sram Bank :" />
+
+        <EditText
+            android:id="@+id/diag_v2_sbank_text"
+            style="@style/btnStylelemon_chiffon"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:text="s_bank"
+
+            android:ems="10"
+            />
+    </LinearLayout>
+
+</LinearLayout>

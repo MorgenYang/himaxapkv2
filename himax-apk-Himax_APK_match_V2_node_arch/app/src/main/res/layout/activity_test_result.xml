@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_test_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.ln.himaxtouch.TouchTest.TestResultActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="68dp"
+        android:layout_marginRight="3dp">
+
+        <TextView
+            android:id="@+id/log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="left"
+            android:hint="\n\n\n\n\n\n\n\n\nClick left button to view data log!"
+            android:text="" />
+    </ScrollView>
+    <Button
+        android:text="VER"
+        android:layout_below="@+id/hor"
+        android:layout_alignEnd="@+id/hor"
+        android:id="@+id/ver"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="Seg"
+        android:layout_below="@+id/sen"
+        android:layout_alignEnd="@+id/sen"
+        android:id="@+id/senedge"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="Mtwo"
+        android:layout_below="@+id/senedge"
+        android:layout_alignEnd="@+id/senedge"
+        android:id="@+id/two"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="HOR"
+        android:id="@+id/hor"
+        android:layout_below="@+id/dia"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="SEN"
+        android:id="@+id/sen"
+        android:layout_below="@+id/ver"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="Meg"
+        android:layout_below="@+id/two"
+        android:layout_alignParentStart="true"
+        android:id="@+id/medge"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="RATE"
+        android:id="@+id/rate"
+        android:layout_below="@+id/medge"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:text="DIA"
+        android:id="@+id/dia"
+        android:layout_below="@+id/acc"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:paddingTop="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:background="@drawable/custom_btn_opal" />
+
+    <Button
+        android:id="@+id/result"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/darker_gray"
+        android:text="NaN"
+        android:textColor="@android:color/white" />
+        <!--android:background="@android:color/holo_green_light"-->
+
+
+    <Button
+        android:text="Name"
+        android:id="@+id/name"
+        android:background="@drawable/custom_btn_lemon_chiffon"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/rate"
+        android:layout_alignStart="@+id/rate"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:text="Out"
+        android:id="@+id/out"
+        android:background="@drawable/custom_btn_lemon_chiffon"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:text="ACC"
+        android:id="@+id/acc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="19dp"
+        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:layout_below="@+id/result"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/custom_btn_opal" />
+
+
+</RelativeLayout>

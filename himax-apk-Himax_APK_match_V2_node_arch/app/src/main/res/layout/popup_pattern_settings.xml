@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <RelativeLayout
+        android:id="@+id/popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="23dp"
+        android:background="@drawable/rounded_solid">
+
+        <TextView
+            android:id="@+id/tv_popup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:text="@string/objective_pattern_track"
+            android:textColor="#FFBCBCBC"
+            android:textSize="20dp"
+            android:background="@drawable/rounded_button"
+            android:layout_marginBottom="20dp">
+        </TextView>
+
+        <ScrollView
+            android:id="@+id/popup_content"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:minHeight="100dp"
+            android:layout_below="@+id/tv_popup_title" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/pattern_cell_resolution"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_cell_resolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/pattern_line_width"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_line_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/pattern_vertical_line_num"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_vertical_line_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/pattern_horizontal_line_num"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_horizontal_line_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/pattern_line_space"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_line_space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_below="@+id/popup_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/popup_content"
+            android:layout_alignRight="@+id/popup_content">
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:textColor="#FFBCBCBC"
+                android:textSize="15sp"
+                android:text="Save" />
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textColor="#FFBCBCBC"
+                android:textSize="15sp"
+                android:text="Exit"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

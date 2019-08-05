@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ln.himaxtouch.DataMonitor.BaseLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.ln.himaxtouch.DataMonitor.BaseLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp"
+        android:padding="5dp"
+        android:background="@drawable/rectangle">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/guide"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="8sp"
+            android:text="Volume UP : show/hide menu\nVolume Down : resume touch in sram"/>
+        <ScrollView
+            android:layout_below="@+id/guide"
+            android:layout_marginTop="5dp"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include android:id="@+id/rawdata_setpage" layout="@layout/monitor_setpage_rawdata"/>
+                <include android:id="@+id/transform_setpage" layout="@layout/monitor_setpage_transform"/>
+                <include android:id="@+id/keep_setpage" layout="@layout/monitor_setpage_keep"/>
+                <include android:id="@+id/color_option_setpage" layout="@layout/monitor_setpage_color_option"/>
+                <include android:id="@+id/color_setpage" layout="@layout/monitor_setpage_colorfulvalue"/>
+                <include android:id="@+id/font_setpage" layout="@layout/monitor_setpage_fontsize"/>
+                <include android:id="@+id/background_setpage" layout="@layout/monitor_setpage_background"/>
+                <include android:id="@+id/black_skin" layout="@layout/monitor_setpage_black"/>
+                <include android:id="@+id/bp_setpage" layout="@layout/monitor_setpage_bp"/>
+                <include android:id="@+id/record_setpage" layout="@layout/monitor_setpage_record"/>
+                <include android:id='@+id/drag_setPage' layout="@layout/monitor_setpage_drag"/>
+                <include android:id='@+id/drag_setAreaInfo' layout="@layout/monitor_setpage_areainfo"/>
+                <include android:id='@+id/drag_osr_cc' layout="@layout/monitor_setpage_osr_cc"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</RelativeLayout>

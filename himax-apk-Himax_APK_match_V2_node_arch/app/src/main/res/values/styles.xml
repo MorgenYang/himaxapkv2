@@ -1,0 +1,144 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="btnStyleopal" parent="@android:style/Widget.Button">
+       <item name="android:textSize">15sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">#FFFFFF</item>
+       <item name="android:gravity">center</item>
+       <item name="android:shadowColor">#000000</item>
+       <item name="android:shadowDx">1</item>
+       <item name="android:shadowDy">1</item>
+       <item name="android:shadowRadius">0.6</item>
+       <item name="android:background">@drawable/custom_btn_opal</item>
+       <item name="android:padding">2dip</item>
+   </style>
+   
+   <style name="btnStylelemon_chiffon" parent="@android:style/Widget.Button">
+   	   <item name="android:textSize">15sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">#FFFFFF</item>
+       <item name="android:gravity">left</item>
+       <item name="android:shadowColor">#000000</item>
+       <item name="android:shadowDx">1</item>
+       <item name="android:shadowDy">1</item>
+       <item name="android:shadowRadius">0.6</item>
+       <item name="android:background">@drawable/custom_btn_lemon_chiffon</item>
+       <item name="android:padding">10dip</item>
+   </style>
+    <style name="btnStylelemon_chiffon_hint_blue" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:gravity">left</item>
+        <item name="android:shadowColor">#77DDFF</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.6</item>
+        <item name="android:shape">rectangle</item>
+        <item name="android:background">@drawable/custom_btn_hint_blue</item>
+<!--        <item name="android:background">@drawable/custom_btn_lemon_chiffon</item>-->
+        <item name="android:padding">10dip</item>
+
+    </style>
+
+    <!--<style name="popup_window_setting_content" parent="AppBaseTheme">-->
+        <!--<item name="android:textViewStyle">@style/popup_window_setting_content_textview</item>-->
+        <!--<item name="android:radioButtonStyle">@style/popup_window_setting_content_radiobutton</item>-->
+        <!--<item name="android:scrollViewStyle">@style/popup_window_setting_content_scroll</item>-->
+    <!--</style>-->
+    <!--<style name="popup_window_setting_content_scroll" parent="android:Widget.ScrollView">-->
+        <!--<item name="android:textViewStyle">@style/popup_window_setting_content_textview</item>-->
+        <!--<item name="android:radioButtonStyle">@style/popup_window_setting_content_radiobutton</item>-->
+    <!--</style>-->
+    <style name="popup_window_setting_content">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFBCBCBC</item>
+    </style>
+    <style name="popup_window_setting_content_radiobutton">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFBCBCBC</item>
+    </style>
+
+
+    <style name="HimaxFullScreenTheme" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+        <item name="android:navigationBarColor">@color/himax_blue_alpha</item>
+        <item name="android:statusBarColor">@color/himax_blue_alpha</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:colorAccent">@color/himax_blue</item>
+        <item name="android:colorPrimary">@android:color/background_light</item>
+        <item name="android:colorForeground">@color/himax_blue</item>
+    </style>
+
+    <style name="HimaxActionBar" parent="android:Theme.Material.Light" >
+        <!--<item name="android:background">@color/himax_light_gray</item>-->
+        <item name="android:navigationBarColor">@color/himax_blue_alpha</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:colorAccent">@color/himax_blue</item>
+        <item name="android:colorPrimary">@android:color/background_light</item>
+        <item name="android:colorForeground">@color/himax_blue</item>
+        <item name="android:actionBarSize">@dimen/action_bar_height</item>
+
+        <item name="android:actionBarStyle">@style/HimaxActionBar.ActionBar</item>
+    </style>
+
+    <style name="HimaxActionBar.ActionBar" parent="android:Widget.Material.Light.ActionBar">
+        <item name="android:background">@drawable/himax_bar_divider</item>
+        <item name="android:titleTextStyle">@style/HimaxActionBar.ActionTitleStyle</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">40dp</item>
+    </style>
+
+    <style name="HimaxActionBar.ActionTitleStyle" parent="android:TextAppearance.Material.Widget.ActionBar.Title">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#707070</item>
+
+    </style>
+
+
+    <style name="PresetLayoutButton">
+        <item name="android:background">@drawable/background_selector_preset_button</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="PresetLayoutButton_ValueText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_time_preset_unit</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingEnd"> @dimen/padding_side_title_text </item>
+        <item name="android:paddingLeft">@dimen/padding_side_title_text</item>
+        <item name="android:paddingStart"> @dimen/padding_side_title_text </item>
+        <item name="android:paddingRight">@dimen/padding_side_title_text</item>
+    </style>
+
+
+    <style name="PresetLayoutButton_UnitText">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/text_size_time_preset_unit</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingTop">0dp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/osc_hopp_permision"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Permission"
+        android:textColor="#000000"
+        android:textSize="23dp"
+        ></TextView>
+    <LinearLayout
+        android:id="@+id/midv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/osc_hopp_permision">
+    <TextView
+        android:id="@+id/RF5H"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+        android:text="Now RF5H: "
+        android:textColor="#220088"
+        android:textSize="15dp"
+        android:onClick="onClick"
+        android:clickable="true"
+
+        ></TextView>
+        <Button
+            android:id="@+id/set_btn"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/btnStyleopal"
+            android:text="Set RF5H"
+
+            android:textSize="15dp">
+        </Button>>
+        <Button
+            android:id="@+id/list_btn"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/btnStyleopal"
+            android:text="Start Hopping"
+
+            android:textSize="15dp">
+        </Button>>
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/list_result"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/midv">
+        <!--
+        <Button
+            android:id="@+id/Set_btn_RF5H_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RF5H Set 0x00"
+            />
+        <GridView
+            android:id="@+id/List_RF5HX0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />-->
+
+    </ScrollView>
+
+</LinearLayout>

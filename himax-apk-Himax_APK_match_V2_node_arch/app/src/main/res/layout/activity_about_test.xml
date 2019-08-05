@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ln.himaxtouch.TouchTest.AboutTestActivity">
+
+    <TextView
+        android:text="\nINTRODUCTION\n
+        1.Touch Test Settings\n
+           a.Virtual key:It means have virtual button when the checkbox selected.\n
+           b.Accuracy click num:Only be set to 1 or 3.
+        2.Register R/W\n
+           a.all of the data that you read from the register is '00',please open exclusive permission.\n
+        3."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView2" />
+
+</RelativeLayout>

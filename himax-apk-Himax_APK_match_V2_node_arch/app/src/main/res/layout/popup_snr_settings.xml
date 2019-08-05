@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <RelativeLayout
+        android:id="@+id/popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="23dp"
+        android:background="@drawable/rounded_solid">
+
+        <TextView
+            android:id="@+id/tv_popup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:text="@string/objective_snr_measurement"
+            android:textColor="#FFBCBCBC"
+            android:textSize="20dp"
+            android:background="@drawable/rounded_button"
+            android:layout_marginBottom="20dp">
+        </TextView>
+
+        <ScrollView
+            android:id="@+id/popup_content"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:minHeight="100dp"
+            android:layout_below="@+id/tv_popup_title" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="rawdata base threshold"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_raw_base_threshold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    style="@style/popup_window_setting_content"
+                    android:text="@string/snr_signal_data_type" />
+                <RadioGroup
+                    android:id="@+id/signal_data_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/snr_signal_block"
+                        android:checked="true"
+                        style="@style/popup_window_setting_content"/>
+                    <RadioButton
+                        android:id="@+id/radio2"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/snr_signal_frame"
+                        style="@style/popup_window_setting_content"/>
+                </RadioGroup>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/snr_noise_data_type"
+                    style="@style/popup_window_setting_content"/>
+                <RadioGroup
+                    android:id="@+id/signal_noise_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/snr_noise_max"
+                        style="@style/popup_window_setting_content"/>
+                    <RadioButton
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/snr_noise_average"
+                        style="@style/popup_window_setting_content"/>
+                    <!--<RadioButton-->
+                        <!--android:layout_width="200dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/snr_noise_max_touch"-->
+                        <!--android:enabled="false"-->
+                        <!--style="@style/popup_window_setting_content"/>-->
+                    <!--<RadioButton-->
+                        <!--android:layout_width="200dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/snr_noise_avg_touch"-->
+                        <!--android:enabled="false"-->
+                        <!--style="@style/popup_window_setting_content"/>-->
+                </RadioGroup>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/snr_noise_threshold"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_noise_threshold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content"/>
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/snr_signal_timeout"
+                    style="@style/popup_window_setting_content"/>
+                <EditText
+                    android:id="@+id/et_signal_timeout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content" />
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/snr_calculate_frame"
+                    style="@style/popup_window_setting_content" />
+                <EditText
+                    android:id="@+id/et_calculate_frames"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content" />
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:text="@string/snr_ignore_frame"
+                    style="@style/popup_window_setting_content" />
+                <EditText
+                    android:id="@+id/et_ignore_frames"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone|number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    style="@style/popup_window_setting_content" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_below="@+id/popup_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/popup_content"
+            android:layout_alignRight="@+id/popup_content">
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:textColor="#FFBCBCBC"
+                android:textSize="15sp"
+                android:text="Save" />
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:textColor="#FFBCBCBC"
+                android:textSize="15sp"
+                android:text="Exit"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

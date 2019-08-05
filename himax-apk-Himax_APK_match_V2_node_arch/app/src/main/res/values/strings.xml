@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Himax Touch</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_touch_monitor">Touch Monitor</string>
+    <string name="title_activity_setup">Setup</string>
+    <string name="title_activity_register_rw">Register R/W</string>
+    <string name="title_activity_multi_register_rw">Multi Register R/W</string>
+    <string name="title_activity_show_multi_register_rw">Show Multi Register R/W</string>
+    <string name="title_activity_fwupgrade">IIR Self Test</string>
+    <string name="title_activity_self_test">Self Test</string>
+    <string name="title_activity_touch">Touch Point</string>
+    <string name="title_activity_line">Linearity</string>
+    <string name="title_activity_ip">Ip</string>
+    <string name="title_activity_touchevent">Motion Event</string>
+    <string name="title_activity_phonestate">Device Information</string>
+    <string name="title_activity_readevent">Read Motion Event</string>
+    <string name="title_activity_readtouchmoniter">Readtouchmoniter</string>
+    <string name="title_activity_upgradefw">U/D FW</string>
+    <string name="title_activity_oschopping">OSC Hopping</string>
+    <string name="title_activity_advanced">Advance</string>
+
+    <string name="bg_color">Background Color (RGB):</string>
+    <string name="lcd_height">LCD Height (mm):</string>
+    <string name="lcd_width">LCD Width (mm):</string>
+    <string name="lcd_size">LCD SIZE (W*H):</string>
+    <string name="accuracy_total_test_times">Accuracy Total Test Times:</string>
+    <string name="accuracy_center_threshold">Accuracy Center-Threshold:</string>
+    <string name="accuracy_edge_threshold">Accuracy Edge-Threshold:</string>
+    <string name="accuracy_click_num">Accuracy Click Num:</string>
+    <string name="linearity_each_line_times">Linearity Each Line Test Times:</string>
+    <string name="linearity_total_test_times">Linearity Total Test Times:</string>
+    <string name="lineation_center_threshold">Lineation Center-Threshold:</string>
+    <string name="lineation_edge_threshold">Lineation Edge-Threshold:</string>
+    <string name="test_bar_radius">Test Bar Radius:</string>
+    <string name="loop_times">Loop Times:</string>
+    <string name="long_test_times">Long Test Times:</string>
+    <string name="sen_gap">Sensitivity Gap:</string>
+    <string name="save_BTN">SAVE</string>
+    <string name="ictype">choose ic type</string>
+
+    <string name="objective_test">Object Test</string>
+    <string name="objective_snr_measurement">SNR Measurement</string>
+    <string name="objective_signal_measurement">Signal Measurement</string>
+    <string name="objective_pattern_track">Pattern Track</string>
+    <string name="objective_jitter_test">Jitter Test</string>
+    <string name="objective_record_max_point_count">Max Point Count Record</string>
+    <string name="objective_ghost_point_record">Ghost Point Record</string>
+    <string name="objective_palm_test">Palm Test</string>
+    <string name="objective_board_protection">Board Protection</string>
+    <string name="objective_extend_board">Extend Board</string>
+
+    <string name="objective_pattern_1">1: X</string>
+    <string name="objective_pattern_2">2: 回</string>
+    <string name="objective_pattern_3">3: 口</string>
+    <string name="objective_pattern_4">4: fast draw line</string>
+    <string name="objective_pattern_5">5: Keep thumb and draw line</string>
+    <string name="objective_pattern_6">6: |||</string>
+
+    <string name="objective_csv_test_item">Test item</string>
+    <string name="objective_csv_test_duration">Duration</string>
+    <string name="objective_csv_test_start_time">Start time</string>
+    <string name="objective_csv_test_end_time">End time</string>
+    <string name="objective_csv_test_result">Result</string>
+
+    <string name="objective_csv_msg_wait_touch">waiting touch</string>
+    <string name="objective_csv_unsaved_msg">press volume up to save file. (unsaved)</string>
+    <string name="objective_csv_saving_msg">saving csv to path ...</string>
+    <string name="objective_csv_saved_msg">file is saved.</string>
+    <string name="objective_csv_saved_fail">failed to save.</string>
+
+    <string name="p_sensor_vibrator_threshold">Vibrator threshold: </string>
+    <string name="p_sensing_threshold">Lower sensing threshold: </string>
+    <string name="p_sensing_upper_threshold">Upper sensing threshold: </string>
+    <string name="p_sensing_proximity_debug">Proximity_debug</string>
+    <string name="p_sensing_proximity_value">Proximity_value</string>
+    <string name="p_sensing_proximity_bl_update">Proximity_bl_update</string>
+
+    <string name="rawdata_record_title">Rawdata Record</string>
+</resources>

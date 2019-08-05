@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Raw Data Type"/>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <com.ln.himaxtouch.HimaxRadioButton.PresetRadioGroup
+            android:id="@+id/rawdata_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="3dp"
+            android:paddingRight="20dp"
+            android:layout_marginBottom="13dp"
+            android:orientation="horizontal">
+        </com.ln.himaxtouch.HimaxRadioButton.PresetRadioGroup>
+    </HorizontalScrollView>
+</LinearLayout>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ln.himaxtouch"
+    android:versionCode="19"
+    android:versionName="4.0.20 Beta 03" >
+
+    <!--<uses-sdk-->
+        <!--android:minSdkVersion="19"-->
+        <!--android:targetSdkVersion="26" />-->
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+
+
+    <application
+        android:name="com.ln.himaxtouch.HimaxApplication"
+        android:allowBackup="true"
+        android:testOnly="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/HimaxActionBar" >
+        <activity android:name="com.ln.himaxtouch.WelcomeActivity"
+            android:theme="@style/HimaxFullScreenTheme"
+            android:label="@string/app_name"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.ln.himaxtouch.HomeCatalog.HomeActivity"
+            android:label="@string/homepage_title">
+        </activity>
+        <activity android:name=".TestActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        </activity>
+        <activity android:name=".TouchTest.PenPaintActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.MainActivity"
+            android:label="@string/app_name" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.TouchMonitorActivity"
+            android:label="@string/title_activity_touch_monitor" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.UpgradeFW"
+            android:label="@string/title_activity_upgradefw"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.osc_hopping"
+            android:label="@string/title_activity_oschopping" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.SetupActivity"
+            android:label="@string/title_activity_setup"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.RegisterRWActivity"
+            android:label="@string/title_activity_register_rw"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.MultiRegisterRWActivity"
+            android:label="@string/title_activity_multi_register_rw"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Show_MultiRegisterRWActivity"
+            android:label="@string/title_activity_show_multi_register_rw"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.TotalSelfTestActivity"
+            android:label="@string/title_activity_fwupgrade" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.SelfTestActivity"
+            android:label="@string/title_activity_self_test" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Touch"
+            android:label="@string/title_activity_touch"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Line"
+            android:label="@string/title_activity_line"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Touchevent"
+            android:label="@string/title_activity_touchevent"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Phonestate"
+            android:label="@string/title_activity_phonestate"
+            android:theme="@style/HimaxFullScreenTheme" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Readevent"
+            android:label="@string/title_activity_readevent" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.Readtouchmoniter"
+            android:label="@string/title_activity_readtouchmoniter" >
+        </activity>
+        <activity
+            android:name="com.ln.himaxtouch.BackgroundWhite"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.ln.himaxtouch.BackgroundDefGraph"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.ln.himaxtouch.BackgroundColor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <!--Touch Test -->
+        <activity
+            android:name="com.ln.himaxtouch.TouchTestActivity"
+            android:label="@string/title_activity_touch"/>
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.AccuracyActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.DiagonalActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.HorizontalActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.VerticalActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.SensitivityActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.SensitivityEdgeActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.ManualTwoPointActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.ManualEdgeActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.ManualEventRateActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.ConfigurationActivity"
+            android:launchMode="singleTask"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.TestResultActivity"
+            android:launchMode="singleTask"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.TouchTest.AboutTestActivity"
+            android:launchMode="singleTask"
+            />
+        <activity
+            android:name="com.ln.himaxtouch.ObjectiveTest.ObjectiveTestActivity"
+            android:label="@string/objective_test"
+            android:theme="@style/HimaxActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.ObjectiveTest.ObjectTestOngoingActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.PSensorTestActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.RawdataRecord.RawdataRecordPage"
+            android:label="@string/rawdata_record_title">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.RawdataRecord.HoppingCollectionChart"
+            android:theme="@style/HimaxFullScreenTheme">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.RawdataRecord.HoppingNoiseGet"
+            android:theme="@style/HimaxFullScreenTheme">
+        </activity>
+
+        <activity android:name="com.ln.himaxtouch.DataMonitor.DataMonitorActivity"
+            android:theme="@style/HimaxFullScreenTheme">
+        </activity>
+        <activity android:name="com.ln.himaxtouch.GeneralSettings.SettingsListActivity"
+            android:label="@string/setpage_title" />
+        <activity android:name=".Advance.AdvanceActivity"
+            android:label="@string/advancepage_title" />
+        <!--Touch Test -->
+        <service android:name="com.ln.himaxtouch.Touchevent_service"></service>
+        <service android:name="com.ln.himaxtouch.GetRawdataService"></service>
+        <receiver android:name="com.ln.himaxtouch.TouchMonitorActivity$mNFBroadcastReciever"></receiver>
+
+        <service android:name="com.ln.himaxtouch.DataMonitor.RecordRawDataService"></service>
+        <receiver android:name="com.ln.himaxtouch.HimaxApplication$RecordServiceReceiver">
+            <intent-filter>
+                <action android:name="com.ln.himaxtouch.DataMonitor.RecordService.Start" />
+                <action android:name="com.ln.himaxtouch.DataMonitor.RecordService.Finish" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

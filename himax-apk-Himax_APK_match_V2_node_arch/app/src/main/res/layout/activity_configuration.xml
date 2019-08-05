@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_configuration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:padding="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        tools:context=".SetupActivity" >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/setup_linear_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:padding="5dp"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
+                <!--<TextView-->
+                    <!--android:id="@+id/head_info"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Headset Information"-->
+                    <!--android:textSize="18dp"/>-->
+
+
+                <LinearLayout
+                    android:id="@+id/nav"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="Virtual Key:" />
+
+                    <CheckBox
+                        android:id="@+id/vir_key"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:text="KEY" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/bg_color"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bg_color" />
+
+                    <EditText
+                        android:id="@+id/bg_color_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"
+                        android:hint="例:255255255(9位)"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/lcd_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="@string/lcd_height" />
+
+                    <EditText
+                        android:id="@+id/lcd_height_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="#a3a890"
+                        android:ems="10"
+                        android:inputType="numberDecimal"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lcd_width"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lcd_width" />
+
+                    <EditText
+                        android:id="@+id/lcd_width_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lcd_size"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lcd_size" />
+
+                    <EditText
+                        android:id="@+id/lcd_size_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"
+                        android:enabled="false"/>
+                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/accuracy_total_test_times"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/accuracy_total_test_times" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/accuracy_total_test_times_text"-->
+                        <!--style="@style/btnStylelemon_chiffon"-->
+                        <!--android:layout_width="300dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:inputType="number"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:background="#a3a890"/>-->
+                <!--</LinearLayout>-->
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/accuracy_center_threshold"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accuracy_center_threshold"/>
+
+                    <EditText
+                        android:id="@+id/accuracy_center_threshold_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/accuracy_edge_threshold"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accuracy_edge_threshold"/>
+
+                    <EditText
+                        android:id="@+id/accuracy_edge_threshold_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/accuracy_click_num"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accuracy_click_num"/>
+
+                    <EditText
+                        android:id="@+id/accuracy_click_num_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="number"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/linearity_each_line_times"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/linearity_each_line_times" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/linearity_each_line_times_text"-->
+                        <!--style="@style/btnStylelemon_chiffon"-->
+                        <!--android:layout_width="300dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:inputType="number"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:background="#a3a890"/>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/linearity_total_test_times"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/linearity_total_test_times" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/linearity_total_test_times_text"-->
+                        <!--style="@style/btnStylelemon_chiffon"-->
+                        <!--android:layout_width="300dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:inputType="number"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:background="#a3a890"/>-->
+                <!--</LinearLayout>-->
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lineation_center_threshold"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lineation_center_threshold" />
+
+                    <EditText
+                        android:id="@+id/lineation_center_threshold_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/lineation_edge_threshold"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lineation_edge_threshold" />
+
+                    <EditText
+                        android:id="@+id/lineation_edge_threshold_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/test_bar_radius"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/test_bar_radius" />
+
+                    <EditText
+                        android:id="@+id/test_bar_radius_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/loop_times"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/loop_times" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/loop_times_text"-->
+                        <!--style="@style/btnStylelemon_chiffon"-->
+                        <!--android:layout_width="300dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:inputType="number"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:background="#a3a890"/>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/long_test_times"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/long_test_times" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/long_test_times_text"-->
+                        <!--style="@style/btnStylelemon_chiffon"-->
+                        <!--android:layout_width="300dp"-->
+                        <!--android:layout_weight="5"-->
+                        <!--android:inputType="number"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:background="#a3a890"/>-->
+                <!--</LinearLayout>-->
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/sen_gap"
+                        android:layout_width="match_parent"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sen_gap" />
+
+                    <EditText
+                        android:id="@+id/sen_gap_text"
+                        style="@style/btnStylelemon_chiffon"
+                        android:layout_width="300dp"
+                        android:layout_weight="5"
+                        android:inputType="numberDecimal"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="#a3a890"/>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/save_BTN"
+                    style="@style/btnStyleopal"
+                    android:layout_width="match_parent"
+                    android:text="@string/save_BTN"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingBottom="0dp"
+                    android:layout_height="42dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+

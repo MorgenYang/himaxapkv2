@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WelcomeActivity"
+    android:background="#F3FFFFFF">
+
+    <TextView
+        android:id="@+id/act_main_lockhint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="@string/draw_pattern"
+        android:layout_marginTop="150dp"
+        android:textSize="20dp"
+        android:textColor="#012E58"
+        android:gravity="center_horizontal"
+        />
+    <com.ln.himaxtouch.PatternLock.LockView
+        android:id="@+id/act_main_lockview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+</LinearLayout>

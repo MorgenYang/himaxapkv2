@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="0dp"
+    android:layout_marginBottom="0dp"
+    android:layout_marginEnd="0dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginStart="0dp"
+    android:layout_marginTop="0dp"
+    android:padding="0dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".RegisterRWActivity" >
+            <LinearLayout
+                android:id="@+id/register_layer"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                >
+                <TextView
+                    android:id="@+id/register_textview1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="#008888"
+                    android:text="Register(HEX) :  "
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:clickable="false"
+                    />
+
+                <EditText
+                    android:id="@+id/register_addr_text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#007799"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:layout_weight="2"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/write_num_layer"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/register_layer"
+                >
+                <TextView
+                    android:id="@+id/register_textview2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="#008888"
+                    android:text="Write Length    :    "
+                    android:textSize="15sp"
+                    android:layout_weight="1"/>
+
+                <Spinner
+                    android:id="@+id/register_write_length_spinner"
+                    style="?android:attr/spinnerItemStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="2"
+                    android:gravity="center"/>
+
+
+            </LinearLayout>
+    <LinearLayout
+        android:id="@+id/check_btn_layer"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/write_num_layer"
+        >
+
+        <CheckBox
+            android:id="@+id/register_config_bank_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HW REG Operation"
+            android:textSize="10sp"
+            android:layout_weight="2"
+            />
+        <Button
+            android:id="@+id/register_read_BTN"
+            style="@style/btnStyleopal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="4"
+            android:text="READ" />
+
+        <Button
+            android:id="@+id/register_write_BTN"
+            style="@style/btnStyleopal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="4"
+            android:text="WRITE" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/command_layer"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/check_btn_layer"
+        android:orientation="vertical"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:id="@+id/result_layer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/command_layer"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/read_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </LinearLayout>
+
+</RelativeLayout>

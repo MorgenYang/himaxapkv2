@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="DriverNodeArch">
+        <item>V1_base</item>
+        <item>V2_Base</item>
+    </string-array>
+</resources>

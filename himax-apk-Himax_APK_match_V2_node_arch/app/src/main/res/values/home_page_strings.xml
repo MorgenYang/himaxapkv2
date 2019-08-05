@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="homepage_title">Home</string>
+    <string-array name="homepage_item_name_list">
+        <item >Touch Monitor</item>
+        <item >Settings</item>
+        <item >Robot Test</item>
+        <item >Object Test</item>
+        <item >Advance</item>
+    </string-array>
+    <string-array name="homepage_item_icon_list">
+        <item >@drawable/monitor</item>
+        <item >@drawable/settings</item>
+        <item >@drawable/robot_test</item>
+        <item >@drawable/object_test</item>
+        <item >@drawable/advance</item>
+    </string-array>
+    <string-array name="homepage_item_class_list">
+        <item >com.ln.himaxtouch.DataMonitor.DataMonitorActivity</item>
+        <item >com.ln.himaxtouch.GeneralSettings.SettingsListActivity</item>
+        <item >net.newsunup.monitertest</item>
+        <item >com.ln.himaxtouch.ObjectiveTest.ObjectiveTestActivity</item>
+        <item >com.ln.himaxtouch.Advance.AdvanceActivity</item>
+    </string-array>
+
+    <string name="setpage_title">Settings</string>
+    <string-array name="setpage_item_name_list">
+        <item >Device Information</item>
+        <item >Driver Node Setup</item>
+
+    </string-array>
+    <string-array name="setpage_item_class_list">
+        <item >com.ln.himaxtouch.Phonestate</item>
+        <item >com.ln.himaxtouch.SetupActivity</item>
+
+    </string-array>
+    <string name="advancepage_title">Advance</string>
+    <string-array name="advancepage_item_name_list">
+        <item >Upgrade/Dump FW</item>
+        <item >Linearity</item>
+        <item >Motion Events</item>
+        <item >Read Motion Event</item>
+        <item >Background Self define Graph</item>
+        <item >Background Color self adjust</item>
+        <item >Touch Point</item>
+        <item >OSC Hopping</item>
+        <item >Self Test</item>
+        <item >Re-Sense</item>
+        <item >Register R/W</item>
+        <item >Multi Register R/W</item>
+        <item >Touch Test</item>
+        <item >P sensor test</item>
+        <item >Rawdata Record</item>
+        <item>Pen Paint</item>
+    </string-array>
+    <string-array name="advancepage_item_class_list">
+        <item >com.ln.himaxtouch.UpgradeFW</item>
+        <item >com.ln.himaxtouch.Line</item>
+        <item >com.ln.himaxtouch.Touchevent</item>
+        <item >com.ln.himaxtouch.Readevent</item>
+        <item >com.ln.himaxtouch.BackgroundDefGraph</item>
+        <item >com.ln.himaxtouch.BackgroundColor</item>
+        <item >com.ln.himaxtouch.Touch</item>
+        <item >com.ln.himaxtouch.osc_hopping</item>
+        <item >com.ln.himaxtouch.SelfTestActivity</item>
+        <item >com.ln.himaxtouch.nothing</item>
+        <item >com.ln.himaxtouch.RegisterRWActivity</item>
+        <item >com.ln.himaxtouch.MultiRegisterRWActivity</item>
+        <item >com.ln.himaxtouch.TouchTestActivity</item>
+        <item >com.ln.himaxtouch.PSensorTestActivity</item>
+        <item >com.ln.himaxtouch.RawdataRecord.RawdataRecordPage</item>
+        <item>com.ln.himaxtouch.TouchTest.PenPaintActivity</item>
+    </string-array>
+</resources>

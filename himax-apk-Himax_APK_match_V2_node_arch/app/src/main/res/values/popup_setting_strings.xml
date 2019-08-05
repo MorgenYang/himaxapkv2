@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="snr_signal_data_type">Signal Data Type</string>
+    <string name="snr_signal_block">Block</string>
+    <string name="snr_signal_frame">Frame</string>
+    <string name="snr_noise_data_type">Noise Data Type</string>
+    <string name="snr_noise_max">Max</string>
+    <string name="snr_noise_average">Average</string>
+    <string name="snr_noise_max_touch">Max-Touch</string>
+    <string name="snr_noise_avg_touch">Avg-Touch</string>
+    <string name="snr_noise_threshold">Threshold of Noise</string>
+    <string name="snr_signal_timeout">Timeout of Signal</string>
+    <string name="snr_calculate_frame">Frames of Calculate</string>
+    <string name="snr_ignore_frame">Frames of Ignore</string>
+    <string name="snr_untouched">Noise Collection</string>
+    <string name="snr_touched">Signal Collection</string>
+    <string name="snr_please_touch">Please touch one area and do not leave.</string>
+    <string name="snr_collecting_signal">Catching signal frame...</string>
+    <string name="snr_collecting_noise">Catching noise frame...</string>
+    <string name="snr_finish_calculation">Finish Calculation</string>
+    <string name="tolerance">Tolerance</string>
+    <string name="board_space_protect">Space from boarder</string>
+    <string name="pattern_cell_resolution">Cell size</string>
+    <string name="pattern_line_width">Line width (cells)</string>
+    <string name="pattern_vertical_line_num">Vertical line amount  (cells)</string>
+    <string name="pattern_horizontal_line_num">Horizontal line amount  (cells)</string>
+    <string name="pattern_line_space">Line Space  (cells)</string>
+
+</resources>

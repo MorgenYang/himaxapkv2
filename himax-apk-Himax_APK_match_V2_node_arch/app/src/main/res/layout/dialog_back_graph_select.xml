@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_back_graph_select"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/dbgs_file_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="/sdcard/DCIM/Camera/"
+        android:textColor="#0000ff"
+        android:shadowColor="#000000"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        />
+
+</LinearLayout>

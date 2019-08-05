@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_info">Powered by Himax</string>
+    <string name="check_node_fail">We can not access driver node, please check out everything is fine.</string>
+    <string name="draw_pattern">Please draw pattern\nFour point at least.</string>
+    <string name="pattern_error">Pattern error\nPlease draw again.</string>
+</resources>

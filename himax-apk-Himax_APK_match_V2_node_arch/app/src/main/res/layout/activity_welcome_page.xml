@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true">
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/himaxlogo"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"/>
+
+
+        <ImageButton
+            android:id="@+id/login_pro"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/padlock"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="50dp"
+            android:layout_alignRight="@+id/img_logo"
+            android:layout_below="@+id/img_logo"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Pro mode"
+            android:textSize="8sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_below="@+id/login_pro"
+            android:layout_alignRight="@+id/login_pro"/>
+
+        <ImageButton
+            android:id="@+id/login_guest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/login"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="50dp"
+            android:layout_alignLeft="@+id/img_logo"
+            android:layout_below="@+id/img_logo"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Guest mode"
+            android:textSize="8sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_below="@+id/login_guest"
+            android:layout_alignLeft="@+id/login_guest"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/author"/>
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/welcome_info"/>
+
+    <FrameLayout
+        android:id="@+id/act_lock_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    </FrameLayout>
+</RelativeLayout>

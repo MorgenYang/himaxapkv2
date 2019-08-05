@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_all_view"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/dialog_red_layer"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_red_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Red="/>
+    <SeekBar
+        android:id="@+id/dialog_red_seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="255"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_blue_layer"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_blue_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blue="/>
+        <SeekBar
+            android:id="@+id/dialog_blue_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_green_layer"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_green_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Green="/>
+        <SeekBar
+            android:id="@+id/dialog_green_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dialog_preview_layer"
+        android:layout_height="25dp"
+        android:layout_width="240dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+    </LinearLayout>
+</LinearLayout>
