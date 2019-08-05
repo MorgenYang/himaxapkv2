@@ -70,8 +70,9 @@ public class SnrModel implements IObjectiveTestModel {
         mColNum = 0;
 
     }
+
     public void bindView(TextView title, TextView msg,
-                         ProgressBar pb_baseraw,ProgressBar pb_item1, ProgressBar pb_item1_skip, ProgressBar pb_item2, ProgressBar pb_item2_skip, PopupWindow popup) {
+                         ProgressBar pb_baseraw, ProgressBar pb_item1, ProgressBar pb_item1_skip, ProgressBar pb_item2, ProgressBar pb_item2_skip, PopupWindow popup) {
         mTitle = title;
         mMsg = msg;
         mPB_BaseRaw = pb_baseraw;

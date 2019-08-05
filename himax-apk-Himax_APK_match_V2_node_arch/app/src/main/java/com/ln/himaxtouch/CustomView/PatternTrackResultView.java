@@ -24,8 +24,9 @@ public class PatternTrackResultView extends View {
         public ArrayList<PointF> mPoints = new ArrayList<PointF>();
         public int mTouchStatus = 0;
         public int mPointId = 0;
+
         public PointRecord(int id) {
-           mPointId = id;
+            mPointId = id;
         }
 
     }
@@ -63,37 +64,37 @@ public class PatternTrackResultView extends View {
         mPaintText.setColor(Color.parseColor("#FF6633"));
         mPaintText.setTextSize(100);
         mPaintText.setTextAlign(Paint.Align.CENTER);
-        mPaintText.setTypeface(Typeface.create("Arial",Typeface.BOLD));
+        mPaintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if(mTestStatus == 2) {
-            for(int i=0;i<mPatternCells.length;i++) {
-                for(int j=0;j<mPatternCells[0].length;j++) {
-                    if(mPatternCells[i][j].isTouched) {
+        if (mTestStatus == 2) {
+            for (int i = 0; i < mPatternCells.length; i++) {
+                for (int j = 0; j < mPatternCells[0].length; j++) {
+                    if (mPatternCells[i][j].isTouched) {
                         mPaint.setColor(Color.parseColor("#999999"));
                         mPaint.setStyle(Paint.Style.STROKE);
                         ObjectivePatternView.Cell c = mPatternCells[i][j];
-                        if(!mPatternCells[i][j].isShouldBeTouched && !isNeedDetectFastLine) {
+                        if (!mPatternCells[i][j].isShouldBeTouched && !isNeedDetectFastLine) {
                             isPassTest = false;
                             mPaint.setColor(Color.parseColor("#FFAA33"));
                             mPaint.setStyle(Paint.Style.STROKE);
-                            canvas.drawLine(c.x_start, c.y_start, c.x_start+c.cell_width, c.y_start, mPaint);
-                            canvas.drawLine(c.x_start, c.y_start+c.cell_width, c.x_start+c.cell_width, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start+c.cell_width, c.y_start, c.x_start+c.cell_width, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start, c.y_start, c.x_start, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start, c.y_start, c.x_start+c.cell_width, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start+c.cell_width, c.y_start, c.x_start, c.y_start+c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start, c.x_start + c.cell_width, c.y_start, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start + c.cell_width, c.x_start + c.cell_width, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start + c.cell_width, c.y_start, c.x_start + c.cell_width, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start, c.x_start, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start, c.x_start + c.cell_width, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start + c.cell_width, c.y_start, c.x_start, c.y_start + c.cell_width, mPaint);
                         } else {
                             mPaint.setColor(Color.parseColor("#FFFFFF"));
                             mPaint.setStyle(Paint.Style.STROKE);
-                            canvas.drawLine(c.x_start, c.y_start, c.x_start+c.cell_width, c.y_start, mPaint);
-                            canvas.drawLine(c.x_start, c.y_start+c.cell_width, c.x_start+c.cell_width, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start+c.cell_width, c.y_start, c.x_start+c.cell_width, c.y_start+c.cell_width, mPaint);
-                            canvas.drawLine(c.x_start, c.y_start, c.x_start, c.y_start+c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start, c.x_start + c.cell_width, c.y_start, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start + c.cell_width, c.x_start + c.cell_width, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start + c.cell_width, c.y_start, c.x_start + c.cell_width, c.y_start + c.cell_width, mPaint);
+                            canvas.drawLine(c.x_start, c.y_start, c.x_start, c.y_start + c.cell_width, mPaint);
                         }
                     }
                 }
@@ -102,20 +103,20 @@ public class PatternTrackResultView extends View {
         mPaint.setColor(Color.BLUE);
         mPaint.setStyle(Paint.Style.STROKE);
 
-        for(int i=0; i<mPoints.size(); i++) {
+        for (int i = 0; i < mPoints.size(); i++) {
             PointRecord pr = mPoints.get(i);
-            for(int j=1; j<pr.mPoints.size(); j++) {
+            for (int j = 1; j < pr.mPoints.size(); j++) {
                 PointF p1 = pr.mPoints.get(j - 1);
                 PointF p2 = pr.mPoints.get(j);
-                canvas.drawCircle(p1.x,p1.y,1,mPaint);
+                canvas.drawCircle(p1.x, p1.y, 1, mPaint);
                 canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mPaint);
                 canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mPaint);
             }
         }
 
-        if(mTestStatus == 2) {
-            if(isNeedDetectFastLine) {
-                if(!isPassTest && (mCountMainFingerLeave > 0 || mCountSubFingerLeave > 0)) {
+        if (mTestStatus == 2) {
+            if (isNeedDetectFastLine) {
+                if (!isPassTest && (mCountMainFingerLeave > 0 || mCountSubFingerLeave > 0)) {
                     mPaintText.setColor(Color.parseColor("#FFA488"));
                     drawCenter(canvas, mPaintText, "NG");
                 } else {
@@ -123,7 +124,7 @@ public class PatternTrackResultView extends View {
                     drawCenter(canvas, mPaintText, "PASS");
                 }
             } else {
-                if(!isPassTest) {
+                if (!isPassTest) {
                     mPaintText.setColor(Color.parseColor("#FFA488"));
                     drawCenter(canvas, mPaintText, "NG");
                 } else {
@@ -135,10 +136,10 @@ public class PatternTrackResultView extends View {
     }
 
     public void recordEvent(MotionEvent event) {
-        int id_designed = mCountAcionDown*10 + event.getPointerId(event.getActionIndex());
+        int id_designed = mCountAcionDown * 10 + event.getPointerId(event.getActionIndex());
         int evAction = event.getAction() & MotionEvent.ACTION_MASK;
 
-        if(mTestStatus == 2 && mCountMainFingerLeave == 0) {
+        if (mTestStatus == 2 && mCountMainFingerLeave == 0) {
             return;
         }
 
@@ -147,10 +148,10 @@ public class PatternTrackResultView extends View {
                 PointRecord p = new PointRecord(id_designed);
                 p.mTouchStatus = 1;
                 mPoints.add(p);
-                if(isNeedDetectFastLine && mPreviousPointCount <= event.getPointerCount()) {
+                if (isNeedDetectFastLine && mPreviousPointCount <= event.getPointerCount()) {
                     mPreviousPointCount = event.getPointerCount();
                 }
-                if(mCountMainFingerLeave > 0 && isPassTest) {
+                if (mCountMainFingerLeave > 0 && isPassTest) {
                     isPassTest = false;
                 }
                 break;
@@ -158,20 +159,20 @@ public class PatternTrackResultView extends View {
             case MotionEvent.ACTION_UP: {
                 mCountAcionDown++;
                 PointRecord pr = null;
-                for(PointRecord p : mPoints) {
-                    if(p.mPointId == id_designed) {
+                for (PointRecord p : mPoints) {
+                    if (p.mPointId == id_designed) {
                         pr = p;
                     }
                 }
-                if(pr!=null) {
+                if (pr != null) {
                     pr.mTouchStatus = 2;
                 }
 
-                if(mCountAcionDown == mActionDown) {
+                if (mCountAcionDown == mActionDown) {
                     mTestStatus = 2;
                 }
 
-                if(isNeedDetectFastLine && isPassTest) {
+                if (isNeedDetectFastLine && isPassTest) {
                     mCountMainFingerLeave++;
                 }
 
@@ -185,14 +186,14 @@ public class PatternTrackResultView extends View {
                     p.mTouchStatus = 1;
                     mPoints.add(p);
                 }
-                if(isNeedDetectFastLine && isPassTest) {
-                    if(mPreviousPointCount <= event.getPointerCount()) {
+                if (isNeedDetectFastLine && isPassTest) {
+                    if (mPreviousPointCount <= event.getPointerCount()) {
                         mPreviousPointCount = event.getPointerCount();
                     } else {
                         isPassTest = false;
                     }
                 }
-                if(mCountSubFingerLeave > 0 && isPassTest) {
+                if (mCountSubFingerLeave > 0 && isPassTest) {
                     isPassTest = false;
                 }
                 break;
@@ -207,7 +208,7 @@ public class PatternTrackResultView extends View {
                 if (pr != null) {
                     pr.mTouchStatus = 2;
                 }
-                if(isNeedDetectFastLine && isPassTest) {
+                if (isNeedDetectFastLine && isPassTest) {
                     mCountSubFingerLeave++;
                 }
                 break;
@@ -216,7 +217,7 @@ public class PatternTrackResultView extends View {
                 for (int i = 0; i < event.getPointerCount(); i++) {
                     PointRecord pr = null;
                     for (PointRecord p : mPoints) {
-                        if (p.mPointId == (mCountAcionDown*10 + event.getPointerId(i))) {
+                        if (p.mPointId == (mCountAcionDown * 10 + event.getPointerId(i))) {
                             pr = p;
                         }
                     }
@@ -227,11 +228,11 @@ public class PatternTrackResultView extends View {
                         pr.mPoints.add(new PointF(event.getHistoricalX(i, j), event.getHistoricalY(i, j)));
                     }
                 }
-                if(isNeedDetectFastLine && isPassTest) {
-                    if(mPreviousPointCount <= event.getPointerCount()) {
+                if (isNeedDetectFastLine && isPassTest) {
+                    if (mPreviousPointCount <= event.getPointerCount()) {
                         mPreviousPointCount = event.getPointerCount();
                     } else {
-                        if(mCountSubFingerLeave == 0/* || mCountMainFingerLeave == 0*/) {
+                        if (mCountSubFingerLeave == 0/* || mCountMainFingerLeave == 0*/) {
                             isPassTest = false;
                         }
                     }
@@ -245,10 +246,10 @@ public class PatternTrackResultView extends View {
     }
 
     public void labelTouchedCell() {
-        for(PointRecord pr : mPoints) {
-            for(int i = 0; i<pr.mPoints.size()-1; i++) {
+        for (PointRecord pr : mPoints) {
+            for (int i = 0; i < pr.mPoints.size() - 1; i++) {
                 PointF p1 = pr.mPoints.get(i);
-                PointF p2 = pr.mPoints.get(i+1);
+                PointF p2 = pr.mPoints.get(i + 1);
                 checkLineCrossEachCell(p1, p2);
             }
         }
@@ -257,59 +258,61 @@ public class PatternTrackResultView extends View {
     private void checkLineCrossEachCell(PointF p1, PointF p2) {
         float resolution = mPatternCells[0][0].cell_width;
 
-        int rowP1 = (int) (p1.x/resolution);
-        int colP1 = (int) (p1.y/resolution);
-        int rowP2 = (int) (p2.x/resolution);
-        int colP2 = (int) (p2.y/resolution);
+        int rowP1 = (int) (p1.x / resolution);
+        int colP1 = (int) (p1.y / resolution);
+        int rowP2 = (int) (p2.x / resolution);
+        int colP2 = (int) (p2.y / resolution);
 
-        rowP1 = (rowP1 > mPatternCells.length-1) ? mPatternCells.length-1 : rowP1;
-        colP1 = (colP1 > mPatternCells[0].length-1) ? mPatternCells[0].length-1 : colP1;
-        rowP2 = (rowP2 > mPatternCells.length-1) ? mPatternCells.length-1 : rowP2;
-        colP2 = (colP2 > mPatternCells[0].length-1) ? mPatternCells[0].length-1 : colP2;
+        rowP1 = (rowP1 > mPatternCells.length - 1) ? mPatternCells.length - 1 : rowP1;
+        colP1 = (colP1 > mPatternCells[0].length - 1) ? mPatternCells[0].length - 1 : colP1;
+        rowP2 = (rowP2 > mPatternCells.length - 1) ? mPatternCells.length - 1 : rowP2;
+        colP2 = (colP2 > mPatternCells[0].length - 1) ? mPatternCells[0].length - 1 : colP2;
 
         mPatternCells[rowP1][colP1].isTouched = true;
 
-        if(rowP1 > rowP2) {
+        if (rowP1 > rowP2) {
             int temp = rowP2;
             rowP2 = rowP1;
             rowP1 = temp;
         }
-        if(colP1 > colP2) {
+        if (colP1 > colP2) {
             int temp = colP2;
             colP2 = colP1;
             colP1 = temp;
         }
 
-        for(int i=rowP1; i<=rowP2; i++) {
-            for(int j=colP1; j<=colP2; j++) {
+        for (int i = rowP1; i <= rowP2; i++) {
+            for (int j = colP1; j <= colP2; j++) {
                 ObjectivePatternView.Cell cell = mPatternCells[i][j];
 
-                if(cell.isTouched) {continue;}
+                if (cell.isTouched) {
+                    continue;
+                }
 
                 float x_start = cell.x_start;
                 float cell_width = cell.cell_width;
                 float y_start = cell.y_start;
 
-                boolean resultTop = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start, x_start+cell_width, y_start);
-                if(resultTop) {
+                boolean resultTop = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start, x_start + cell_width, y_start);
+                if (resultTop) {
                     cell.isTouched = true;
                     continue;
                 }
 
-                boolean resultRight = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start+cell_width, y_start, x_start+cell_width, y_start+cell_width);
-                if(resultRight) {
+                boolean resultRight = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start + cell_width, y_start, x_start + cell_width, y_start + cell_width);
+                if (resultRight) {
                     cell.isTouched = true;
                     continue;
                 }
 
-                boolean resultBottom = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start+cell_width, x_start+cell_width, y_start+cell_width);
-                if(resultBottom) {
+                boolean resultBottom = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start + cell_width, x_start + cell_width, y_start + cell_width);
+                if (resultBottom) {
                     cell.isTouched = true;
                     continue;
                 }
 
-                boolean resultLeft = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start, x_start, y_start+cell_width);
-                if(resultLeft) {
+                boolean resultLeft = calculateCrossPoint(p1.x, p1.y, p2.x, p2.y, x_start, y_start, x_start, y_start + cell_width);
+                if (resultLeft) {
                     cell.isTouched = true;
                     continue;
                 }
@@ -320,25 +323,25 @@ public class PatternTrackResultView extends View {
     private boolean calculateCrossPoint(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         float x = ((x1 - x2) * (x3 * y4 - x4 * y3) - (x3 - x4) * (x1 * y2 - x2 * y1)) / ((x3 - x4) * (y1 - y2) - (x1 - x2) * (y3 - y4));
         float y = ((y1 - y2) * (x3 * y4 - x4 * y3) - (x1 * y2 - x2 * y1) * (y3 - y4)) / ((y1 - y2) * (x3 - x4) - (x1 - x2) * (y3 - y4));
-        int x_cross = (int)(x+0.5);
-        int y_cross = (int)(y+0.5);
+        int x_cross = (int) (x + 0.5);
+        int y_cross = (int) (y + 0.5);
 
         boolean result = true;
-        if(x3<x4) {
-            if(!(x_cross>=x3 && x_cross<=x4)) {
+        if (x3 < x4) {
+            if (!(x_cross >= x3 && x_cross <= x4)) {
                 result = false;
             }
         } else {
-            if(!(x_cross>=x4 && x_cross<=x3)) {
+            if (!(x_cross >= x4 && x_cross <= x3)) {
                 result = false;
             }
         }
-        if(y3<y4) {
-            if(!(y_cross>=y3 && y_cross<=y4)) {
+        if (y3 < y4) {
+            if (!(y_cross >= y3 && y_cross <= y4)) {
                 result = false;
             }
         } else {
-            if(!(y_cross>=y4 && y_cross<=y3)) {
+            if (!(y_cross >= y4 && y_cross <= y3)) {
                 result = false;
             }
         }
@@ -346,6 +349,7 @@ public class PatternTrackResultView extends View {
     }
 
     private Rect r = new Rect();
+
     private void drawCenter(Canvas canvas, Paint paint, String text) {
         canvas.getClipBounds(r);
         int cHeight = r.height();

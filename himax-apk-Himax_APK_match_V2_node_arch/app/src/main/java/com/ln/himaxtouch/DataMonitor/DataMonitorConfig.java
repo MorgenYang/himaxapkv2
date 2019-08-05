@@ -23,7 +23,7 @@ public class DataMonitorConfig {
     public final static int TRANSFORM_DATA_FIVE = 4;
     public final static int TRANSFORM_DATA_SIX = 5;
     public final static int TRANSFORM_DATA_SENVEN = 6;
-    public final static int TRANSFORM_DATA_EIGHT= 7;
+    public final static int TRANSFORM_DATA_EIGHT = 7;
 
     public final static int SCREEN_MODE_PARSED_DATA = 0;
     public final static int SCREEN_MODE_RAW_STRING = 1;

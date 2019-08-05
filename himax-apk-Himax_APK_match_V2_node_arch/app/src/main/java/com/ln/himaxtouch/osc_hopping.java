@@ -57,12 +57,12 @@ public class osc_hopping extends Activity implements View.OnClickListener {
     String proc_register_node;
     SharedPreferences sh_settings;
 
-    int all_x=0;
-    int all_y=0;
+    int all_x = 0;
+    int all_y = 0;
 
     int check_p = 0;
-    int now_max=0;
-    int run_end=0;
+    int now_max = 0;
+    int run_end = 0;
     String sum_value[] = new String[10];
     String osc_para[] = new String[8];
     String set_btn_list[] = new String[8];
@@ -76,7 +76,7 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         AlertDialog alertDialog;
-        AlertDialog.Builder alert_builder = new  AlertDialog.Builder(this);
+        AlertDialog.Builder alert_builder = new AlertDialog.Builder(this);
         alert_builder.setNegativeButton("OK", null);
         alertDialog = alert_builder.create();
         alertDialog.setIcon(R.drawable.ic_launcher);
@@ -88,33 +88,31 @@ public class osc_hopping extends Activity implements View.OnClickListener {
 
         setContentView(R.layout.activity_oschopping);
         get_all_screen();
-       // Toast.makeText(this,"test",Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this,"test",Toast.LENGTH_SHORT).show();
         sh_settings = this.getSharedPreferences("HIAPK", 0);
         proc_node_dir = sh_settings.getString("SETUP_DIR_NODE", "/proc/android_touch/");
         proc_diag_node = proc_node_dir + sh_settings.getString("SETUP_DIAG_NODE", "diag");
         proc_register_node = proc_node_dir + sh_settings.getString("SETUP_REGISTER_NODE", "register");
 
 
-
         permission = (TextView) findViewById(R.id.osc_hopp_permision);
         RF5H = (TextView) findViewById(R.id.RF5H);
-        hopping_btn = (Button)findViewById(R.id.list_btn);
-        set_btn = (Button)findViewById(R.id.set_btn);
-        List_RF5H = (ScrollView)findViewById(R.id.list_result);
+        hopping_btn = (Button) findViewById(R.id.list_btn);
+        set_btn = (Button) findViewById(R.id.set_btn);
+        List_RF5H = (ScrollView) findViewById(R.id.list_result);
 
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         List_RF5H.addView(ll);
 
-        String temp[]=new String[10];
-        Set_btn_RF5H=new Button[8];
+        String temp[] = new String[10];
+        Set_btn_RF5H = new Button[8];
         List_RF5HX = new GridView[8];
 
 
+        for (int j = 0; j < 8; j++) {
 
-        for(int j=0;j<8;j++) {
-
-            set_btn_list[j]="RF5H <= 0x0"+Integer.toString(j);
+            set_btn_list[j] = "RF5H <= 0x0" + Integer.toString(j);
         }
         check_p = check_permission();
         if (check_p == 0) {
@@ -127,7 +125,6 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         getRF5H();
 
 
-
         hopping_btn.setOnClickListener(this);
         set_btn.setOnClickListener(this);
 
@@ -135,10 +132,8 @@ public class osc_hopping extends Activity implements View.OnClickListener {
 
 
     @Override
-    public void onClick(View v)
-    {
-        if(v==hopping_btn)
-        {
+    public void onClick(View v) {
+        if (v == hopping_btn) {
 
             ll.removeAllViews();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -156,11 +151,9 @@ public class osc_hopping extends Activity implements View.OnClickListener {
             dialog_hopping.show();
 
 
-
-
-            for(int i=0;i<8;i++) {
-                    OSC_calc run_write = new OSC_calc();
-                    run_write.execute(i);
+            for (int i = 0; i < 8; i++) {
+                OSC_calc run_write = new OSC_calc();
+                run_write.execute(i);
             }
 
 
@@ -228,12 +221,10 @@ public class osc_hopping extends Activity implements View.OnClickListener {
             getRF5H();
             */
         }
-        if(v==RF5H)
-        {
-            Toast.makeText(getBaseContext(),"Enter RF5H",Toast.LENGTH_SHORT).show();
+        if (v == RF5H) {
+            Toast.makeText(getBaseContext(), "Enter RF5H", Toast.LENGTH_SHORT).show();
         }
-        if(v==set_btn)
-        {
+        if (v == set_btn) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("Choose Your Set");
             dialog.setItems(set_btn_list, new DialogInterface.OnClickListener() {
@@ -276,26 +267,26 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         return true;
     }*/
 
-    void getRF5H()
-    {
-        String read_org_write_RF5H[]={proc_register_node,"r:xf5\n"};
-        String read_org_read_RF5H[]={proc_register_node};
+    void getRF5H() {
+        String read_org_write_RF5H[] = {proc_register_node, "r:xf5\n"};
+        String read_org_read_RF5H[] = {proc_register_node};
 
         writeCfg(read_org_write_RF5H);
         String RF5H_read = retry_readcfg(3, read_org_read_RF5H);
 
         String RF5H_read_result = RF5H_read.substring(RF5H_read.indexOf('\n') + 1, RF5H_read.indexOf(' ', RF5H_read.indexOf('\n')));
         // Toast.makeText(this,RF5H_read_result,Toast.LENGTH_SHORT).show();
-        RF5H.setText("Now RF5H: "+RF5H_read_result);
+        RF5H.setText("Now RF5H: " + RF5H_read_result);
     }
-    void get_all_screen()
-    {
+
+    void get_all_screen() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         all_x = size.x;
         all_y = size.y;
     }
+
     String retry_readcfg(int retry, String[] command) {
         String result = "";
 
@@ -328,7 +319,7 @@ public class osc_hopping extends Activity implements View.OnClickListener {
     }
 
     int check_permission() {
-        int read_result=0;
+        int read_result = 0;
         String write_diag_command[] = {proc_diag_node, "0"};
         String diag_result[] = {proc_diag_node};
         String write_register_command[] = {proc_register_node, "r:xf6"};
@@ -341,7 +332,7 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         String register_writer = write_command(write_register_command);
         String register_Result = retry_readcfg(3, regiter_result);
 
-        if ((diag_Result == null || diag_Result.length() == 0)|| (register_Result == null || register_Result.length() == 0) )
+        if ((diag_Result == null || diag_Result.length() == 0) || (register_Result == null || register_Result.length() == 0))
             return 0;
         int diag_write_r = diag_writer.matches("[\\w\\W\\s\\S.]*fail[\\w\\W\\s\\S.]*") ? 1 : 0;
         int register_write_r = register_writer.matches("[\\w\\W\\s\\S.]*fail[\\w\\W\\s\\S.]*") ? 1 : 0;
@@ -351,70 +342,66 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         return 0;
     }
 
-    int[] calc_Sum_value(int RF5H){
+    int[] calc_Sum_value(int RF5H) {
         int result_sum[] = new int[2];
-        int SUM=0;
-        int Max=0;
-        int times=10;
-        int now_last_point=0;
-        int now_string_point=0;
+        int SUM = 0;
+        int Max = 0;
+        int times = 10;
+        int now_last_point = 0;
+        int now_string_point = 0;
         int getvalue;
         String TXRX;
         int TX;
         int RX;
         int totalTXRX;
-        String now_string="";
+        String now_string = "";
         //String write_cmd = write_command(IIR);
         //writeCfg(IIR);
 
-        String[] IIR={proc_diag_node,"1\n"};
-        String read_diag[]={proc_diag_node};
+        String[] IIR = {proc_diag_node, "1\n"};
+        String read_diag[] = {proc_diag_node};
         writeCfg(IIR);
         // run = true;
         //handler.postDelayed(task, srate);
-        String result = retry_readcfg(3,read_diag);
+        String result = retry_readcfg(3, read_diag);
         //Toshowrawdata=Toshowrawdata+result+"\n\n"; for debug in menu
         //getTX RX
         TXRX = result.substring(0, result.indexOf('\n'));
-        TX=Integer.valueOf(TXRX.substring(TXRX.indexOf(',') - 2, TXRX.indexOf(',')));
-        RX=Integer.valueOf(TXRX.substring(TXRX.indexOf(',') + 4, TXRX.indexOf(',') + 6));
-        totalTXRX=TX*RX;
+        TX = Integer.valueOf(TXRX.substring(TXRX.indexOf(',') - 2, TXRX.indexOf(',')));
+        RX = Integer.valueOf(TXRX.substring(TXRX.indexOf(',') + 4, TXRX.indexOf(',') + 6));
+        totalTXRX = TX * RX;
         // Toast.makeText(getApplicationContext(), Integer.toString(totalTXRX), Toast.LENGTH_SHORT).show();
-        while(now_string.indexOf("ChannelEnd")==-1 || totalTXRX>0)
-        {
-            if(result.indexOf(' ',now_string_point)!=-1) {
-                now_last_point =result.indexOf(' ',now_string_point);
+        while (now_string.indexOf("ChannelEnd") == -1 || totalTXRX > 0) {
+            if (result.indexOf(' ', now_string_point) != -1) {
+                now_last_point = result.indexOf(' ', now_string_point);
                 now_string = result.substring(now_string_point, now_last_point);
-                now_string_point=now_last_point+1;
-            }
-            else if(result.indexOf('\n',now_string_point)!=-1) {
-                now_last_point =result.indexOf('\n',now_string_point);
+                now_string_point = now_last_point + 1;
+            } else if (result.indexOf('\n', now_string_point) != -1) {
+                now_last_point = result.indexOf('\n', now_string_point);
                 now_string = result.substring(now_string_point, now_last_point);
-                now_string_point=now_last_point+1;
+                now_string_point = now_last_point + 1;
             }
             try {
                 getvalue = Integer.valueOf(now_string);
 
-            }
-            catch (Exception e)
-            {
-                getvalue=-1;
+            } catch (Exception e) {
+                getvalue = -1;
             }
 
             // Toast.makeText(getApplicationContext(), Integer.toString(getvalue), Toast.LENGTH_SHORT).show();
-            if(getvalue!=-1) {
+            if (getvalue != -1) {
                 SUM += getvalue;
-                if(getvalue>Max)
-                    Max=getvalue;
+                if (getvalue > Max)
+                    Max = getvalue;
                 totalTXRX--;
             }
-            if(totalTXRX==0)
+            if (totalTXRX == 0)
                 break;
         }
         //Toast.makeText(getApplicationContext(), Integer.toString(Max), Toast.LENGTH_SHORT).show();
         // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-        result_sum[0]=SUM;
-        result_sum[1]=Max;
+        result_sum[0] = SUM;
+        result_sum[1] = Max;
         return result_sum;
     }
 
@@ -435,13 +422,13 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         public View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
             TextView tv;
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                tv = (TextView)inflater.inflate(R.layout.osc_list,parent,false);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                tv = (TextView) inflater.inflate(R.layout.osc_list, parent, false);
             } else {
                 tv = (TextView) convertView;
             }
             tv.setText(objects[position]);
-            if (position >=11)
+            if (position >= 11)
                 tv.setBackgroundColor(Color.parseColor("#FF8888"));
             else
                 tv.setBackgroundColor(Color.parseColor("#66FF66"));
@@ -450,60 +437,58 @@ public class osc_hopping extends Activity implements View.OnClickListener {
         }
 
     }
-    class OSC_calc extends AsyncTask<Integer,Integer,Integer> {
+
+    class OSC_calc extends AsyncTask<Integer, Integer, Integer> {
 
         int position = 0;
-        int sum_osc_result[]= new int[10];
+        int sum_osc_result[] = new int[10];
         String sum_osc_result_str[] = new String[10];
-        int max_osc_result[]= new int[10];
+        int max_osc_result[] = new int[10];
         String max_osc_result_str[] = new String[10];
-        String result2print[]=new String[22];
+        String result2print[] = new String[22];
 
         @Override
         protected Integer doInBackground(Integer... Params) {
             // in background thread
 
-            position=Params[0];
+            position = Params[0];
 
             //int temp=0;
             //for (; position < 8; position++)
             //{
 
 
-                int cal_result[]=new int[2];
+            int cal_result[] = new int[2];
 
-                int MAX_INDEX=0;
-                int MAX=0;
-                result2print[0]="SUM";
-                result2print[11]="MAX";
-                String change_RF5H[] ={proc_register_node,"w:xf5:x0"+Integer.toString(position)+"\n"};
-                writeCfg(change_RF5H);
-                waiting(30);
-                osc_para[position] = "RF5H set " + Integer.toString(position);
+            int MAX_INDEX = 0;
+            int MAX = 0;
+            result2print[0] = "SUM";
+            result2print[11] = "MAX";
+            String change_RF5H[] = {proc_register_node, "w:xf5:x0" + Integer.toString(position) + "\n"};
+            writeCfg(change_RF5H);
+            waiting(30);
+            osc_para[position] = "RF5H set " + Integer.toString(position);
 
 
-
-                for (int i = 0; i < 10; i++) {
-                    cal_result = calc_Sum_value(position);
-                    waiting(100);
-                    if(cal_result[0]>MAX)
-                    {
-                        MAX=cal_result[0];
-                        MAX_INDEX=i;
-                    }
-                    sum_osc_result[i] = cal_result[0];
-                    result2print[i+1]=Integer.toString(cal_result[0]);
-                    max_osc_result[i] = cal_result[1];
-                    result2print[i+12]=Integer.toString(cal_result[1]);
-                    // Toast.makeText(getBaseContext(),Integer.toString(position)+":"+osc_result_str[i],Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < 10; i++) {
+                cal_result = calc_Sum_value(position);
+                waiting(100);
+                if (cal_result[0] > MAX) {
+                    MAX = cal_result[0];
+                    MAX_INDEX = i;
                 }
+                sum_osc_result[i] = cal_result[0];
+                result2print[i + 1] = Integer.toString(cal_result[0]);
+                max_osc_result[i] = cal_result[1];
+                result2print[i + 12] = Integer.toString(cal_result[1]);
+                // Toast.makeText(getBaseContext(),Integer.toString(position)+":"+osc_result_str[i],Toast.LENGTH_SHORT).show();
+            }
 
 
-           // }
+            // }
 
-            return  null;
+            return null;
         }
-
 
 
         protected void onPostExecute(Integer result) {
@@ -526,18 +511,19 @@ public class osc_hopping extends Activity implements View.OnClickListener {
             // Toast.makeText(getBaseContext(),Integer.toString(position)+":"+List_RF5HX[position],Toast.LENGTH_SHORT).show();
             getRF5H();
 
-            if(position==7)
-            {
-                if(dialog_hopping.isShowing())
+            if (position == 7) {
+                if (dialog_hopping.isShowing())
                     dialog_hopping.dismiss();
             }
             //dialog_hopping.miss
         }
+
         @Override
         protected void onProgressUpdate(Integer... progress) {
             super.onProgressUpdate(progress);
             // in main thread
         }
+
         protected void onPreExecute() {
             super.onPreExecute();
             // in main thread

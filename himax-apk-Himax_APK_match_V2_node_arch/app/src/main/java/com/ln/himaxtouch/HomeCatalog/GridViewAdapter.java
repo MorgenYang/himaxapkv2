@@ -23,34 +23,30 @@ public class GridViewAdapter extends BaseAdapter {
     List<Map<String, Object>> mItemList;
     private ViewHolder mViewHolder;
     private int mDisableItmeStart;
-    public GridViewAdapter(Context context, List<Map<String, Object>> itemList, int disableItemStart)
-    {
+
+    public GridViewAdapter(Context context, List<Map<String, Object>> itemList, int disableItemStart) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mItemList = itemList;
         mDisableItmeStart = disableItemStart;
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mItemList.size();
     }
 
     @Override
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return mItemList.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.grid_view_item, null);
@@ -65,7 +61,7 @@ public class GridViewAdapter extends BaseAdapter {
         mViewHolder.iv.setImageResource(Integer.valueOf(mItemList.get(position).get("Item icon").toString()));
         mViewHolder.tv.setText(mItemList.get(position).get("Item title").toString());
 
-        if(position > mDisableItmeStart) {
+        if (position > mDisableItmeStart) {
             mViewHolder.iv.setEnabled(false);
             mViewHolder.iv.setColorFilter(Color.parseColor("#BBBBBB"));
             mViewHolder.tv.setEnabled(false);
@@ -79,8 +75,7 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
 
-    static class ViewHolder
-    {
+    static class ViewHolder {
         TextView tv;
         ImageView iv;
     }

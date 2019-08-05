@@ -61,6 +61,7 @@ public class WelcomeActivity extends Activity {
         animation.setDuration(1500);
         img.startAnimation(animation);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -80,6 +81,7 @@ public class WelcomeActivity extends Activity {
             }
         });
     }
+
     private void initData() {
         LockFragment lockFragment = new LockFragment();
         android.app.FragmentManager fragmentManager = getFragmentManager();

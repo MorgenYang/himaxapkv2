@@ -50,11 +50,11 @@ public class SNRTestResultView extends View {
         float x = model.mTouchedX;
         float y = model.mTouchedY;
 
-        if(x+text_width > canvas.getWidth()) {
-            x -= (text_width+50);
+        if (x + text_width > canvas.getWidth()) {
+            x -= (text_width + 50);
         }
-        if(y+text_height > canvas.getHeight()) {
-            y -= (text_height+50);
+        if (y + text_height > canvas.getHeight()) {
+            y -= (text_height + 50);
         }
         gLog = "";
 
@@ -62,45 +62,45 @@ public class SNRTestResultView extends View {
 
         canvas.drawCircle(model.mTouchedX, model.mTouchedY, 50, paint);
         canvas.drawText("Signal: ", x + 60, y + 30, paint_text);
-        canvas.drawText(df.format(model.mResult_Signal)+"", x + 200, y + 30, paint_text);
-        gLog += "Signal,"+df.format(model.mResult_Signal)+"\n";
+        canvas.drawText(df.format(model.mResult_Signal) + "", x + 200, y + 30, paint_text);
+        gLog += "Signal," + df.format(model.mResult_Signal) + "\n";
         canvas.drawText("Noise: ", x + 60, y + 60, paint_text);
-        canvas.drawText(df.format(model.mResult_Noise)+"", x + 200, y + 60, paint_text);
-        gLog += "Noise,"+df.format(model.mResult_Noise)+"\n";
+        canvas.drawText(df.format(model.mResult_Noise) + "", x + 200, y + 60, paint_text);
+        gLog += "Noise," + df.format(model.mResult_Noise) + "\n";
         canvas.drawText("SNR: ", x + 60, y + 90, paint_text);
-        canvas.drawText(df.format(model.mResult_SNR)+"", x + 200, y + 90, paint_text);
-        gLog += "SNR,"+df.format(model.mResult_SNR)+"\n";
+        canvas.drawText(df.format(model.mResult_SNR) + "", x + 200, y + 90, paint_text);
+        gLog += "SNR," + df.format(model.mResult_SNR) + "\n";
         canvas.drawText("SNR (MAX): ", x + 60, y + 120, paint_text);
-        canvas.drawText(df.format(model.mResult_SNR_MAX)+"", x + 200, y + 120, paint_text);
-        gLog += "SNR(MAX),"+df.format(model.mResult_SNR_MAX)+"\n";
+        canvas.drawText(df.format(model.mResult_SNR_MAX) + "", x + 200, y + 120, paint_text);
+        gLog += "SNR(MAX)," + df.format(model.mResult_SNR_MAX) + "\n";
 
-        if(model.mMaxSignalForBP/2 < model.mMaxDCForBP) {
-            canvas.drawText("[BP]Signal: ", x+60, y+150, paint_text);
-            canvas.drawText(model.mMaxSignalForBP+"", x + 200, y + 150, paint_text);
-            gLog += "[BP]Signal,"+df.format(model.mMaxSignalForBP)+"\n";
-            canvas.drawText("[BP]Dc: ", x+60, y+180, paint_text);
-            canvas.drawText(model.mMaxDCForBP+"", x + 200, y + 180, paint_text);
-            gLog += "[BP]Dc,"+df.format(model.mMaxDCForBP)+"\n";
-            canvas.drawText("[BP]S/D(%): ", x+60, y+210, paint_text);
+        if (model.mMaxSignalForBP / 2 < model.mMaxDCForBP) {
+            canvas.drawText("[BP]Signal: ", x + 60, y + 150, paint_text);
+            canvas.drawText(model.mMaxSignalForBP + "", x + 200, y + 150, paint_text);
+            gLog += "[BP]Signal," + df.format(model.mMaxSignalForBP) + "\n";
+            canvas.drawText("[BP]Dc: ", x + 60, y + 180, paint_text);
+            canvas.drawText(model.mMaxDCForBP + "", x + 200, y + 180, paint_text);
+            gLog += "[BP]Dc," + df.format(model.mMaxDCForBP) + "\n";
+            canvas.drawText("[BP]S/D(%): ", x + 60, y + 210, paint_text);
             model.mMaxDCForBP = (model.mMaxDCForBP == 0) ? 1 : model.mMaxDCForBP;
-            int per = (int)((long)model.mMaxSignalForBP*100/model.mMaxDCForBP);
-            if(per >= 60) {
-                canvas.drawText(per+" %", x + 200, y + 210, paint_text_fail);
+            int per = (int) ((long) model.mMaxSignalForBP * 100 / model.mMaxDCForBP);
+            if (per >= 60) {
+                canvas.drawText(per + " %", x + 200, y + 210, paint_text_fail);
             } else {
-                canvas.drawText(per+" %", x + 200, y + 210, paint_text);
+                canvas.drawText(per + " %", x + 200, y + 210, paint_text);
             }
-            gLog += "[BP]S/D(%),"+per+" %"+"\n";
+            gLog += "[BP]S/D(%)," + per + " %" + "\n";
         }
-        gLog +="RawBaseData,"+"\n";
-        for (int i = 0; i < model.mRowNum;i++) {
-            for (int j = 0; j < model.mColNum;j++) {
-                gLog +=(model.mRawBaseData[i][j]+",");
-                if(j == model.mColNum - 1)
+        gLog += "RawBaseData," + "\n";
+        for (int i = 0; i < model.mRowNum; i++) {
+            for (int j = 0; j < model.mColNum; j++) {
+                gLog += (model.mRawBaseData[i][j] + ",");
+                if (j == model.mColNum - 1)
                     gLog += "\n";
 
             }
         }
-        Log.d("HXTP", "aaa:"+"ondraw"+gLog);
+        Log.d("HXTP", "aaa:" + "ondraw" + gLog);
         otc.SetString(gLog);
         otc.UpdateString();
         //otc.SaveLog(gLog);

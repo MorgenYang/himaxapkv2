@@ -41,7 +41,7 @@ public class HimaxApplication extends Application {
     private final static boolean DEBUG = true;
     private final static String TAG = "[HXTP]HimaxApplication";
     /**
-     *MainThread_MSG_AREA
+     * MainThread_MSG_AREA
      */
     public final static int MSG_UPDATE_SNR_PROGRESSBAR = 0;
     public final static int MSG_UPDATE_FILE_SAVED_RESULT = 1;
@@ -56,7 +56,7 @@ public class HimaxApplication extends Application {
     public final static int MSG_END_OSR_CC_PROCESS = 10;
 
     /**
-     *WorkThread_MSG_AREA
+     * WorkThread_MSG_AREA
      */
     public final static int MSG_COLLECT_UNTOUCHED_NOISE = 0;
     public final static int MSG_COLLECT_TOUCHED_NOISE = 1;
@@ -95,19 +95,19 @@ public class HimaxApplication extends Application {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch(msg.what) {
+            switch (msg.what) {
                 case MSG_COLLECT_UNTOUCHED_NOISE: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.mSnrModel.mCSV = new CSVAccess();
                     mObjectiveTestController.mSnrModel.mCSV.newAnotherFileName(mContext);
                     mObjectiveTestController.collectUnTouchedNoise(mMainHandler, mNodeAcc);
                 }
-                    break;
+                break;
                 case MSG_COLLECT_TOUCHED_NOISE: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.collectTouchedNoise(mMainHandler, mNodeAcc);
                 }
-                    break;
+                break;
                 case MSG_SNR_FINISH: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.collectSNRFinish(mMainHandler, mNodeAcc);
@@ -152,20 +152,23 @@ public class HimaxApplication extends Application {
                 case MSG_START_P_SENSOR_TEST: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.startPSensorTest(mMainHandler, mNodeAcc);
-                } break;
+                }
+                break;
                 case MSG_DATA_MONITOR_START: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.collectMonitorDataNonStop(mMainHandler, mNodeAcc);
-                } break;
+                }
+                break;
                 case MSG_DATA_MONITOR_RELOAD_SETTINGS: {
                     checkObjTestCtrExisted();
-                    mObjectiveTestController.setupSettingsData(mMainHandler, mNodeAcc,(msg.arg1==0));
-                } break;
+                    mObjectiveTestController.setupSettingsData(mMainHandler, mNodeAcc, (msg.arg1 == 0));
+                }
+                break;
                 case MSG_DATA_MONITOR_SET_TRANSFORM: {
                     checkObjTestCtrExisted();
                     Log.e(TAG, String.format("Now tans:%d background value %d", msg.arg1, msg.arg2));
 //                    mObjectiveTestController.setTransformInDiagArr(new NodeDataSource(mContext), msg.arg1);
-                    if( msg.arg2 == 1) {
+                    if (msg.arg2 == 1) {
                         /* diag arr*/
 
                         mObjectiveTestController.setTransformInDiagArr(mNodeAcc, msg.arg1);
@@ -173,10 +176,11 @@ public class HimaxApplication extends Application {
                         mObjectiveTestController.setTransformBySoftware(msg.arg1);
                     }
                     mWorkerHandler.sendEmptyMessage(MSG_DATA_MONITOR_START);
-                } break;
+                }
+                break;
                 case MSG_DATA_START_RECORD_RAW_DATA: {
                     checkObjTestCtrExisted();
-                    if(mRecordServiceMessenger != null) {
+                    if (mRecordServiceMessenger != null) {
                         Message m = Message.obtain();
                         Bundle b = new Bundle(msg.getData());
                         m.setData(b);
@@ -188,10 +192,11 @@ public class HimaxApplication extends Application {
                         }
                     }
                     mObjectiveTestController.disableAllSettings();
-                } break;
+                }
+                break;
                 case MSG_DATA_FINISH_RECORD_RAW_DATA: {
                     checkObjTestCtrExisted();
-                    if(mRecordServiceMessenger != null) {
+                    if (mRecordServiceMessenger != null) {
                         Message m = Message.obtain();
                         Bundle b = new Bundle(msg.getData());
                         m.setData(b);
@@ -204,21 +209,25 @@ public class HimaxApplication extends Application {
                     }
                     mObjectiveTestController.resetAllMonitorSettingsValue();
                     mObjectiveTestController.enableAllSettings();
-                } break;
+                }
+                break;
                 case MSG_DATA_MONIOTR_SENSING_ON_OFF: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.sensingOnAndOff(mNodeAcc);
-                } break;
+                }
+                break;
                 case MSG_DATA_MONITOR_FIND_CSV_LOG: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.findAllCSVLog(mMainHandler);
-                } break;
+                }
+                break;
                 case MSG_DATA_OPEN_CSV_LOG: {
                     checkObjTestCtrExisted();
                     Bundle b = msg.getData();
                     String name = b.getString("file");
                     mObjectiveTestController.readCSVFile(mMainHandler, name);
-                } break;
+                }
+                break;
                 case MSG_SWITCH_OSC_CC: {
                     checkObjTestCtrExisted();
                     mObjectiveTestController.switchOSRCC(mNodeAcc);
@@ -229,11 +238,12 @@ public class HimaxApplication extends Application {
             }
         }
     }
+
     public static class MainHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch(msg.what) {
+            switch (msg.what) {
                 case MSG_UPDATE_SNR_PROGRESSBAR: {
                     mObjectiveTestController.updateSNRProgressBar();
                     break;
@@ -246,23 +256,28 @@ public class HimaxApplication extends Application {
                 }
                 case MSG_UPDATE_PSENSOR_DETAIL_INFO: {
                     mObjectiveTestController.updatePSensorInfo();
-                } break;
+                }
+                break;
                 case MSG_UPDATE_DATA_MONITOR_UI: {
                     mObjectiveTestController.updateDataMonitorUI();
-                } break;
+                }
+                break;
                 case MSG_UPDATE_DATA_MONITOR_SETTINGS_PAGE: {
                     mObjectiveTestController.updateMonitorSettingPage(mWorkerHandler);
-                } break;
+                }
+                break;
                 case MSG_SHOW_FOUND_MONITOR_LOGS_ALERT: {
                     mObjectiveTestController.showFoundLogsDialog(mWorkerHandler);
-                } break;
+                }
+                break;
                 case MSG_UPDATE_MONITOR_CSV_LOG_CONTENT: {
                     mObjectiveTestController.updateCSVLogUI();
-                } break;
+                }
+                break;
                 case MSG_CANCEL_RECORDING_NOTIFICATION: {
                     /* If cancel the recording notification, it also mean cancel the work of recording rawdata in the back ground*/
                     mObjectiveTestController.cancelRecordNotification();
-                    if(mRecordServiceMessenger != null) {
+                    if (mRecordServiceMessenger != null) {
                         Message m = Message.obtain();
                         Bundle b = new Bundle(msg.getData());
                         m.setData(b);
@@ -273,20 +288,24 @@ public class HimaxApplication extends Application {
                             e.printStackTrace();
                         }
                     }
-                } break;
+                }
+                break;
                 case MSG_UPDATE_NOTIFICATION_PROGRESS: {
                     mObjectiveTestController.updateRecordNotificationProgress(msg.arg1, 100);
-                } break;
+                }
+                break;
                 case MSG_START_OSR_CC_PROCESS: {
                     //show dialog
                     mObjectiveTestController.showProcessingDialog();
 
                     mWorkerHandler.sendEmptyMessage(MSG_SWITCH_OSC_CC);
-                } break;
+                }
+                break;
                 case MSG_END_OSR_CC_PROCESS: {
                     //dismiss dialog
                     mObjectiveTestController.dismissProcessingDialog();
-                } break;
+                }
+                break;
                 default:
                     break;
             }
@@ -308,7 +327,7 @@ public class HimaxApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(mWorkerThread == null) {
+        if (mWorkerThread == null) {
             mWorkerThread = new HandlerThread("WorkerThread");
             mWorkerThread.start();
         }
@@ -320,7 +339,7 @@ public class HimaxApplication extends Application {
 
         mNodeAcc = new NodeDataSource(mContext);
 
-        if(mICData == null) {
+        if (mICData == null) {
             mICData = new ICData(mContext);
         }
 
@@ -344,14 +363,14 @@ public class HimaxApplication extends Application {
     public static class RecordServiceReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(ACTION_RECORD_START.equals(intent.getAction())) {
+            if (ACTION_RECORD_START.equals(intent.getAction())) {
 
                 int[] params = intent.getIntArrayExtra("record");
 
-                if(mObjectiveTestController.mDataMonitorModel.mNotification != null) {
+                if (mObjectiveTestController.mDataMonitorModel.mNotification != null) {
                     mObjectiveTestController.mDataMonitorModel.mNotificationManager.cancel(NOTIFY_ID);
                     mObjectiveTestController.mDataMonitorModel.setupNotifcation(mObjectiveTestController.mDataMonitorModel.mActivityContext,
-                            params[0], params[3]/60, params[3]%60, false);
+                            params[0], params[3] / 60, params[3] % 60, false);
                     mObjectiveTestController.mDataMonitorModel.mNotificationManager.notify(NOTIFY_ID, mObjectiveTestController.mDataMonitorModel.mNotification.build());
 
                     Message msg = Message.obtain();
@@ -362,15 +381,15 @@ public class HimaxApplication extends Application {
                     msg.setData(b);
                     mWorkerHandler.sendMessageDelayed(msg, 3000);
                 } else {
-                    NotificationManager m =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationManager m = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     m.cancel(NOTIFY_ID);
                 }
 
             } else {
-                if(mObjectiveTestController.mDataMonitorModel != null) {
+                if (mObjectiveTestController.mDataMonitorModel != null) {
                     mWorkerHandler.sendEmptyMessage(MSG_DATA_FINISH_RECORD_RAW_DATA);
                 }
-                NotificationManager m =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager m = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 m.cancel(NOTIFY_ID);
             }
         }

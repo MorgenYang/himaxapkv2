@@ -38,7 +38,7 @@ public class PointRecordResultView extends View {
 
         mResultPaintText = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         mResultPaintText.setTextSize(100);
-        mResultPaintText.setTypeface(Typeface.create("Arial",Typeface.BOLD));
+        mResultPaintText.setTypeface(Typeface.create("Arial", Typeface.BOLD));
         mResultPaintText.setColor(Color.parseColor("#FFA488"));
         mResultPaintText.setTextAlign(Paint.Align.CENTER);
 
@@ -52,7 +52,7 @@ public class PointRecordResultView extends View {
         drawCenter(canvas, mPaintText, "Status: " + mProgress, 130);
         drawCenter(canvas, mPaintText, mMessage, 180);
 
-        if(!isTestPassed) {
+        if (!isTestPassed) {
             drawCenter(canvas, mResultPaintText, "NG", -200);
         }
 
@@ -60,6 +60,7 @@ public class PointRecordResultView extends View {
 
 
     private Rect r = new Rect();
+
     private void drawCenter(Canvas canvas, Paint paint, String text, float shiftY) {
         canvas.getClipBounds(r);
         int cHeight = r.height();
@@ -68,6 +69,6 @@ public class PointRecordResultView extends View {
         paint.getTextBounds(text, 0, text.length(), r);
         float x = cWidth / 2f - r.width() / 2f - r.left;
         float y = cHeight / 2f + r.height() / 2f - r.bottom;
-        canvas.drawText(text, x, y+shiftY, paint);
+        canvas.drawText(text, x, y + shiftY, paint);
     }
 }

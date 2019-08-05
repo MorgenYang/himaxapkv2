@@ -55,13 +55,14 @@ public class PresetValueButton extends RelativeLayout implements RadioCheckable 
         setupView();
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    //    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public PresetValueButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         parseAttributes(attrs);
         setupView();
     }
-//
+
+    //
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PresetValueButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -152,7 +153,7 @@ public class PresetValueButton extends RelativeLayout implements RadioCheckable 
     //================================================================================
 
     public void setCheckedState(boolean enabled) {
-        if(enabled) {
+        if (enabled) {
             setBackgroundResource(R.drawable.background_shape_preset_button__pressed);
         } else {
             setBackgroundResource(R.drawable.background_shape_preset_button_disable);

@@ -16,13 +16,13 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class BackgroundColor extends Activity{
+public class BackgroundColor extends Activity {
 
-    SeekBar mSeekBarRed ;
+    SeekBar mSeekBarRed;
     TextView mTextRed;
-    SeekBar mSeekBarBlue ;
+    SeekBar mSeekBarBlue;
     TextView mTextBlue;
-    SeekBar mSeekBarGreen ;
+    SeekBar mSeekBarGreen;
     TextView mTextGreen;
 
     LinearLayout mPreViewLayer;
@@ -43,25 +43,22 @@ public class BackgroundColor extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-        mRootInflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        mRootLayout = mRootInflater.inflate(R.layout.activity_background_color,(ViewGroup)findViewById(R.id.activity_background_color));
+        mRootInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        mRootLayout = mRootInflater.inflate(R.layout.activity_background_color, (ViewGroup) findViewById(R.id.activity_background_color));
 
         setContentView(R.layout.activity_background_color);
-        Log.d("HXTP","onCreate");
-        mContentView = (RelativeLayout)findViewById(R.id.activity_background_color);
+        Log.d("HXTP", "onCreate");
+        mContentView = (RelativeLayout) findViewById(R.id.activity_background_color);
 
         AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-        dialog_builder.setNegativeButton("OK",null);
+        dialog_builder.setNegativeButton("OK", null);
         dialog_builder.setCancelable(false);
         AlertDialog dialog = dialog_builder.create();
         dialog.setIcon(R.drawable.ic_launcher);
         dialog.setTitle("Please Press Volume Up Key to set your Background Color");
         dialog.show();
-
-
-
 
 
     }
@@ -71,15 +68,15 @@ public class BackgroundColor extends Activity{
         if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
 
             mColorDialogBuilder = new AlertDialog.Builder(BackgroundColor.this);
-            mInflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
-            mLayout = mInflater.inflate(R.layout.dialog_color_select,(ViewGroup)findViewById(R.id.dialog_all_view));
+            mInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+            mLayout = mInflater.inflate(R.layout.dialog_color_select, (ViewGroup) findViewById(R.id.dialog_all_view));
             mColorDialogBuilder.setTitle("setting your favor color");
             mColorDialogBuilder.setIcon(R.drawable.ic_launcher);
             mColorDialogBuilder.setView(mLayout);
             mColorDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    mContentView.setBackgroundColor(Color.argb(0xff,mRedBarVal,mGreenBarVal,mBlueBarVal));
+                    mContentView.setBackgroundColor(Color.argb(0xff, mRedBarVal, mGreenBarVal, mBlueBarVal));
                 }
             });
             mColorDialogBuilder.setNegativeButton("Cancel", null);
@@ -87,19 +84,19 @@ public class BackgroundColor extends Activity{
             mColorDialogBuilder.show();
 
             mPreViewLayer = (LinearLayout) mLayout.findViewById(R.id.dialog_preview_layer);
-            mPreViewLayer.setBackgroundColor(Color.argb(0xff,mRedBarVal,mGreenBarVal,mBlueBarVal));
+            mPreViewLayer.setBackgroundColor(Color.argb(0xff, mRedBarVal, mGreenBarVal, mBlueBarVal));
 
-            mTextRed = (TextView)mLayout.findViewById(R.id.dialog_red_text);
-            mTextBlue = (TextView)mLayout.findViewById(R.id.dialog_blue_text);
-            mTextGreen = (TextView)mLayout.findViewById(R.id.dialog_green_text);
+            mTextRed = (TextView) mLayout.findViewById(R.id.dialog_red_text);
+            mTextBlue = (TextView) mLayout.findViewById(R.id.dialog_blue_text);
+            mTextGreen = (TextView) mLayout.findViewById(R.id.dialog_green_text);
 
-            mSeekBarRed = (SeekBar)mLayout.findViewById(R.id.dialog_red_seek);
-            mSeekBarBlue = (SeekBar)mLayout.findViewById(R.id.dialog_blue_seek);
-            mSeekBarGreen = (SeekBar)mLayout.findViewById(R.id.dialog_green_seek);
+            mSeekBarRed = (SeekBar) mLayout.findViewById(R.id.dialog_red_seek);
+            mSeekBarBlue = (SeekBar) mLayout.findViewById(R.id.dialog_blue_seek);
+            mSeekBarGreen = (SeekBar) mLayout.findViewById(R.id.dialog_green_seek);
 
-            mTextRed.setText("Red="+Integer.toString(mRedBarVal));
-            mTextBlue.setText("Blue="+Integer.toString(mBlueBarVal));
-            mTextGreen.setText("Green="+Integer.toString(mGreenBarVal));
+            mTextRed.setText("Red=" + Integer.toString(mRedBarVal));
+            mTextBlue.setText("Blue=" + Integer.toString(mBlueBarVal));
+            mTextGreen.setText("Green=" + Integer.toString(mGreenBarVal));
 
             mSeekBarRed.setProgress(mRedBarVal);
             mSeekBarBlue.setProgress(mBlueBarVal);
@@ -108,10 +105,10 @@ public class BackgroundColor extends Activity{
             mSeekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    mTextRed.setText("Red="+Integer.toString(progress));
-                    Log.d("HXTP","Now Red progress="+Integer.toString(progress));
+                    mTextRed.setText("Red=" + Integer.toString(progress));
+                    Log.d("HXTP", "Now Red progress=" + Integer.toString(progress));
                     mRedBarVal = progress;
-                    mPreViewLayer.setBackgroundColor(Color.argb(0xff,mRedBarVal,mGreenBarVal,mBlueBarVal));
+                    mPreViewLayer.setBackgroundColor(Color.argb(0xff, mRedBarVal, mGreenBarVal, mBlueBarVal));
                 }
 
                 @Override
@@ -126,10 +123,10 @@ public class BackgroundColor extends Activity{
             mSeekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    mTextBlue.setText("Blue="+Integer.toString(progress));
-                    Log.d("HXTP","Now Blue progress="+Integer.toString(progress));
+                    mTextBlue.setText("Blue=" + Integer.toString(progress));
+                    Log.d("HXTP", "Now Blue progress=" + Integer.toString(progress));
                     mBlueBarVal = progress;
-                    mPreViewLayer.setBackgroundColor(Color.argb(0xff,mRedBarVal,mGreenBarVal,mBlueBarVal));
+                    mPreViewLayer.setBackgroundColor(Color.argb(0xff, mRedBarVal, mGreenBarVal, mBlueBarVal));
                 }
 
                 @Override
@@ -144,10 +141,10 @@ public class BackgroundColor extends Activity{
             mSeekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    mTextGreen.setText("Green="+Integer.toString(progress));
-                    Log.d("HXTP","Now Green progress="+Integer.toString(progress));
+                    mTextGreen.setText("Green=" + Integer.toString(progress));
+                    Log.d("HXTP", "Now Green progress=" + Integer.toString(progress));
                     mGreenBarVal = progress;
-                    mPreViewLayer.setBackgroundColor(Color.argb(0xff,mRedBarVal,mGreenBarVal,mBlueBarVal));
+                    mPreViewLayer.setBackgroundColor(Color.argb(0xff, mRedBarVal, mGreenBarVal, mBlueBarVal));
                 }
 
                 @Override
@@ -161,20 +158,13 @@ public class BackgroundColor extends Activity{
             });
             return true;
 
-        }
-        else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)
-        {
-
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
 
 
             return true;
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyDown(keyCode, event);
     }
-
-
-
-
 
 
 }

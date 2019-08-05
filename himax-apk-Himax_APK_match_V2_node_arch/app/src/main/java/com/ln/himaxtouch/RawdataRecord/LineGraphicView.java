@@ -17,15 +17,13 @@ import java.util.ArrayList;
  * Created by 903622 on 2017/11/21.
  */
 
-public class LineGraphicView extends View
-{
+public class LineGraphicView extends View {
     /**
      * 公共部分
      */
     private static final int CIRCLE_SIZE = 20;
 
-    private static enum Linestyle
-    {
+    private static enum Linestyle {
         Line, Curve
     }
 
@@ -72,20 +70,17 @@ public class LineGraphicView extends View
     private ArrayList<Integer> xList = new ArrayList<Integer>();// 记录每个x的值
     private int spacingHeight;
 
-    public LineGraphicView(Context context)
-    {
+    public LineGraphicView(Context context) {
         this(context, null);
     }
 
-    public LineGraphicView(Context context, AttributeSet attrs)
-    {
+    public LineGraphicView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         initView();
     }
 
-    private void initView()
-    {
+    private void initView() {
         this.res = mContext.getResources();
         this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         dm = new DisplayMetrics();
@@ -94,10 +89,8 @@ public class LineGraphicView extends View
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
-        if (isMeasure)
-        {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        if (isMeasure) {
             this.canvasHeight = getHeight();
             this.canvasWidth = getWidth();
             if (bheight == 0)
@@ -108,8 +101,7 @@ public class LineGraphicView extends View
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         mPaint.setColor(0xfff2f2f2);
 
         drawAllXLine(canvas);
@@ -121,34 +113,28 @@ public class LineGraphicView extends View
         mPaint.setColor(0xffff4631);
         mPaint.setStrokeWidth(dip2px(2.5f));
         mPaint.setStyle(Paint.Style.STROKE);
-        if (mStyle == Linestyle.Curve)
-        {
+        if (mStyle == Linestyle.Curve) {
             drawScrollLine(canvas);
-        }
-        else
-        {
+        } else {
             drawLine(canvas);
         }
 
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(0xff0000ff);
-        for (int i = 0; i < mPoints.length; i++)
-        {
+        for (int i = 0; i < mPoints.length; i++) {
             canvas.drawCircle(mPoints[i].x, mPoints[i].y, CIRCLE_SIZE / 2, mPaint);
         }
     }
 
     /**
-     *  画所有横向表格，包括X轴
+     * 画所有横向表格，包括X轴
      */
-    private void drawAllXLine(Canvas canvas)
-    {
-        for (int i = 0; i < spacingHeight + 1; i++)
-        {
+    private void drawAllXLine(Canvas canvas) {
+        for (int i = 0; i < spacingHeight + 1; i++) {
             if (isIncludeMinusValue) {
                 canvas.drawLine(blwidh, bheight - (bheight / spacingHeight) * i + marginTop, (canvasWidth - blwidh),
                         bheight - (bheight / spacingHeight) * i + marginTop, mPaint);// Y坐标
-                drawText(String.valueOf((averageValue * i)-maxValue), blwidh / 2, bheight - (bheight / spacingHeight) * i + marginTop,
+                drawText(String.valueOf((averageValue * i) - maxValue), blwidh / 2, bheight - (bheight / spacingHeight) * i + marginTop,
                         canvas);
             } else {
                 canvas.drawLine(blwidh, bheight - (bheight / spacingHeight) * i + marginTop, (canvasWidth - blwidh),
@@ -163,14 +149,12 @@ public class LineGraphicView extends View
     /**
      * 画所有纵向表格，包括Y轴
      */
-    private void drawAllYLine(Canvas canvas)
-    {
-        for (int i = 0; i < yRawData.size(); i++)
-        {
+    private void drawAllYLine(Canvas canvas) {
+        for (int i = 0; i < yRawData.size(); i++) {
             xList.add(blwidh + (canvasWidth - blwidh) / yRawData.size() * i);
             canvas.drawLine(blwidh + (canvasWidth - blwidh) / yRawData.size() * i, marginTop, blwidh
                     + (canvasWidth - blwidh) / yRawData.size() * i, bheight + marginTop, mPaint);
-            if (i==0 || i==(yRawData.size()-1) || i==(yRawData.size()/2-1)) {
+            if (i == 0 || i == (yRawData.size() - 1) || i == (yRawData.size() / 2 - 1)) {
                 drawText(xRawDatas.get(i), blwidh + (canvasWidth - blwidh) / yRawData.size() * i, bheight + dip2px(35),
                         canvas);// X坐标
             }
@@ -178,12 +162,10 @@ public class LineGraphicView extends View
         }
     }
 
-    private void drawScrollLine(Canvas canvas)
-    {
+    private void drawScrollLine(Canvas canvas) {
         Point startp = new Point();
         Point endp = new Point();
-        for (int i = 0; i < mPoints.length - 1; i++)
-        {
+        for (int i = 0; i < mPoints.length - 1; i++) {
             startp = mPoints[i];
             endp = mPoints[i + 1];
             int wt = (startp.x + endp.x) / 2;
@@ -201,20 +183,17 @@ public class LineGraphicView extends View
         }
     }
 
-    private void drawLine(Canvas canvas)
-    {
+    private void drawLine(Canvas canvas) {
         Point startp = new Point();
         Point endp = new Point();
-        for (int i = 0; i < mPoints.length - 1; i++)
-        {
+        for (int i = 0; i < mPoints.length - 1; i++) {
             startp = mPoints[i];
             endp = mPoints[i + 1];
             canvas.drawLine(startp.x, startp.y, endp.x, endp.y, mPaint);
         }
     }
 
-    private void drawText(String text, int x, int y, Canvas canvas)
-    {
+    private void drawText(String text, int x, int y, Canvas canvas) {
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
         p.setTextSize(dip2px(8));
         p.setColor(0xff999999);
@@ -222,14 +201,12 @@ public class LineGraphicView extends View
         canvas.drawText(text, x, y, p);
     }
 
-    private Point[] getPoints()
-    {
+    private Point[] getPoints() {
         Point[] points = new Point[yRawData.size()];
-        for (int i = 0; i < yRawData.size(); i++)
-        {
+        for (int i = 0; i < yRawData.size(); i++) {
             int ph;
             if (isIncludeMinusValue) {
-                ph = bheight - (int) (bheight * ((yRawData.get(i) / maxValue)) / 2) - (bheight/2);
+                ph = bheight - (int) (bheight * ((yRawData.get(i) / maxValue)) / 2) - (bheight / 2);
             } else {
                 ph = bheight - (int) (bheight * (yRawData.get(i) / maxValue));
             }
@@ -240,28 +217,28 @@ public class LineGraphicView extends View
 
     public void setData(ArrayList<Double> yRawData, ArrayList<String> xRawData, boolean isIncludeMinusValue) {
         double yAbsMax = 0;
-        for(double y : yRawData) {
+        for (double y : yRawData) {
             double abs = Math.abs(y);
             if (abs > yAbsMax) {
-                yAbsMax =abs;
+                yAbsMax = abs;
             }
         }
 
         int scale = 1000;
         int numRow = 10;
 
-        int div =  (int) yAbsMax/scale;
-        if (yAbsMax%scale == 0) {
-            this.maxValue = (div+1)*scale;
+        int div = (int) yAbsMax / scale;
+        if (yAbsMax % scale == 0) {
+            this.maxValue = (div + 1) * scale;
         } else {
-            this.maxValue = (div+2)*scale;
+            this.maxValue = (div + 2) * scale;
         }
-        this.averageValue = this.maxValue/numRow;
+        this.averageValue = this.maxValue / numRow;
 
         this.mPoints = new Point[yRawData.size()];
         this.xRawDatas = xRawData;
         this.yRawData = yRawData;
-        if(isIncludeMinusValue) {
+        if (isIncludeMinusValue) {
             this.spacingHeight = 2 * maxValue / averageValue;
         } else {
             this.spacingHeight = maxValue / averageValue;
@@ -271,14 +248,13 @@ public class LineGraphicView extends View
     }
 
     public void setData(ArrayList<Double> yRawData, ArrayList<String> xRawData, int maxValue,
-                        int averageValue, boolean isIncludeMinusValue)
-    {
+                        int averageValue, boolean isIncludeMinusValue) {
         this.maxValue = maxValue;
         this.averageValue = averageValue;
         this.mPoints = new Point[yRawData.size()];
         this.xRawDatas = xRawData;
         this.yRawData = yRawData;
-        if(isIncludeMinusValue) {
+        if (isIncludeMinusValue) {
             this.spacingHeight = 2 * maxValue / averageValue;
         } else {
             this.spacingHeight = maxValue / averageValue;
@@ -287,41 +263,34 @@ public class LineGraphicView extends View
         this.isIncludeMinusValue = isIncludeMinusValue;
     }
 
-    public void setTotalvalue(int maxValue)
-    {
+    public void setTotalvalue(int maxValue) {
         this.maxValue = maxValue;
     }
 
-    public void setPjvalue(int averageValue)
-    {
+    public void setPjvalue(int averageValue) {
         this.averageValue = averageValue;
     }
 
-    public void setMargint(int marginTop)
-    {
+    public void setMargint(int marginTop) {
         this.marginTop = marginTop;
     }
 
-    public void setMarginb(int marginBottom)
-    {
+    public void setMarginb(int marginBottom) {
         this.marginBottom = marginBottom;
     }
 
-    public void setMstyle(Linestyle mStyle)
-    {
+    public void setMstyle(Linestyle mStyle) {
         this.mStyle = mStyle;
     }
 
-    public void setBheight(int bheight)
-    {
+    public void setBheight(int bheight) {
         this.bheight = bheight;
     }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    private int dip2px(float dpValue)
-    {
+    private int dip2px(float dpValue) {
         return (int) (dpValue * dm.density + 0.5f);
     }
 

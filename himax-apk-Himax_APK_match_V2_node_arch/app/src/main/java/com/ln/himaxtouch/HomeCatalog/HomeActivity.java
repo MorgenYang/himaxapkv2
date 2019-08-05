@@ -39,10 +39,10 @@ public class HomeActivity extends Activity {
     private TypedArray mItemClassList;
     private int mDisableItemStart;
 
-    public  AlertDialog.Builder mBuilder;
+    public AlertDialog.Builder mBuilder;
     public Context mContext;
 
-   private final static int MSG_START_ACTIVITY = 0;
+    private final static int MSG_START_ACTIVITY = 0;
     private Handler mHanlder = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -53,10 +53,11 @@ public class HomeActivity extends Activity {
                         Intent intent = new Intent();
                         intent.setClassName(mContext, name);
                         startActivity(intent);
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         e.fillInStackTrace();
                     }
-                } break;
+                }
+                break;
                 default:
                     break;
             }
@@ -77,11 +78,10 @@ public class HomeActivity extends Activity {
         mItemClassList = getResources().obtainTypedArray(R.array.homepage_item_class_list);
 
         boolean isPro = this.getIntent().getBooleanExtra("isPro", false);
-        mDisableItemStart = (isPro) ? itemNameList.length()-1 : 1;
+        mDisableItemStart = (isPro) ? itemNameList.length() - 1 : 1;
         int now_item_size = isPro == true ? itemNameList.length() : 2;
 
-        for (int i = 0; i < now_item_size; i++)
-        {
+        for (int i = 0; i < now_item_size; i++) {
             Map<String, Object> item = new HashMap<String, Object>();
             item.put(ITEM_TITLE, itemNameList.getString(i));
             item.put(ITEM_ICON, itemIconList.getResourceId(i, 0));
@@ -122,7 +122,7 @@ public class HomeActivity extends Activity {
 
 
     }
-/* No use, Be marked in 190703 by Nim*/
+    /* No use, Be marked in 190703 by Nim*/
 //    public boolean isNodeValid() {
 //        //test node.
 //        NodeDataSource nd = new NodeDataSource(this);
@@ -138,15 +138,14 @@ public class HomeActivity extends Activity {
 //    }
 
     private AdapterView.OnItemClickListener GalleryOnItemClickListener
-            = new AdapterView.OnItemClickListener()
-    {
+            = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             mHanlder.removeMessages(MSG_START_ACTIVITY);
 
-            if(i <= mDisableItemStart) {
+            if (i <= mDisableItemStart) {
 
-                if(i == 2) {
+                if (i == 2) {
                     Intent launchIntent = getPackageManager().getLaunchIntentForPackage("net.newsunup.monitertest");
                     if (launchIntent != null) {
                         startActivity(launchIntent);

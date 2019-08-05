@@ -24,8 +24,8 @@ public class TestPrintRaw extends Activity {
         TextView tv = findViewById(R.id.test_rawdata_view);
 
 
-        if(mICData.val_icid == 0) {
-            Log.d(TAG, "Now is "+ TAG);
+        if (mICData.val_icid == 0) {
+            Log.d(TAG, "Now is " + TAG);
             mICData.readICIDByNode();
             mICData.matchICIDStr2Int();
             mICData.reInitByDiffIC(Long.valueOf(mICData.val_icid));
@@ -35,21 +35,21 @@ public class TestPrintRaw extends Activity {
 //        gConfig.diag_path = sh_settings.getString("SETUP_DIR_NODE", "/proc/android_touch/") + sh_settings.getString("SETUP_DIAG_NODE", "diag");
 //        gConfig.reg_path = sh_settings.getString("SETUP_DIR_NODE", "/proc/android_touch/") + sh_settings.getString("SETUP_REGISTER_NODE", "register");
 //        gConfig.reInitPara();
-        Log.d("TestPrintRaw","now path = " + gICData.diag_path);
+        Log.d("TestPrintRaw", "now path = " + gICData.diag_path);
         NodeDataSource node_acc = new NodeDataSource(this);
         String diag2[] = {gICData.diag_path, "2\n"};
         String diag0[] = {gICData.diag_path, "0\n"};
         node_acc.writeCfgByJava(diag2);
         try {
             Thread.sleep(1000);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
-        String tmp  = node_acc.readCfgByJava(diag2);
-        if(tmp.isEmpty()) {
+        String tmp = node_acc.readCfgByJava(diag2);
+        if (tmp.isEmpty()) {
             Log.d("TestPrintRaw", "Null");
         } else {
-            Log.d("TestPrintRaw", "aaaa:"+tmp);
+            Log.d("TestPrintRaw", "aaaa:" + tmp);
         }
         tv.setText(tmp);
         node_acc.writeCfgByJava(diag0);

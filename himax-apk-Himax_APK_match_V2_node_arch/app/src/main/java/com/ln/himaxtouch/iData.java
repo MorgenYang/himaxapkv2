@@ -5,6 +5,7 @@ package com.ln.himaxtouch;
  */
 
 public interface iData {
-public void wirte(int input);
-public int read(int input);
+    public void wirte(int input);
+
+    public int read(int input);
 }

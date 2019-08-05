@@ -39,13 +39,14 @@ public class PresetRadioGroup extends LinearLayout {
         setupView();
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    //    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public PresetRadioGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         parseAttributes(attrs);
         setupView();
     }
-//
+
+    //
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PresetRadioGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

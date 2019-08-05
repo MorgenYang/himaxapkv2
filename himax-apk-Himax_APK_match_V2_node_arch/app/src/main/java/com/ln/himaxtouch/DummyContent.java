@@ -13,18 +13,18 @@ import java.util.Map;
  */
 public class DummyContent {
 
-	/**
-	 * An array of sample (dummy) items.
-	 */
-	public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    /**
+     * An array of sample (dummy) items.
+     */
+    public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
 
-	/**
-	 * A map of sample (dummy) items, by ID.
-	 */
-	public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    /**
+     * A map of sample (dummy) items, by ID.
+     */
+    public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-	static {
-		// Add 3 sample items.
+    static {
+        // Add 3 sample items.
 		/*addItem(new DummyItem("1", R.drawable.ic_launcher, "Touch Monitor"));
 		//addItem(new DummyItem("2", R.drawable.ic_launcher, "Touch Point"));
 		addItem(new DummyItem("2", R.drawable.ic_launcher, "Linearity"));
@@ -43,34 +43,34 @@ public class DummyContent {
 		addItem(new DummyItem("14", R.drawable.ic_launcher, "Re-Sense"));
 		addItem(new DummyItem("15", R.drawable.ic_launcher, "Register R/W"));
 		addItem(new DummyItem("16", R.drawable.ic_launcher, "Multi Register R/W"));*/
-		for(int i =0;i<himax_config.list_item.length;i++)
-			addItem(new DummyItem(Integer.toString((i+1)), R.drawable.ic_launcher, himax_config.list_item[i]));
+        for (int i = 0; i < himax_config.list_item.length; i++)
+            addItem(new DummyItem(Integer.toString((i + 1)), R.drawable.ic_launcher, himax_config.list_item[i]));
 
 
-	}
+    }
 
-	private static void addItem(DummyItem item) {
-		ITEMS.add(item);
-		ITEM_MAP.put(item.id, item);
-	}
+    private static void addItem(DummyItem item) {
+        ITEMS.add(item);
+        ITEM_MAP.put(item.id, item);
+    }
 
-	/**
-	 * A dummy item representing a piece of content.
-	 */
-	public static class DummyItem {
-		public String id;
-		public int icon;
-		public String content;
+    /**
+     * A dummy item representing a piece of content.
+     */
+    public static class DummyItem {
+        public String id;
+        public int icon;
+        public String content;
 
-		public DummyItem(String id, int icon, String content) {
-			this.id = id;
-			this.icon = icon;
-			this.content = content;
-		}
+        public DummyItem(String id, int icon, String content) {
+            this.id = id;
+            this.icon = icon;
+            this.content = content;
+        }
 
-		@Override
-		public String toString() {
-			return content;
-		}
-	}
+        @Override
+        public String toString() {
+            return content;
+        }
+    }
 }

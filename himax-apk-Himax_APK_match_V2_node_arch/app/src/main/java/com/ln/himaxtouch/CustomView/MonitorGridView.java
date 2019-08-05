@@ -36,7 +36,7 @@ public class MonitorGridView extends View {
 
         mTransformType = transformType;
 
-        if((mLayoutWidth > mLayoutHeight && colNum > rowNum) || (mLayoutHeight > mLayoutWidth && rowNum > colNum)) {
+        if ((mLayoutWidth > mLayoutHeight && colNum > rowNum) || (mLayoutHeight > mLayoutWidth && rowNum > colNum)) {
             isTransform = true;
             mRow = colNum;
             mCol = rowNum;
@@ -45,7 +45,7 @@ public class MonitorGridView extends View {
             mCol = colNum;
         }
 
-        if(isShowAreaInfo) {
+        if (isShowAreaInfo) {
             mCol += 2;
         }
 
@@ -54,8 +54,8 @@ public class MonitorGridView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float width_step = (float)mLayoutWidth/(float)(mRow);
-        float length_step = (float)mLayoutHeight/(float)(mCol);
+        float width_step = (float) mLayoutWidth / (float) (mRow);
+        float length_step = (float) mLayoutHeight / (float) (mCol);
 
 //        switch (mTransformType) {
 //            case DataMonitorConfig.TRANSFORM_DATA_ONE: {
@@ -102,12 +102,12 @@ public class MonitorGridView extends View {
 //                break;
 //        }
 
-        for(int i=1;i<mRow;i++) {
-            float x = width_step*(float)i;
+        for (int i = 1; i < mRow; i++) {
+            float x = width_step * (float) i;
             canvas.drawLine(x, 0, x, mLayoutHeight, mPaint);
         }
-        for(int j=1;j<mCol;j++) {
-            float y = length_step*(float)j;
+        for (int j = 1; j < mCol; j++) {
+            float y = length_step * (float) j;
             canvas.drawLine(0, y, mLayoutWidth, y, mPaint);
         }
 

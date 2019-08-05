@@ -64,18 +64,18 @@ public class PenView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if(mPenPoints.size() > 0) {
-            for(int i=0; i<mPenPoints.size(); i++) {
+        if (mPenPoints.size() > 0) {
+            for (int i = 0; i < mPenPoints.size(); i++) {
                 mContactPaint.setStrokeWidth(mPenPoints.get(i).presure * 4);
-                canvas.drawCircle(mPenPoints.get(i).x, mPenPoints.get(i).y, mPenPoints.get(i).presure*2, mContactPaint);
-                if(i < mPenPoints.size()-1 && mPenPoints.get(i).action_statue == MotionEvent.ACTION_MOVE) {
-                    canvas.drawLine(mPenPoints.get(i).x, mPenPoints.get(i).y,mPenPoints.get(i+1).x, mPenPoints.get(i+1).y, mContactPaint);
+                canvas.drawCircle(mPenPoints.get(i).x, mPenPoints.get(i).y, mPenPoints.get(i).presure * 2, mContactPaint);
+                if (i < mPenPoints.size() - 1 && mPenPoints.get(i).action_statue == MotionEvent.ACTION_MOVE) {
+                    canvas.drawLine(mPenPoints.get(i).x, mPenPoints.get(i).y, mPenPoints.get(i + 1).x, mPenPoints.get(i + 1).y, mContactPaint);
                 }
 
             }
         }
 
-        if(isShowHover) {
+        if (isShowHover) {
             if (mHover.action_statue != MotionEvent.ACTION_HOVER_EXIT) {
                 canvas.drawCircle(mHover.x, mHover.y, 30, mHoverPaint);
                 canvas.drawText("Hover", mHover.x - 30, mHover.y + 60, mPaintText);
@@ -85,14 +85,14 @@ public class PenView extends View {
     }
 
     public void onMyTouchEvent(MotionEvent event) {
-        if(event.getToolType(0) != MotionEvent.TOOL_TYPE_STYLUS) {
+        if (event.getToolType(0) != MotionEvent.TOOL_TYPE_STYLUS) {
             return;
         }
         int evAction = event.getAction() & MotionEvent.ACTION_MASK;
         switch (evAction) {
             case MotionEvent.ACTION_DOWN:
-                if(mPenPoints.size() > 0) {
-                    PointInfo p = mPenPoints.get(mPenPoints.size()-1);
+                if (mPenPoints.size() > 0) {
+                    PointInfo p = mPenPoints.get(mPenPoints.size() - 1);
                     p.action_statue = evAction;
                     mPenPoints.add(p);
                 } else {
@@ -106,7 +106,7 @@ public class PenView extends View {
                 break;
 
             case MotionEvent.ACTION_MOVE: {
-                for(int i=0;i<event.getHistorySize();i++) {
+                for (int i = 0; i < event.getHistorySize(); i++) {
                     PointInfo p = new PointInfo();
                     p.presure = event.getHistoricalPressure(0, i);
                     p.x = event.getHistoricalX(0, i);
@@ -117,15 +117,15 @@ public class PenView extends View {
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                if(mPenPoints.size() > 0) {
-                    PointInfo p = mPenPoints.get(mPenPoints.size()-1);
+                if (mPenPoints.size() > 0) {
+                    PointInfo p = mPenPoints.get(mPenPoints.size() - 1);
                     p.action_statue = evAction;
                     mPenPoints.add(p);
                 }
                 break;
             }
-                default:
-                    break;
+            default:
+                break;
         }
         this.invalidate();
     }

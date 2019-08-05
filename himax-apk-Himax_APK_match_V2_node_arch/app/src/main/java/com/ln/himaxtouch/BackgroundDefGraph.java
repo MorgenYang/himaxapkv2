@@ -37,7 +37,7 @@ import java.io.File;
  * Created by 902995 on 2018/1/12.
  */
 
-public class BackgroundDefGraph  extends Activity {
+public class BackgroundDefGraph extends Activity {
     AlertDialog.Builder mGraphDialogBuilder;
     static AlertDialog.Builder mGrapListhDialogBuilder;
     static RelativeLayout mContentView;
@@ -59,7 +59,7 @@ public class BackgroundDefGraph  extends Activity {
     private static GraphAdapter itemAdapter;
     private static GridView mGridview;
 
-    static LinearLayout.LayoutParams mGridView_para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+    static LinearLayout.LayoutParams mGridView_para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     static private String mAllFileStr[];
 
     static private himax_config mHXC;
@@ -67,25 +67,27 @@ public class BackgroundDefGraph  extends Activity {
 
     static private final int mFlagWorkStart = 1;
     static private final int mFlagWorkEnd = 2;
+
     private static class WorkHandler extends Handler {
-        WorkHandler(Looper l){
+        WorkHandler(Looper l) {
             super(l);
         }
+
         @Override
         public void handleMessage(Message msg) {
-            switch(msg.what)
-            {
+            switch (msg.what) {
                 case mFlagWorkStart:
                     mPrepareBitmap();
 
                     break;
                 case mFlagWorkEnd:
-                    Log.d("HXTP","All short cut prepare OK");
+                    Log.d("HXTP", "All short cut prepare OK");
                     break;
             }
         }
 
     }
+
     static private WorkHandler mWorkingThread;
     private HandlerThread mWorkingHandlerThread;
 
@@ -96,8 +98,7 @@ public class BackgroundDefGraph  extends Activity {
     static private Handler mMainHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch(msg.what)
-            {
+            switch (msg.what) {
                 case mFlagMainStartUI:
                     itemAdapter.notifyDataSetChanged();
 
@@ -107,7 +108,7 @@ public class BackgroundDefGraph  extends Activity {
                     break;
 
                 case mFlagMainRemoveGridView:
-                    Log.d("HXTP","remove mGridview");
+                    Log.d("HXTP", "remove mGridview");
                     //mContentView.removeView(mGridview);
                     //Dialog dialog = new Dialog(mDialogBackGraphList.getContext());
                     mDialogBackGraphList.removeView(mGridview);
@@ -131,7 +132,6 @@ public class BackgroundDefGraph  extends Activity {
         mGrpahPath = "/sdcard/DCIM/CAMERA/";
 
 
-
         setContentView(R.layout.activity_background_def_graph);
 
         mWorkingHandlerThread = new HandlerThread("HX_Working_for_parse_graph");
@@ -139,28 +139,28 @@ public class BackgroundDefGraph  extends Activity {
 
         mWorkingThread = new WorkHandler(mWorkingHandlerThread.getLooper());
 
-        mRootInflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        mRootLayout = mRootInflater.inflate(R.layout.activity_background_def_graph,(ViewGroup)findViewById(R.id.activity_background_def_graph));
+        mRootInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        mRootLayout = mRootInflater.inflate(R.layout.activity_background_def_graph, (ViewGroup) findViewById(R.id.activity_background_def_graph));
 
         mContentView = (RelativeLayout) this.findViewById(R.id.activity_background_def_graph);
 
 
-        mInflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        mLayout = mInflater.inflate(R.layout.dialog_back_graph_select,(ViewGroup)findViewById(R.id.dialog_back_graph_select));
+        mInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        mLayout = mInflater.inflate(R.layout.dialog_back_graph_select, (ViewGroup) findViewById(R.id.dialog_back_graph_select));
 
-        mListInflater = (LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        mListLayout = mInflater.inflate(R.layout.dialog_back_graph_list,(ViewGroup)findViewById(R.id.dialog_back_graph_list_main));
+        mListInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        mListLayout = mInflater.inflate(R.layout.dialog_back_graph_list, (ViewGroup) findViewById(R.id.dialog_back_graph_list_main));
 
         mGrapListhDialogBuilder = new AlertDialog.Builder(BackgroundDefGraph.this);
         mGraphDialogBuilder = new AlertDialog.Builder(BackgroundDefGraph.this);
 
-        mDialogBackGraphList = (LinearLayout)mListLayout.findViewById(R.id.dialog_back_graph_list_main);
+        mDialogBackGraphList = (LinearLayout) mListLayout.findViewById(R.id.dialog_back_graph_list_main);
 
 
         mSetupGridView();
 
         AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-        dialog_builder.setNegativeButton("OK",null);
+        dialog_builder.setNegativeButton("OK", null);
         dialog_builder.setCancelable(false);
         AlertDialog dialog = dialog_builder.create();
         dialog.setIcon(R.drawable.ic_launcher);
@@ -170,6 +170,7 @@ public class BackgroundDefGraph  extends Activity {
         dialog.show();
 
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
@@ -193,18 +194,12 @@ public class BackgroundDefGraph  extends Activity {
             mGrapListhDialogBuilder.setNegativeButton("Cancel", null);
 
 
-
             mGrapListhDialogBuilder.show();
-
 
 
             return true;
 
-        }
-        else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)
-        {
-
-
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
 
 
             final EditText path_text = (EditText) mLayout.findViewById(R.id.dbgs_file_path);
@@ -217,7 +212,7 @@ public class BackgroundDefGraph  extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mGrpahPath = path_text.getText().toString();
-                    Toast.makeText(BackgroundDefGraph.this,"Now path="+mGrpahPath,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BackgroundDefGraph.this, "Now path=" + mGrpahPath, Toast.LENGTH_SHORT).show();
 
 
                     mSetupGridView();
@@ -225,8 +220,6 @@ public class BackgroundDefGraph  extends Activity {
                     Message main_msg = Message.obtain();
                     main_msg.what = mFlagMainProcessing;
                     mMainHandler.sendMessage(main_msg);
-
-
 
 
                 }
@@ -237,11 +230,10 @@ public class BackgroundDefGraph  extends Activity {
 
             return true;
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyDown(keyCode, event);
     }
 
-    private static void mSetBackground(int id)
-    {
+    private static void mSetBackground(int id) {
         /*
         try{
             Bitmap.compress(Bitmap.CompressFormat.JPEG,80,openFileOutput(filename,MODE_PRIVATE));
@@ -252,9 +244,9 @@ public class BackgroundDefGraph  extends Activity {
         }
         Uri*/
         //Bitmap bitmap = BitmapFactory.decodeFile(filename);
-        Log.d("HXTP","SetBackground id="+Integer.toString(id));
+        Log.d("HXTP", "SetBackground id=" + Integer.toString(id));
         mNowBackgroundGraph = id;
-        Drawable drawable = Drawable.createFromPath(mGrpahPath+mAllFileStr[id]);
+        Drawable drawable = Drawable.createFromPath(mGrpahPath + mAllFileStr[id]);
         mContentView.setBackground(drawable);
         /*
         mContentView.setOnCapturedPointerListener(new View.OnCapturedPointerListener(){
@@ -268,12 +260,11 @@ public class BackgroundDefGraph  extends Activity {
 
     }
 
-    static private void mPrepareBitmap()
-    {
-        Log.d("HXTP","Now prepare bitmap");
+    static private void mPrepareBitmap() {
+        Log.d("HXTP", "Now prepare bitmap");
 
 
-        for(int i = 0;i < mAllFileStr.length;i++) {
+        for (int i = 0; i < mAllFileStr.length; i++) {
             Message msg = Message.obtain();
             mBitmap[i] = mHXC.mScaleImage(BitmapFactory.decodeFile(mGrpahPath + mAllFileStr[i]), 100, 100);
             msg.what = mFlagMainStartUI;
@@ -285,7 +276,7 @@ public class BackgroundDefGraph  extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //mGridview.invalidate();
-                mNowBackgroundGraph = (int)id;
+                mNowBackgroundGraph = (int) id;
 
                 Message main_msg = Message.obtain();
                 main_msg.what = mFlagMainRemoveGridView;
@@ -303,34 +294,28 @@ public class BackgroundDefGraph  extends Activity {
 
     }
 
-    private void mSetupGridView(){
-
+    private void mSetupGridView() {
 
 
         String uri = mGrpahPath;
 
 
-
         File path_dir = new File(uri);
-        if(!path_dir.isDirectory())
-        {
-            Log.e("HXTPE","There is no this directory");
+        if (!path_dir.isDirectory()) {
+            Log.e("HXTPE", "There is no this directory");
             return;
-        }
-        else
-        {
+        } else {
             mAllFileStr = path_dir.list();
         }
 
         mBitmap = new Bitmap[mAllFileStr.length];
 
-        for(int i = 0;i < mAllFileStr.length;i++)
-        {
-            mBitmap[i] = Bitmap.createBitmap(100,100, Bitmap.Config.ALPHA_8);
+        for (int i = 0; i < mAllFileStr.length; i++) {
+            mBitmap[i] = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8);
 
         }
 
-        itemAdapter = new GraphAdapter(R.layout.dialog_back_graph_adapter,mAllFileStr,mBitmap);
+        itemAdapter = new GraphAdapter(R.layout.dialog_back_graph_adapter, mAllFileStr, mBitmap);
 
         mGridview = new GridView(mDialogBackGraphList.getContext());
         mGridview.setNumColumns(3);
@@ -345,15 +330,13 @@ public class BackgroundDefGraph  extends Activity {
 
     }
 
-    public class GraphAdapter extends ArrayAdapter<String>
-    {
+    public class GraphAdapter extends ArrayAdapter<String> {
         private final Context context;
         private final String[] Ids;
         private final int rowResourceId;
         private final Bitmap[] bitmap;
 
-        public GraphAdapter(int textViewResourceId, String[] objects,Bitmap[] bitmap)
-        {
+        public GraphAdapter(int textViewResourceId, String[] objects, Bitmap[] bitmap) {
             super(BackgroundDefGraph.this, textViewResourceId, objects);
             this.context = BackgroundDefGraph.this;
             this.Ids = objects;
@@ -363,9 +346,8 @@ public class BackgroundDefGraph  extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            Log.d("HXTP","adapter processing!"+Integer.toString(position));
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Log.d("HXTP", "adapter processing!" + Integer.toString(position));
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View rowView = inflater.inflate(rowResourceId, parent, false);
@@ -387,39 +369,36 @@ public class BackgroundDefGraph  extends Activity {
     private static float mYRelease = 0;
     private static float mXPress = 0;
 
-    private static void mTouchOperation(MotionEvent event)
-    {
+    private static void mTouchOperation(MotionEvent event) {
 
 
-        switch(event.getAction())
-        {
+        switch (event.getAction()) {
 
             case MotionEvent.ACTION_BUTTON_PRESS:
-                Log.d("HXTP","Test ACTION_BUTTON_PRESS");
+                Log.d("HXTP", "Test ACTION_BUTTON_PRESS");
                 break;
             case MotionEvent.ACTION_BUTTON_RELEASE:
-                Log.d("HXTP","Test ACTION_BUTTON_RELEASE");
+                Log.d("HXTP", "Test ACTION_BUTTON_RELEASE");
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 mXRelease = event.getX();
                 mYRelease = event.getY();
-                Log.d("HXTP","Test Up x="+Float.toString(mXRelease)+" y="+Float.toString(mYRelease));
-                if(mAlreadyPrepareGaph == 1) {
+                Log.d("HXTP", "Test Up x=" + Float.toString(mXRelease) + " y=" + Float.toString(mYRelease));
+                if (mAlreadyPrepareGaph == 1) {
                     if ((mXRelease - mXPress) > mHXC.mx_res / 2) {
                         if (mNowBackgroundGraph != 0) {
                             mSetBackground(--mNowBackgroundGraph);
                             Log.d("HXTP", "l->r mNowBackgroundGraph=" + Integer.toString(mNowBackgroundGraph));
-                            Log.d("HXTP","Test delta="+Float.toString(mXRelease - mXPress)+" mx_res/2="+Integer.toString(mHXC.mx_res/2));
+                            Log.d("HXTP", "Test delta=" + Float.toString(mXRelease - mXPress) + " mx_res/2=" + Integer.toString(mHXC.mx_res / 2));
                         }
-                    } else if ((int)(mXPress - mXRelease) > (mHXC.mx_res / 2)) {
+                    } else if ((int) (mXPress - mXRelease) > (mHXC.mx_res / 2)) {
                         if (mNowBackgroundGraph < mAllFileStr.length) {
                             mSetBackground(++mNowBackgroundGraph);
                             Log.d("HXTP", "r->l mNowBackgroundGraph=" + Integer.toString(mNowBackgroundGraph));
-                            Log.d("HXTP","Test delta="+Float.toString(mXPress - mXRelease)+" mx_res/2="+Integer.toString(mHXC.mx_res/2));
+                            Log.d("HXTP", "Test delta=" + Float.toString(mXPress - mXRelease) + " mx_res/2=" + Integer.toString(mHXC.mx_res / 2));
                         }
-                    } else if(Math.abs(mYRelease - mYPress) > (mHXC.my_res*2/3))
-                    {
+                    } else if (Math.abs(mYRelease - mYPress) > (mHXC.my_res * 2 / 3)) {
                         //mContentView.addView(mGridview);
                     }
                 }
@@ -432,7 +411,7 @@ public class BackgroundDefGraph  extends Activity {
             case MotionEvent.ACTION_DOWN:
                 mXPress = event.getX();
                 mYPress = event.getY();
-                Log.d("HXTP","Test Down x="+Float.toString(mXPress)+" y="+Float.toString(mYPress));
+                Log.d("HXTP", "Test Down x=" + Float.toString(mXPress) + " y=" + Float.toString(mYPress));
                 break;
 
 
@@ -444,9 +423,10 @@ public class BackgroundDefGraph  extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // TODO Auto-generated method
-       // mTouchOperation(event);
+        // mTouchOperation(event);
         return super.onTouchEvent(event);
     }
+
     @Override
     public void onPause() {
 
@@ -455,6 +435,7 @@ public class BackgroundDefGraph  extends Activity {
         //mGridview = null;
 
     }
+
     @Override
     public void onDestroy() {
 

@@ -36,7 +36,7 @@ public class PenPaintActivity extends Activity {
 
         mHoverButton = new Button(this);
         mHoverButton.setText("Turn Off Hover");
-        RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.BELOW, R.id.acc);
         mHoverButton.setLayoutParams(params);
 
@@ -52,7 +52,7 @@ public class PenPaintActivity extends Activity {
             @Override
             public void onClick(View view) {
                 mView.isShowHover = !mView.isShowHover;
-                if(mView.isShowHover) {
+                if (mView.isShowHover) {
                     mHoverButton.setText("Turn Off Hover");
                 } else {
                     mHoverButton.setText("Turn On Hover");

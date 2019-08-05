@@ -46,16 +46,16 @@ public class ManualTwoPointActivity extends Activity {
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
 
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        lcd_width = getData.getString("lcd_width_text","");
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        lcd_width = getData.getString("lcd_width_text", "");
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -69,20 +69,20 @@ public class ManualTwoPointActivity extends Activity {
         }
 
         @Override
-        public void onDraw(Canvas canvas){
+        public void onDraw(Canvas canvas) {
 
-            float t =720;
-            float b =width/t;
-            float c = Float.parseFloat(lcd_width)/width;
+            float t = 720;
+            float b = width / t;
+            float c = Float.parseFloat(lcd_width) / width;
 
             Paint paint2 = new Paint();
             paint2.setColor(Color.RED);
             paint2.setStrokeWidth(3);
-            paint2.setTextSize(40*b);
+            paint2.setTextSize(40 * b);
 
             Paint[] paint = new Paint[10];
-            float textsize=30*b;
-            for(int a=0;a<10;a++){
+            float textsize = 30 * b;
+            for (int a = 0; a < 10; a++) {
                 paint[a] = new Paint();
                 paint[a].setTextSize(textsize);
                 paint[a].setAlpha(220);
@@ -98,31 +98,29 @@ public class ManualTwoPointActivity extends Activity {
             paint[8].setColor(Color.LTGRAY);
             paint[9].setColor(Color.DKGRAY);
 
-            float r =50*b;
-            float xa=-(r-(100*b));
-            float xa2 =-(r+(100*b));
-            float ya=textsize+r;
-            float ya2=-(textsize+r-(30*b));
+            float r = 50 * b;
+            float xa = -(r - (100 * b));
+            float xa2 = -(r + (100 * b));
+            float ya = textsize + r;
+            float ya2 = -(textsize + r - (30 * b));
             double distance = 0;
 
-            for(int a=0;a<2;a++){
-                if(check[a]==1){
-                    if(x[a]<150){
-                        xa2=xa;
+            for (int a = 0; a < 2; a++) {
+                if (check[a] == 1) {
+                    if (x[a] < 150) {
+                        xa2 = xa;
+                    } else if (x[a] > (width - 150)) {
+                    } else {
+                        xa2 = (-r);
                     }
-                    else if(x[a]>(width-150)){
+                    if (y[a] > (height - 300)) {
+                        ya = ya2;
                     }
-                    else{
-                        xa2=(-r);
-                    }
-                    if(y[a]>(height-300)){
-                        ya=ya2;
-                    }
-                    canvas.drawText("("+x[a]+","+y[a]+")", (float)x[a]+xa2, (float)y[a]+ya, paint[a]);
-                    canvas.drawCircle(x[a], y[a],r, paint[a]);
-                    if (a ==1) {
-                        distance = Math.sqrt((x[a]-x[a-1])*(x[a]-x[a-1])+(y[a]-y[a-1])*(y[a]-y[a-1]))*b;
-                        canvas.drawText("distance:" + df.format(distance) +"(pixel)/" +df.format(distance*c) + "(mm)", 100, 100, paint2);
+                    canvas.drawText("(" + x[a] + "," + y[a] + ")", (float) x[a] + xa2, (float) y[a] + ya, paint[a]);
+                    canvas.drawCircle(x[a], y[a], r, paint[a]);
+                    if (a == 1) {
+                        distance = Math.sqrt((x[a] - x[a - 1]) * (x[a] - x[a - 1]) + (y[a] - y[a - 1]) * (y[a] - y[a - 1])) * b;
+                        canvas.drawText("distance:" + df.format(distance) + "(pixel)/" + df.format(distance * c) + "(mm)", 100, 100, paint2);
                         list.add(df.format(distance));
                     }
                 }
@@ -130,17 +128,17 @@ public class ManualTwoPointActivity extends Activity {
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
+        public boolean onTouchEvent(MotionEvent event) {
             int index;
             int id;
-            switch(event.getActionMasked()){
+            switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_UP:
-                    index =event.getActionIndex();
+                    index = event.getActionIndex();
                     id = event.getPointerId(index);
                     check[id] = 0;
                     break;
                 case MotionEvent.ACTION_POINTER_UP:
-                    for(int a=0;a<event.getPointerCount();a++){
+                    for (int a = 0; a < event.getPointerCount(); a++) {
                         index = event.getActionIndex();
                         id = event.getPointerId(index);
                         check[id] = 0;
@@ -148,15 +146,15 @@ public class ManualTwoPointActivity extends Activity {
                     break;
 
                 case MotionEvent.ACTION_MOVE:
-                    for(int a=0;a<event.getPointerCount();a++){
-                        if(check[a]==1){
-                            x[a] = (int)event.getX(event.findPointerIndex(a));
-                            y[a] = (int)event.getY(event.findPointerIndex(a));
+                    for (int a = 0; a < event.getPointerCount(); a++) {
+                        if (check[a] == 1) {
+                            x[a] = (int) event.getX(event.findPointerIndex(a));
+                            y[a] = (int) event.getY(event.findPointerIndex(a));
                         }
                     }
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    for(int a=0;a<event.getPointerCount();a++){
+                    for (int a = 0; a < event.getPointerCount(); a++) {
                         index = event.getActionIndex();
                         id = event.getPointerId(index);
                         x[id] = (int) event.getX(event.findPointerIndex(id));
@@ -165,10 +163,10 @@ public class ManualTwoPointActivity extends Activity {
                     }
                     break;
                 case MotionEvent.ACTION_DOWN:
-                    index =event.getActionIndex();
+                    index = event.getActionIndex();
                     id = event.getPointerId(index);
-                    x[id] = (int)event.getX(event.findPointerIndex(id));
-                    y[id] = (int)event.getY(event.findPointerIndex(id));
+                    x[id] = (int) event.getX(event.findPointerIndex(id));
+                    y[id] = (int) event.getY(event.findPointerIndex(id));
                     check[id] = 1;
                     break;
             }
@@ -178,21 +176,21 @@ public class ManualTwoPointActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed(){
-        if (!list.isEmpty()){
+    public void onBackPressed() {
+        if (!list.isEmpty()) {
             new AlertDialog.Builder(this).setTitle("Save this test data?")
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             for (int i = 0; i < list.size(); i++) {
-                                if (i == list.size()-1){
+                                if (i == list.size() - 1) {
                                     points = points + list.get(i);
-                                }else
-                                    points = points + list.get(i) +"\n";
+                                } else
+                                    points = points + list.get(i) + "\n";
                             }
 //                            write(points);
-                            rWlog.write(points,"two_",time);
+                            rWlog.write(points, "two_", time);
                             SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
                             editor.putString("mtwo", time);
                             editor.commit();
@@ -207,6 +205,6 @@ public class ManualTwoPointActivity extends Activity {
                             ManualTwoPointActivity.this.finish();
                         }
                     }).show();
-        }else ManualTwoPointActivity.this.finish();
+        } else ManualTwoPointActivity.this.finish();
     }
 }

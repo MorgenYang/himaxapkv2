@@ -36,9 +36,9 @@ public class JitterModel implements IObjectiveTestModel {
 
     @Override
     public void unbindViews() {
-        if(mLayout != null) {
+        if (mLayout != null) {
             View background = mLayout.findViewById(mBackgroundViewId);
-            if(background != null) {
+            if (background != null) {
                 mLayout.removeView(background);
             }
         }

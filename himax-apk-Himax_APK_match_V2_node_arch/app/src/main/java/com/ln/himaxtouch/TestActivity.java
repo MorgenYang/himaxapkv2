@@ -42,7 +42,6 @@ public class TestActivity extends Activity {
     }
 
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -52,8 +51,8 @@ public class TestActivity extends Activity {
         int evAction = event.getAction() & MotionEvent.ACTION_MASK;
 
         int indexP = event.getPointerCount();
-        for(int i=0;i<indexP;i++) {
-            Log.d("Steve",event.getToolType(i) + " ");
+        for (int i = 0; i < indexP; i++) {
+            Log.d("Steve", event.getToolType(i) + " ");
         }
 //
 //

@@ -6,6 +6,8 @@ package com.ln.himaxtouch.ObjectiveTest;
 
 public interface IObjectiveTestModel {
     String getRecordStringToSaveCsv();
+
     void unbindViews();
+
     void clearTestData();
 }

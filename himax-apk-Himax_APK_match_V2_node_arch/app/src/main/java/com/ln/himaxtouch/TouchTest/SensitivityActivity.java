@@ -40,15 +40,15 @@ public class SensitivityActivity extends Activity {
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
 
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -67,17 +67,17 @@ public class SensitivityActivity extends Activity {
         int green;
         int blue;
         SharedPreferences data = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String bgc = data.getString("bg_color_text","");
-        double test_bar_radius = Double.parseDouble(data.getString("sen_gap_text",""));
-        double lcd_width = Double.parseDouble(data.getString("lcd_width_text",""));
-        double a = width/lcd_width;
-        int edge = (int) (test_bar_radius*a);
+        String bgc = data.getString("bg_color_text", "");
+        double test_bar_radius = Double.parseDouble(data.getString("sen_gap_text", ""));
+        double lcd_width = Double.parseDouble(data.getString("lcd_width_text", ""));
+        double a = width / lcd_width;
+        int edge = (int) (test_bar_radius * a);
 
         public Sensitivity(Context context) {
             super(context);
-            paint=new Paint(Paint.DITHER_FLAG);
+            paint = new Paint(Paint.DITHER_FLAG);
             bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            canvas=new Canvas();
+            canvas = new Canvas();
             canvas.setBitmap(bitmap);
 
             paint.setStyle(Paint.Style.STROKE);
@@ -87,9 +87,9 @@ public class SensitivityActivity extends Activity {
         }
 
         @Override
-        public void onDraw(Canvas canvas){
-            red = Integer.parseInt(bgc.substring(0,3));
-            green = Integer.parseInt(bgc.substring(3,6));
+        public void onDraw(Canvas canvas) {
+            red = Integer.parseInt(bgc.substring(0, 3));
+            green = Integer.parseInt(bgc.substring(3, 6));
             blue = Integer.parseInt(bgc.substring(6));
             canvas.drawColor(Color.rgb(red, green, blue));
 
@@ -98,50 +98,51 @@ public class SensitivityActivity extends Activity {
             paint.setStrokeWidth(1);
 
             //draw line
-            canvas.drawLine(edge,edge,width-edge,edge,paint);
-            canvas.drawLine(width-edge,edge,width-edge,height-edge,paint);
-            canvas.drawLine(width-edge,height-edge,edge,height-edge,paint);
-            canvas.drawLine(edge,height-edge,edge,(height-2*edge)/6+edge,paint);
-            canvas.drawLine(edge,(height-2*edge)/6+edge,5*(width-2*edge)/6+edge,(height-2*edge)/6+edge,paint);
-            canvas.drawLine(5*(width-2*edge)/6+edge,(height-2*edge)/6+edge,5*(width-2*edge)/6+edge,5*(height-2*edge)/6+edge,paint);
-            canvas.drawLine(5*(width-2*edge)/6+edge,5*(height-2*edge)/6+edge,(width-2*edge)/6+edge,5*(height-2*edge)/6+edge,paint);
-            canvas.drawLine((width-2*edge)/6+edge,5*(height-2*edge)/6+edge,(width-2*edge)/6+edge,2*(height-2*edge)/6+edge,paint);
-            canvas.drawLine((width-2*edge)/6+edge,2*(height-2*edge)/6+edge,4*(width-2*edge)/6+edge,2*(height-2*edge)/6+edge,paint);
-            canvas.drawLine(4*(width-2*edge)/6+edge,2*(height-2*edge)/6+edge,4*(width-2*edge)/6+edge,4*(height-2*edge)/6+edge,paint);
-            canvas.drawLine(4*(width-2*edge)/6+edge,4*(height-2*edge)/6+edge,2*(width-2*edge)/6+edge,4*(height-2*edge)/6+edge,paint);
-            canvas.drawLine(2*(width-2*edge)/6+edge,4*(height-2*edge)/6+edge,2*(width-2*edge)/6+edge,3*(height-2*edge)/6+edge,paint);
-            canvas.drawLine(2*(width-2*edge)/6+edge,3*(height-2*edge)/6+edge,3*(width-2*edge)/6+edge,3*(height-2*edge)/6+edge,paint);
+            canvas.drawLine(edge, edge, width - edge, edge, paint);
+            canvas.drawLine(width - edge, edge, width - edge, height - edge, paint);
+            canvas.drawLine(width - edge, height - edge, edge, height - edge, paint);
+            canvas.drawLine(edge, height - edge, edge, (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(edge, (height - 2 * edge) / 6 + edge, 5 * (width - 2 * edge) / 6 + edge, (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(5 * (width - 2 * edge) / 6 + edge, (height - 2 * edge) / 6 + edge, 5 * (width - 2 * edge) / 6 + edge, 5 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(5 * (width - 2 * edge) / 6 + edge, 5 * (height - 2 * edge) / 6 + edge, (width - 2 * edge) / 6 + edge, 5 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine((width - 2 * edge) / 6 + edge, 5 * (height - 2 * edge) / 6 + edge, (width - 2 * edge) / 6 + edge, 2 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine((width - 2 * edge) / 6 + edge, 2 * (height - 2 * edge) / 6 + edge, 4 * (width - 2 * edge) / 6 + edge, 2 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(4 * (width - 2 * edge) / 6 + edge, 2 * (height - 2 * edge) / 6 + edge, 4 * (width - 2 * edge) / 6 + edge, 4 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(4 * (width - 2 * edge) / 6 + edge, 4 * (height - 2 * edge) / 6 + edge, 2 * (width - 2 * edge) / 6 + edge, 4 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(2 * (width - 2 * edge) / 6 + edge, 4 * (height - 2 * edge) / 6 + edge, 2 * (width - 2 * edge) / 6 + edge, 3 * (height - 2 * edge) / 6 + edge, paint);
+            canvas.drawLine(2 * (width - 2 * edge) / 6 + edge, 3 * (height - 2 * edge) / 6 + edge, 3 * (width - 2 * edge) / 6 + edge, 3 * (height - 2 * edge) / 6 + edge, paint);
 
             paint.setColor(Color.RED);
             paint.setStrokeWidth(2);
-            canvas.drawBitmap(bitmap,0,0,null);
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
-            if (event.getAction()== MotionEvent.ACTION_MOVE) {
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 canvas.drawLine(mov_x, mov_y, event.getX(), event.getY(), paint);
-                list.add(mov_x+"");
-                list.add(mov_y+"");
+                list.add(mov_x + "");
+                list.add(mov_y + "");
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_DOWN) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 count++;
-                if (count > 1){
+                if (count > 1) {
                     list.add("65535");
                     list.add("65535");
-                    Toast.makeText(SensitivityActivity.this,"Broken line", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SensitivityActivity.this, "Broken line", Toast.LENGTH_SHORT).show();
                 }
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_UP) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
                 invalidate();
             }
-            mov_x=(int) event.getX();
-            mov_y=(int) event.getY();
+            mov_x = (int) event.getX();
+            mov_y = (int) event.getY();
             return true;
         }
     }
+
     @Override
     public void onBackPressed() {
         if (!list.isEmpty()) {
@@ -158,10 +159,10 @@ public class SensitivityActivity extends Activity {
                                 } else points = points + list.get(i) + ",";
                             }
 //                            write(points);
-                            rWlog.write(points,"sen_",time);
+                            rWlog.write(points, "sen_", time);
                             SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
                             editor.putString("sen", time);
-                            editor.putString("senCount",count+"");
+                            editor.putString("senCount", count + "");
                             editor.commit();
                             Toast.makeText(SensitivityActivity.this, "data saved!", Toast.LENGTH_SHORT).show();
                             SensitivityActivity.this.finish();
@@ -174,6 +175,6 @@ public class SensitivityActivity extends Activity {
                             SensitivityActivity.this.finish();
                         }
                     }).show();
-        }else SensitivityActivity.this.finish();
+        } else SensitivityActivity.this.finish();
     }
 }

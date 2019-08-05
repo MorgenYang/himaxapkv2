@@ -77,15 +77,19 @@ public class ObjectiveListAdapter extends BaseExpandableListAdapter implements E
         }
         return v;
     }
+
     public String getGroup(int groupPosition) {
         return "group-" + groupPosition;
     }
+
     public int getGroupCount() {
         return mGroupData.size();
     }
+
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
+
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View v = convertView;
         ViewHolder holder = null;
@@ -93,8 +97,7 @@ public class ObjectiveListAdapter extends BaseExpandableListAdapter implements E
             v = mVI.inflate(R.layout.list_item_group, null);
             holder = new ViewHolder(v);
             v.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) v.getTag();
         }
 
@@ -102,8 +105,8 @@ public class ObjectiveListAdapter extends BaseExpandableListAdapter implements E
         String arrowDown = "  ▾";
 
         holder.text.setText(mGroupData.get(groupPosition));
-        if(getChildrenCount(groupPosition) != 0) {
-            if(isExpanded) {
+        if (getChildrenCount(groupPosition) != 0) {
+            if (isExpanded) {
                 holder.text.setText(mGroupData.get(groupPosition) + arrowDown);
             } else {
                 holder.text.setText(mGroupData.get(groupPosition) + arrowLeft);
@@ -121,9 +124,11 @@ public class ObjectiveListAdapter extends BaseExpandableListAdapter implements E
 
         return v;
     }
+
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
     public boolean hasStableIds() {
         return true;
     }
@@ -132,10 +137,11 @@ public class ObjectiveListAdapter extends BaseExpandableListAdapter implements E
         public TextView text;
         public ImageView imageview;
         public ImageButton setting;
+
         public ViewHolder(View v) {
-            this.text = (TextView)v.findViewById(R.id.textView);
-            this.imageview = (ImageView)v.findViewById(R.id.imageView);
-            this.setting = (ImageButton)v.findViewById(R.id.item_setting);
+            this.text = (TextView) v.findViewById(R.id.textView);
+            this.imageview = (ImageView) v.findViewById(R.id.imageView);
+            this.setting = (ImageButton) v.findViewById(R.id.item_setting);
         }
     }
 

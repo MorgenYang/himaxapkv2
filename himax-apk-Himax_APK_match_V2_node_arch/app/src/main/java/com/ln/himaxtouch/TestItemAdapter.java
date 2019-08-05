@@ -17,7 +17,7 @@ public class TestItemAdapter extends ArrayAdapter<String> {
     private final String[] Ids;
     private final int rowResourceId;
 
-    public TestItemAdapter(Context context, int textViewResourceId, String[] objects){
+    public TestItemAdapter(Context context, int textViewResourceId, String[] objects) {
         super(context, textViewResourceId, objects);
 
         this.context = context;
@@ -26,7 +26,7 @@ public class TestItemAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(rowResourceId, parent, false);

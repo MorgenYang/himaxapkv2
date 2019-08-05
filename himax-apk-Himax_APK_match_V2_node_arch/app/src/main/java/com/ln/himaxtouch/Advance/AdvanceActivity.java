@@ -31,6 +31,7 @@ public class AdvanceActivity extends Activity {
     private ListView mListView;
     private TypedArray mItemClassList;
     private HimaxListAdapter mAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,7 @@ public class AdvanceActivity extends Activity {
         TypedArray itemNameList = getResources().obtainTypedArray(R.array.advancepage_item_name_list);
         mItemClassList = getResources().obtainTypedArray(R.array.advancepage_item_class_list);
         String[] itemList = new String[itemNameList.length()];
-        for (int i = 0; i < itemNameList.length(); i++)
-        {
+        for (int i = 0; i < itemNameList.length(); i++) {
             itemList[i] = itemNameList.getString(i);
         }
 
@@ -59,13 +59,14 @@ public class AdvanceActivity extends Activity {
                     Intent intent = new Intent();
                     intent.setClassName(mContext, name);
                     startActivity(intent);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.fillInStackTrace();
                 }
             }
         });
 
     }
+
     public String getLocalIpAddress() {
         String no = "Not connect to internet";
         String ip;

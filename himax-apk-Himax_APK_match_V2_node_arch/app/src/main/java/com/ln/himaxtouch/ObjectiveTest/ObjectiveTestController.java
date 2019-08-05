@@ -431,6 +431,7 @@ public class ObjectiveTestController {
 
         mainHandler.sendEmptyMessage(MSG_UPDATE_SNR_PROGRESSBAR);
     }
+
     public void collectSNRFinish(HimaxApplication.MainHandler mainHandler, NodeDataSource dataSource) {
         if (mSnrModel.mRawBaseData == null || mSnrModel.mColNum == 0 || mSnrModel.mRowNum == 0) {
             //should dismiss and restart process.
@@ -483,7 +484,7 @@ public class ObjectiveTestController {
             return;
         }
 
-        if(mSnrModel.mCollectedRawDataFrames < RAW_BASE_FRAME) {
+        if (mSnrModel.mCollectedRawDataFrames < RAW_BASE_FRAME) {
             mSnrModel.mTitle.setText("Base Rawdata");
             mSnrModel.mMsg.setText("Getting Base Rawdata");
             int progress = mSnrModel.mCollectedRawDataFrames * 100 / RAW_BASE_FRAME;
@@ -497,11 +498,11 @@ public class ObjectiveTestController {
             mSnrModel.mTitle.setText(R.string.snr_untouched);
 //            int progress1 = (mSnrModel.mCollectedRawDataFrames + mSnrModel.mCollectedNoiseFrames) * 100 / (mSnrModel.mCalculateFrames + RAW_BASE_FRAME);
 //            int progress1_skip = (mSnrModel.mCollectedRawDataFrames + mSnrModel.mCollectedNoiseFrames) * 100 / (mSnrModel.mCalculateFrames + RAW_BASE_FRAME);
-            int progress1 = (mSnrModel.mCollectedNoiseFrames - mSnrModel.mIgnoreFrames) * 100 / ( mSnrModel.mCalculateFrames);
-            int progress1_skip = mSnrModel.mCollectedNoiseFrames * 100 / (mSnrModel.mIgnoreFrames );
+            int progress1 = (mSnrModel.mCollectedNoiseFrames - mSnrModel.mIgnoreFrames) * 100 / (mSnrModel.mCalculateFrames);
+            int progress1_skip = mSnrModel.mCollectedNoiseFrames * 100 / (mSnrModel.mIgnoreFrames);
             mSnrModel.mPB_Item1.setProgress((progress1 < 0 ? 0 : progress1));
             mSnrModel.mPB_Item1_skip.setProgress((progress1_skip < 0 ? 0 : progress1_skip));
-            if (mSnrModel.mCollectedNoiseFrames > mSnrModel.mIgnoreFrames && (mSnrModel.mCollectedNoiseFrames -  mSnrModel.mIgnoreFrames < mSnrModel.mCalculateFrames)) {
+            if (mSnrModel.mCollectedNoiseFrames > mSnrModel.mIgnoreFrames && (mSnrModel.mCollectedNoiseFrames - mSnrModel.mIgnoreFrames < mSnrModel.mCalculateFrames)) {
                 mSnrModel.mMsg.setText(R.string.snr_collecting_noise);
                 mSnrModel.mMsg.setTextColor(Color.GRAY);
             } else if (mSnrModel.mCollectedNoiseFrames <= mSnrModel.mIgnoreFrames) {
@@ -518,11 +519,11 @@ public class ObjectiveTestController {
         }
         if (mSnrModel.mCollectingState == STATE_COLLECTING_TOUCHED_NOISE) {
             mSnrModel.mTitle.setText(R.string.snr_touched);
-            int progress2 = (mSnrModel.mCollectedSignalFrames - mSnrModel.mIgnoreFrames) * 100 / ( mSnrModel.mCalculateFrames);
-            int progress2_skip = mSnrModel.mCollectedSignalFrames * 100 / (mSnrModel.mIgnoreFrames );
+            int progress2 = (mSnrModel.mCollectedSignalFrames - mSnrModel.mIgnoreFrames) * 100 / (mSnrModel.mCalculateFrames);
+            int progress2_skip = mSnrModel.mCollectedSignalFrames * 100 / (mSnrModel.mIgnoreFrames);
             mSnrModel.mPB_Item2.setProgress(progress2 < 0 ? 0 : progress2);
             mSnrModel.mPB_Item2_skip.setProgress(progress2_skip < 0 ? 0 : progress2_skip);
-            if (mSnrModel.mCollectedSignalFrames > mSnrModel.mIgnoreFrames && (mSnrModel.mCollectedSignalFrames -  mSnrModel.mIgnoreFrames < mSnrModel.mCalculateFrames)) {
+            if (mSnrModel.mCollectedSignalFrames > mSnrModel.mIgnoreFrames && (mSnrModel.mCollectedSignalFrames - mSnrModel.mIgnoreFrames < mSnrModel.mCalculateFrames)) {
                 mSnrModel.mMsg.setTextColor(Color.GRAY);
                 mSnrModel.mMsg.setText(R.string.snr_please_touch);
 
@@ -539,7 +540,7 @@ public class ObjectiveTestController {
 //                r_layout.addView(circle);
                 mSnrModel.mCollectingState = STATE_COLLECTED_FINISH;
                 mWorkerHandler.sendEmptyMessage(MSG_SNR_FINISH);
-            }  else {
+            } else {
                 mSnrModel.mMsg.setText(R.string.snr_collecting_signal);
             }
             return;
@@ -687,8 +688,8 @@ public class ObjectiveTestController {
                         i--;
                         Log.e(TAG, String.format("Noise_Max Now idx=%d, skip_num=%d", i, skip_num));
                     } else {
-                        if(skip_num >= mSnrModel.mSignalTimeout) {
-                            Log.d(TAG, String.format("Now skip_num=%d",skip_num));
+                        if (skip_num >= mSnrModel.mSignalTimeout) {
+                            Log.d(TAG, String.format("Now skip_num=%d", skip_num));
                         }
                         if (i >= mSnrModel.mIgnoreFrames) {
                             subRawDataAndSquare(frame, rawData);
@@ -713,7 +714,7 @@ public class ObjectiveTestController {
                 double[][] result = new double[row][col];
                 divideRawAmountAndSqrt(sigma, result);
                 noiseValue = findMax(result);
-                mSnrModel.mCSV.appendRawData(5, 0, "Max Noise Value:"+noiseValue + "", 10000, false);
+                mSnrModel.mCSV.appendRawData(5, 0, "Max Noise Value:" + noiseValue + "", 10000, false);
                 if (DEBUG) {
                     Log.d(TAG, "SNR_NoiseValue: " + noiseValue);
                 }
@@ -753,7 +754,7 @@ public class ObjectiveTestController {
                 double[][] result = new double[row][col];
                 divideRawAmountAndSqrt(sigma, result);
                 noiseValue = getLinearAvg(result);
-                mSnrModel.mCSV.appendRawData(5, 0, "Average Noise Value:"+noiseValue + "", 10000, false);
+                mSnrModel.mCSV.appendRawData(5, 0, "Average Noise Value:" + noiseValue + "", 10000, false);
                 break;
             }
             case 2: {
@@ -845,7 +846,7 @@ public class ObjectiveTestController {
         /* reject hopping*/
         dataSource.simpleWriteCMD(mICData.exe_force_stop_hopping);
 
-        if(mICData.DIAG_DC_SRAM < 10) {
+        if (mICData.DIAG_DC_SRAM < 10) {
             isRerun = false;
             Log.d(TAG, "It is the event stack need to collecting data");
             dataSource.readSpecificDiag(mICData.DIAG_DC_SRAM, tmp, true, false);
@@ -877,12 +878,12 @@ public class ObjectiveTestController {
 
                         if (i_shift >= mSnrModel.mIgnoreFrames) {
 
-                            sum_frame = addAllFrameforAVG(sum_frame,frame, rawData,(mSnrModel.mCollectedSignalFrames + 1), ((i_shift - mSnrModel.mIgnoreFrames + 1) == mSnrModel.mCalculateFrames));
+                            sum_frame = addAllFrameforAVG(sum_frame, frame, rawData, (mSnrModel.mCollectedSignalFrames + 1), ((i_shift - mSnrModel.mIgnoreFrames + 1) == mSnrModel.mCalculateFrames));
                         }
                     }
 
                     mSnrModel.mCollectedSignalFrames += 1;
-                    if( i_shift < mSnrModel.mIgnoreFrames) {
+                    if (i_shift < mSnrModel.mIgnoreFrames) {
                         mSnrModel.mCSV.appendRawData(7, i_shift, frame);
                     } else {
                         mSnrModel.mCSV.appendRawData(1, i_shift, frame);
@@ -919,7 +920,7 @@ public class ObjectiveTestController {
                         }
                         mSnrModel.mCollectedSignalFrames += 1;
 
-                        if( i < mSnrModel.mIgnoreFrames) {
+                        if (i < mSnrModel.mIgnoreFrames) {
                             mSnrModel.mCSV.appendRawData(7, i, frame);
                         } else {
                             mSnrModel.mCSV.appendRawData(1, i, frame);
@@ -982,6 +983,7 @@ public class ObjectiveTestController {
         }
         return max;
     }
+
     private double findMax(int[][] input, int[][] base) {
         double max = 0;
         int temp = 0;
@@ -992,7 +994,7 @@ public class ObjectiveTestController {
                 if (maxSignalForBP < input[i][j]) {
                     maxSignalForBP = input[i][j];
                 }
-                if(mICData.isOncell)
+                if (mICData.isOncell)
                     temp = Math.abs(input[i][j] - base[i][j]);
                 else
                     temp = input[i][j] - base[i][j];
@@ -1002,13 +1004,13 @@ public class ObjectiveTestController {
             }
         }
         /* debug hopping affect or not */
-        if(false) { /* for hx83102d (SEC A10)*/
-            Log.e(TAG, "\tSNR_signal Now max="+max);
-            if(max < 500) {
+        if (false) { /* for hx83102d (SEC A10)*/
+            Log.e(TAG, "\tSNR_signal Now max=" + max);
+            if (max < 500) {
                 Log.e(TAG, logEntireFrame(input, "\tSNR_signal raw="));
             }
-            Log.e(TAG, "SNR_siganl hopping: "+ mNodeAcc.readRegister("80020038", false));
-            Log.e(TAG, "SNR_siganl hopping check: "+ mNodeAcc.readRegister("10007088", false));
+            Log.e(TAG, "SNR_siganl hopping: " + mNodeAcc.readRegister("80020038", false));
+            Log.e(TAG, "SNR_siganl hopping check: " + mNodeAcc.readRegister("10007088", false));
         }
         mSnrModel.mMaxSignalForBP = maxSignalForBP;
         return max;
@@ -1057,7 +1059,7 @@ public class ObjectiveTestController {
     private void subRawDataAndSquare(int[][] input, int[][] rawData) {
         for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[i].length; j++) {
-                if(mICData.isOncell)
+                if (mICData.isOncell)
                     input[i][j] = Math.abs(input[i][j] - rawData[i][j]);
                 else
                     input[i][j] -= rawData[i][j];
@@ -1098,43 +1100,38 @@ public class ObjectiveTestController {
         return (num == 0) ? 0 : ((double) avg / (double) num);
     }
 
-    private int[][] findMaxAllFrame(int[][] now_value, int[][] new_input)
-    {
-        for(int i=0; i < now_value.length; i++) {
-            for(int j=0; j< now_value[i].length; j++) {
-                if(now_value[i][j] < new_input[i][j])
+    private int[][] findMaxAllFrame(int[][] now_value, int[][] new_input) {
+        for (int i = 0; i < now_value.length; i++) {
+            for (int j = 0; j < now_value[i].length; j++) {
+                if (now_value[i][j] < new_input[i][j])
                     now_value[i][j] = new_input[i][j];
             }
         }
         return now_value;
     }
 
-    private int[][] findMaxDiffAllFrame(int[][] now_value, int[][] new_input, int[][] base)
-    {
+    private int[][] findMaxDiffAllFrame(int[][] now_value, int[][] new_input, int[][] base) {
         int tmp = 0;
-        for(int i=0; i < now_value.length; i++) {
-            for(int j=0; j< now_value[i].length; j++) {
+        for (int i = 0; i < now_value.length; i++) {
+            for (int j = 0; j < now_value[i].length; j++) {
                 tmp = new_input[i][j] - base[i][j];
-                if(now_value[i][j] < tmp)
+                if (now_value[i][j] < tmp)
                     now_value[i][j] = tmp;
             }
         }
         return now_value;
     }
 
-    private int[][] addAllFrameforAVG(int[][] now_value, int[][] new_input, int[][] base,int frame_num, boolean end2AvgFrame)
-    {
-        if(end2AvgFrame)
-        {
-            Log.d("HXTP_NIM", logEntireFrame(now_value,"Before cal avg"));
+    private int[][] addAllFrameforAVG(int[][] now_value, int[][] new_input, int[][] base, int frame_num, boolean end2AvgFrame) {
+        if (end2AvgFrame) {
+            Log.d("HXTP_NIM", logEntireFrame(now_value, "Before cal avg"));
         }
-        if(base != null)
-        {
+        if (base != null) {
             Log.d("HXTP_NIM", "It will cut base");
         }
-        for(int i=0; i < now_value.length; i++) {
-            for(int j=0; j< now_value[i].length; j++) {
-                if(base != null) {
+        for (int i = 0; i < now_value.length; i++) {
+            for (int j = 0; j < now_value[i].length; j++) {
+                if (base != null) {
                     if (mICData.isOncell)
                         now_value[i][j] += Math.abs(new_input[i][j] - base[i][j]);
                     else
@@ -1142,7 +1139,7 @@ public class ObjectiveTestController {
                 } else {
                     now_value[i][j] += new_input[i][j];
                 }
-                if(end2AvgFrame) {
+                if (end2AvgFrame) {
                     Log.d("HXTP_NIM", String.format("The end of frame number = %d", frame_num));
                     now_value[i][j] = now_value[i][j] / frame_num;
                 }
@@ -1154,40 +1151,40 @@ public class ObjectiveTestController {
     private double getSumFrom1Frame(int[][] input) {
         int sum = 0;
         int num = 0;
-        for(int i=0; i<input.length; i++) {
-            for(int j=0; j<input[i].length; j++) {
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input[i].length; j++) {
                 sum += (input[i][j]);
 
             }
         }
-        return (double)sum ;
+        return (double) sum;
     }
 
     private double getAvgFromAvgData(int[][] input, int[][] raw, int threshold) {
         int avg = 0;
         int num = 0;
         int maxSignalForBP = mSnrModel.mMaxSignalForBP;
-        for(int i=0; i<input.length; i++) {
-            for(int j=0; j<input[i].length; j++) {
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input[i].length; j++) {
 
-                if(maxSignalForBP < input[i][j]) {
+                if (maxSignalForBP < input[i][j]) {
                     maxSignalForBP = input[i][j];
                 }
 
-                avg += (input[i][j]-raw[i][j]);
+                avg += (input[i][j] - raw[i][j]);
 
             }
         }
-        return (double)avg;
+        return (double) avg;
     }
 
     private String logEntireFrame(int[][] input, String title) {
         StringBuilder log = new StringBuilder();
-        log.append(title+"\n");
-        for(int xx=0;xx<input.length;xx++) {
+        log.append(title + "\n");
+        for (int xx = 0; xx < input.length; xx++) {
             for (int xxx = 0; xxx < input[0].length; xxx++) {
-                if(xxx==0) {
-                    log.append( input[xx][xxx]);
+                if (xxx == 0) {
+                    log.append(input[xx][xxx]);
                 } else {
                     log.append("," + input[xx][xxx]);
                 }
@@ -1201,13 +1198,13 @@ public class ObjectiveTestController {
     private boolean isEachDiffCorrect(int[][] input, int threshold) {
 
 
-        for(int i=0;i<input.length;i++) {
+        for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
                 //if(j+1 != input[0].length) {
-                    if(input[i][j] <  threshold) {
-                        //Log.d("HXTP0712", "small than threshold");
-                        return false;
-                    }
+                if (input[i][j] < threshold) {
+                    //Log.d("HXTP0712", "small than threshold");
+                    return false;
+                }
                 //}
             }
         }
@@ -1218,21 +1215,21 @@ public class ObjectiveTestController {
 
         int OverThresholdNum = 0;
         int value = 0;
-        for(int i=0;i<input.length;i++) {
+        for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
-                if(j+1 != input[0].length) {
-                    if(mICData.isOncell)
+                if (j + 1 != input[0].length) {
+                    if (mICData.isOncell)
                         value = Math.abs(input[i][j] - other[i][j]);
                     else
                         value = input[i][j] - other[i][j];
-                    if(value > threshold) {
-                        Log.e(TAG,String.format("Now threshold=%d, diff_value=%d", threshold, value));
-                        OverThresholdNum ++;
+                    if (value > threshold) {
+                        Log.e(TAG, String.format("Now threshold=%d, diff_value=%d", threshold, value));
+                        OverThresholdNum++;
                     }
                 }
             }
         }
-        if(OverThresholdNum > 0)
+        if (OverThresholdNum > 0)
             return true;
         else
             return false;
@@ -1245,7 +1242,7 @@ public class ObjectiveTestController {
     }
 
     public void createJitterLayout(RelativeLayout layout, Context context) {
-        if(mJitterModel == null) {
+        if (mJitterModel == null) {
             mJitterModel = new JitterModel();
         }
 
@@ -1269,25 +1266,25 @@ public class ObjectiveTestController {
 
     public void startJitterTest(float[] p) {
         //calculate deviation and write to excel
-        if(!mJitterModel.mResult) {
+        if (!mJitterModel.mResult) {
             return;
         }
 
-        if(mJitterModel.mRecordPoints.size()>0) {
-            float[] last = mJitterModel.mRecordPoints.get(mJitterModel.mRecordPoints.size()-1);
-            float w = last[0]-p[0];
-            float l = last[1]-p[1];
-            double d = Math.sqrt(w*w+l*l);
-            if(d>mJitterModel.mTolerance) {
+        if (mJitterModel.mRecordPoints.size() > 0) {
+            float[] last = mJitterModel.mRecordPoints.get(mJitterModel.mRecordPoints.size() - 1);
+            float w = last[0] - p[0];
+            float l = last[1] - p[1];
+            double d = Math.sqrt(w * w + l * l);
+            if (d > mJitterModel.mTolerance) {
                 mJitterModel.mResult = false;
                 DecimalFormat df = new DecimalFormat("#.00");
-                mJitterModel.mProgressView.mProgress = "NG  " + df.format(p[0])+","+df.format(p[1]);
+                mJitterModel.mProgressView.mProgress = "NG  " + df.format(p[0]) + "," + df.format(p[1]);
                 mJitterModel.mProgressView.isTestPassed = false;
                 mJitterModel.mProgressView.invalidate();
             }
         } else {
             DecimalFormat df = new DecimalFormat("#.00");
-            mJitterModel.mProgressView.mProgress = "detected point " + df.format(p[0])+","+df.format(p[1]);
+            mJitterModel.mProgressView.mProgress = "detected point " + df.format(p[0]) + "," + df.format(p[1]);
             mJitterModel.mProgressView.invalidate();
         }
 
@@ -1295,6 +1292,7 @@ public class ObjectiveTestController {
 
 
     }
+
     public void saveJitterTestToCsv(CsvEditor csvEditor, String item, HimaxApplication.MainHandler mainHandler) {
         mJitterModel.mEndTime = Calendar.getInstance().getTimeInMillis();
         long duration = mJitterModel.mEndTime - mJitterModel.mStartTime;
@@ -1307,12 +1305,12 @@ public class ObjectiveTestController {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FILE_SAVED_RESULT;
         msg.arg1 = OBJECTIVE_TEST_JITTER_TEST;
-        msg.obj = (result1&&result2);
+        msg.obj = (result1 && result2);
         mainHandler.sendMessage(msg);
     }
 
     public void createBoardLayout(RelativeLayout layout, Context context, String item, int type) {
-        if(mBoardModel == null) {
+        if (mBoardModel == null) {
             mBoardModel = new BoardModel();
         }
         mBoardModel.mLayout = layout;
@@ -1333,46 +1331,49 @@ public class ObjectiveTestController {
         mBoardModel.mLayout.addView(trackView);
 
     }
+
     public void startBoardProtectionTest(float[] p, int width, int length) {
         //calculate deviation and write to excel
-        if(!mBoardModel.mResult) {
+        if (!mBoardModel.mResult) {
             return;
         }
         DecimalFormat df = new DecimalFormat("#.00");
 
-        mBoardModel.mProgressView.mProgress = df.format(p[0])+","+df.format(p[1]);
-        if(p[0] > (width-mBoardModel.mSpaceToBoarder) || p[0] < mBoardModel.mSpaceToBoarder) {
+        mBoardModel.mProgressView.mProgress = df.format(p[0]) + "," + df.format(p[1]);
+        if (p[0] > (width - mBoardModel.mSpaceToBoarder) || p[0] < mBoardModel.mSpaceToBoarder) {
             mBoardModel.mResult = false;
             mBoardModel.mRecordPoints.add(p);
-            mBoardModel.mProgressView.mProgress = "NG  " + df.format(p[0])+","+df.format(p[1]);
+            mBoardModel.mProgressView.mProgress = "NG  " + df.format(p[0]) + "," + df.format(p[1]);
             mBoardModel.mProgressView.isTestPassed = false;
         }
-        if(p[1] > (length-mBoardModel.mSpaceToBoarder) || p[1] < mBoardModel.mSpaceToBoarder) {
+        if (p[1] > (length - mBoardModel.mSpaceToBoarder) || p[1] < mBoardModel.mSpaceToBoarder) {
             mBoardModel.mResult = false;
             mBoardModel.mRecordPoints.add(p);
-            mBoardModel.mProgressView.mProgress = "NG  " + df.format(p[0])+","+df.format(p[1]);
+            mBoardModel.mProgressView.mProgress = "NG  " + df.format(p[0]) + "," + df.format(p[1]);
             mBoardModel.mProgressView.isTestPassed = false;
         }
 
         mBoardModel.mProgressView.invalidate();
     }
+
     public void startExtendBoardTest(float[] p, int width, int length) {
         //calculate deviation and write to excel
 
-        if(p[0] > (width-mBoardModel.mSpaceToBoarder) || p[0] < mBoardModel.mSpaceToBoarder) {
+        if (p[0] > (width - mBoardModel.mSpaceToBoarder) || p[0] < mBoardModel.mSpaceToBoarder) {
             mBoardModel.mRecordPoints.add(p);
             DecimalFormat df = new DecimalFormat("#.00");
-            mBoardModel.mProgressView.mProgress = "last record:  " + df.format(p[0])+","+df.format(p[1]);
+            mBoardModel.mProgressView.mProgress = "last record:  " + df.format(p[0]) + "," + df.format(p[1]);
             mBoardModel.mProgressView.invalidate();
         }
-        if(p[1] > (length-mBoardModel.mSpaceToBoarder) || p[1] < mBoardModel.mSpaceToBoarder) {
+        if (p[1] > (length - mBoardModel.mSpaceToBoarder) || p[1] < mBoardModel.mSpaceToBoarder) {
             mBoardModel.mRecordPoints.add(p);
             DecimalFormat df = new DecimalFormat("#.00");
-            mBoardModel.mProgressView.mProgress = "last record:  " + df.format(p[0])+","+df.format(p[1]);
+            mBoardModel.mProgressView.mProgress = "last record:  " + df.format(p[0]) + "," + df.format(p[1]);
             mBoardModel.mProgressView.invalidate();
         }
 
     }
+
     public void saveBoardProtectionDataToCsv(CsvEditor csvEditor, String item, HimaxApplication.MainHandler mainHandler, int uiSource) {
         mBoardModel.mEndTime = Calendar.getInstance().getTimeInMillis();
         long duration = mBoardModel.mEndTime - mBoardModel.mStartTime;
@@ -1385,13 +1386,13 @@ public class ObjectiveTestController {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FILE_SAVED_RESULT;
         msg.arg1 = uiSource;
-        msg.obj = (result1&&result2);
+        msg.obj = (result1 && result2);
         mainHandler.sendMessage(msg);
     }
 
 
     public void createGhostRecordView(RelativeLayout layout, Context context) {
-        if(mGhostRecordModel == null) {
+        if (mGhostRecordModel == null) {
             mGhostRecordModel = new GhostRecordModel();
         }
         mGhostRecordModel.mLayout = layout;
@@ -1417,7 +1418,7 @@ public class ObjectiveTestController {
         //write to excel
         mGhostRecordModel.mRecordPoints.add(p);
         DecimalFormat df = new DecimalFormat("#.00");
-        mGhostRecordModel.mProgressView.mProgress = "NG  " + df.format(p[0])+","+df.format(p[1]);
+        mGhostRecordModel.mProgressView.mProgress = "NG  " + df.format(p[0]) + "," + df.format(p[1]);
         mGhostRecordModel.mProgressView.isTestPassed = false;
         mGhostRecordModel.mProgressView.invalidate();
     }
@@ -1426,7 +1427,7 @@ public class ObjectiveTestController {
         mGhostRecordModel.mEndTime = Calendar.getInstance().getTimeInMillis();
         long duration = mGhostRecordModel.mEndTime - mGhostRecordModel.mStartTime;
         String header = csvEditor.createNewHeader(item,
-                duration, mGhostRecordModel.mStartTime, mGhostRecordModel.mEndTime, (mGhostRecordModel.mRecordPoints.size()>0)?false:true);
+                duration, mGhostRecordModel.mStartTime, mGhostRecordModel.mEndTime, (mGhostRecordModel.mRecordPoints.size() > 0) ? false : true);
         boolean result1 = csvEditor.appendStringToFile(header, mGhostRecordModel.mPathToSave);
         String data = csvEditor.transferRecordToString(mGhostRecordModel.mRecordPoints);
         boolean result2 = csvEditor.appendStringToFile(data, mGhostRecordModel.mPathToSave);
@@ -1434,12 +1435,12 @@ public class ObjectiveTestController {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FILE_SAVED_RESULT;
         msg.arg1 = OBJECTIVE_TEST_GHOST_POINT_RECORD;
-        msg.obj = (result1&&result2);
+        msg.obj = (result1 && result2);
         mainHandler.sendMessage(msg);
     }
 
     public void createPalmTestView(RelativeLayout layout, Context context) {
-        if(mPalmModel == null) {
+        if (mPalmModel == null) {
             mPalmModel = new PalmModel();
         }
         mPalmModel.mLayout = layout;
@@ -1462,11 +1463,11 @@ public class ObjectiveTestController {
     }
 
     public void startPalmTest(float[] p) {
-        if(mPalmModel.mResult) {
+        if (mPalmModel.mResult) {
             mPalmModel.mResult = false;
             mPalmModel.mRecordPoints.add(p);
             DecimalFormat df = new DecimalFormat("#.00");
-            mPalmModel.mProgressView.mProgress =  "NG  " + df.format(p[0])+","+df.format(p[1]);
+            mPalmModel.mProgressView.mProgress = "NG  " + df.format(p[0]) + "," + df.format(p[1]);
             mPalmModel.mProgressView.isTestPassed = false;
             mPalmModel.mProgressView.invalidate();
         }
@@ -1484,12 +1485,12 @@ public class ObjectiveTestController {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FILE_SAVED_RESULT;
         msg.arg1 = OBJECTIVE_TEST_PALM_TEST;
-        msg.obj = (result1&&result2);
+        msg.obj = (result1 && result2);
         mainHandler.sendMessage(msg);
     }
 
     public void createMaxPointCountView(RelativeLayout layout, Context context) {
-        if(mMaxPointCountModel == null) {
+        if (mMaxPointCountModel == null) {
             mMaxPointCountModel = new MaxPointCountModel();
         }
         mMaxPointCountModel.mLayout = layout;
@@ -1512,7 +1513,7 @@ public class ObjectiveTestController {
     }
 
     public void startMaxPointCount(int point_count) {
-        if(point_count > mMaxPointCountModel.mMaxRecord) {
+        if (point_count > mMaxPointCountModel.mMaxRecord) {
             mMaxPointCountModel.mMaxRecord = point_count;
         }
         mMaxPointCountModel.mProgressView.mProgress = "Max count(" + mMaxPointCountModel.mMaxRecord + ")";
@@ -1530,7 +1531,7 @@ public class ObjectiveTestController {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FILE_SAVED_RESULT;
         msg.arg1 = OBJECTIVE_TEST_MAX_POINT_RECORD;
-        msg.obj = (result1&&result2);
+        msg.obj = (result1 && result2);
         mainHandler.sendMessage(msg);
     }
 
@@ -1540,14 +1541,14 @@ public class ObjectiveTestController {
     }
 
     public void updateFileSavedResult(boolean result, int type, Context context) {
-        switch(type) {
+        switch (type) {
             case ObjectiveListId.OBJECTIVE_TEST_SNR: {
                 break;
             }
             case ObjectiveListId.OBJECTIVE_TEST_PATTERN_TRACK: {
             }
             case OBJECTIVE_TEST_JITTER_TEST: {
-                if(result) {
+                if (result) {
                     mJitterModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
                     mJitterModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
@@ -1557,7 +1558,7 @@ public class ObjectiveTestController {
                 break;
             }
             case OBJECTIVE_TEST_MAX_POINT_RECORD: {
-                if(result) {
+                if (result) {
                     mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
                     mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
@@ -1567,7 +1568,7 @@ public class ObjectiveTestController {
                 break;
             }
             case OBJECTIVE_TEST_GHOST_POINT_RECORD: {
-                if(result) {
+                if (result) {
                     mGhostRecordModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
                     mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
@@ -1576,16 +1577,16 @@ public class ObjectiveTestController {
                 break;
             }
             case OBJECTIVE_TEST_PALM_TEST: {
-                if(result) {
+                if (result) {
                     mPalmModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
-                mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
+                    mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
                 }
                 mPalmModel.mProgressView.invalidate();
                 break;
             }
             case OBJECTIVE_TEST_BORAD_PROTECTION: {
-                if(result) {
+                if (result) {
                     mBoardModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
                     mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
@@ -1594,7 +1595,7 @@ public class ObjectiveTestController {
                 break;
             }
             case OBJECTIVE_TEST_EXTEND_BORARD: {
-                if(result) {
+                if (result) {
                     mBoardModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_msg);
                 } else {
                     mMaxPointCountModel.mProgressView.mMessage = context.getResources().getString(R.string.objective_csv_saved_fail);
@@ -1606,11 +1607,11 @@ public class ObjectiveTestController {
 
 
     public void createPatternView(RelativeLayout layout, Context context, int pattern, int numOfLine, boolean isNeedDetectFastLine) {
-        if(mPatternModel == null) {
+        if (mPatternModel == null) {
             mPatternModel = new PatternModel();
         }
 
-        if(mPatternModel.mHorizontalLineNum > 0 && mPatternModel.mVerticalLineNum > 0 && pattern == PATTERN_CUSTOMER_SIX) {
+        if (mPatternModel.mHorizontalLineNum > 0 && mPatternModel.mVerticalLineNum > 0 && pattern == PATTERN_CUSTOMER_SIX) {
             numOfLine = 2;
         }
 
@@ -1632,7 +1633,7 @@ public class ObjectiveTestController {
 
     public void recordEvent(MotionEvent event) {
         PatternTrackResultView view = (PatternTrackResultView) mPatternModel.mLayout.findViewById(mPatternModel.mTrackViewId);
-        if(view != null) {
+        if (view != null) {
             view.recordEvent(event);
         }
 
@@ -1642,7 +1643,7 @@ public class ObjectiveTestController {
     public void bindPSensorView(TextView status, TextView brightness, RelativeLayout layout, EditText vibrator, TextView blockNum,
                                 EditText sensingThreshold, EditText sensingUpperThreshold, EditText proximityDebug, EditText proximityValue,
                                 EditText proximityUpdate, Button resetButton) {
-        if(mPSensorTestModel == null) {
+        if (mPSensorTestModel == null) {
             mPSensorTestModel = new PSensorTestModel();
         }
         mPSensorTestModel.mTV_Status = status;
@@ -1652,9 +1653,9 @@ public class ObjectiveTestController {
         mPSensorTestModel.mED_Vibrator = vibrator;
         mPSensorTestModel.mED_SensingThreshold = sensingThreshold;
         mPSensorTestModel.mED_SensingUpperThreshold = sensingUpperThreshold;
-        mPSensorTestModel.mED_Vibrator.setText(mPSensorTestModel.mThrsholdVib+"");
-        mPSensorTestModel.mED_SensingThreshold.setText(mPSensorTestModel.mMIN_SENSING_VALUE+"");
-        mPSensorTestModel.mED_SensingUpperThreshold.setText(mPSensorTestModel.mMAX_SENSING_VALUE+"");
+        mPSensorTestModel.mED_Vibrator.setText(mPSensorTestModel.mThrsholdVib + "");
+        mPSensorTestModel.mED_SensingThreshold.setText(mPSensorTestModel.mMIN_SENSING_VALUE + "");
+        mPSensorTestModel.mED_SensingUpperThreshold.setText(mPSensorTestModel.mMAX_SENSING_VALUE + "");
         mPSensorTestModel.mEdProxmiityDebug = proximityDebug;
         mPSensorTestModel.mEdProximityValue = proximityValue;
         mPSensorTestModel.mEdProximityUpdate = proximityUpdate;
@@ -1680,12 +1681,12 @@ public class ObjectiveTestController {
         }
 
         long value_ago = 0;
-        while(!mPSensorTestModel.isTerminated) {
+        while (!mPSensorTestModel.isTerminated) {
             try {
                 Thread.sleep(50);
                 //cat node to calculate how bright the node show.
                 long value = dataSource.readRegister(mPSensorTestModel.mEdProximityValue.getText().toString());
-                if(value == 0)
+                if (value == 0)
                     value = value_ago;
                 value_ago = value;
 
@@ -1713,26 +1714,26 @@ public class ObjectiveTestController {
     }
 
     public void updatePSensorInfo() {
-        if(mPSensorTestModel.mTV_Status == null) {
+        if (mPSensorTestModel.mTV_Status == null) {
             return;
         }
 
         mPSensorTestModel.mTV_Status.setText("SensingValue: " + mPSensorTestModel.mSensingValue);
-        mPSensorTestModel.mTV_Brightness.setText("Brightness: " + mPSensorTestModel.mBrightness+"%");
+        mPSensorTestModel.mTV_Brightness.setText("Brightness: " + mPSensorTestModel.mBrightness + "%");
         mPSensorTestModel.mTV_BlockNum.setText("Block Num: " + mPSensorTestModel.mBlockNum);
 
         int color = 0;
-        if(mPSensorTestModel.mBrightness > 95) {
+        if (mPSensorTestModel.mBrightness > 95) {
             color = 255;
         }
-        if(mPSensorTestModel.mBrightness <= 95 && mPSensorTestModel.mBrightness > 50) {
-            color = 100*mPSensorTestModel.mBrightness/100;
+        if (mPSensorTestModel.mBrightness <= 95 && mPSensorTestModel.mBrightness > 50) {
+            color = 100 * mPSensorTestModel.mBrightness / 100;
         }
-        if(mPSensorTestModel.mBrightness < 50) {
-            color = 50*mPSensorTestModel.mBrightness/100;
+        if (mPSensorTestModel.mBrightness < 50) {
+            color = 50 * mPSensorTestModel.mBrightness / 100;
         }
         String hex = addZeroForNum(Integer.toHexString(color), 2);
-        String hexString = "#"+hex+hex+hex;
+        String hexString = "#" + hex + hex + hex;
 
         mPSensorTestModel.mLayout.setBackgroundColor(Color.parseColor(hexString));
         try {
@@ -1743,7 +1744,7 @@ public class ObjectiveTestController {
 
         }
 
-        if(mPSensorTestModel.mBrightness < mPSensorTestModel.mThrsholdVib) {
+        if (mPSensorTestModel.mBrightness < mPSensorTestModel.mThrsholdVib) {
             mVibrator.vibrate(50);
         }
 
@@ -1760,11 +1761,11 @@ public class ObjectiveTestController {
 //            mICData.reInitByDiffIC(Long.valueOf(mICData.val_icid));
 //        }
 
-        if(mDataMonitorModel.mDiagOptionsKey.size() <= 0) {
+        if (mDataMonitorModel.mDiagOptionsKey.size() <= 0) {
             mDataMonitorModel.mDiagOptionsKey.clear();
             boolean exist =
                     getMonitorAttrFromSP(mDataMonitorModel.mActivityContext, "HIMAX", himax_config.sMonitorDiagOptionsKey, mDataMonitorModel.mDiagOptionsKey);
-            if(!exist) {
+            if (!exist) {
                 initSettingPageSharedPreference();
                 setupSettingsData(mainHandler, dataSource, true);
                 return;
@@ -1773,7 +1774,7 @@ public class ObjectiveTestController {
         }
 
         //get Transform data
-        if(mDataMonitorModel.mTransformOptionsKey.size() <= 0) {
+        if (mDataMonitorModel.mTransformOptionsKey.size() <= 0) {
             getMonitorAttrFromSP(mDataMonitorModel.mActivityContext, "HIMAX", himax_config.sMonitorTransformOptionsKey, mDataMonitorModel.mTransformOptionsKey);
             getMonitorAttrFromSP(mDataMonitorModel.mActivityContext, "HIMAX", himax_config.sMonitorTransformOptionsValue, mDataMonitorModel.mTransformOptionsValue);
         }
@@ -1784,11 +1785,11 @@ public class ObjectiveTestController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(mDataMonitorModel.mMaxDCValueForBP <= 0) {
+        if (mDataMonitorModel.mMaxDCValueForBP <= 0) {
             mDataMonitorModel.mMaxDCValueForBP = 1;
         }
 
-        if(isFirstInit) {
+        if (isFirstInit) {
             try {
                 mDataMonitorModel.mOSR_CC = dataSource.isOSRCCOpend();
             } catch (Exception e) {
@@ -1814,7 +1815,7 @@ public class ObjectiveTestController {
     }
 
     private void createAllMonitorRadioButtons() {
-        for(int i=0; i<mDataMonitorModel.mDiagOptionsKey.size(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mDiagOptionsKey.size(); i++) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
             PresetValueButton p = new PresetValueButton(mDataMonitorModel.mActivityContext, null, R.style.PresetLayoutButton);
             p.setId(i);
@@ -1823,16 +1824,16 @@ public class ObjectiveTestController {
             if (i == 0) {
                 p.setUnit("");
                 p.setChecked(true);
-            } else if(i == (mDataMonitorModel.mDiagOptionsKey.size() - 1)) {
+            } else if (i == (mDataMonitorModel.mDiagOptionsKey.size() - 1)) {
                 p.setUnit("");
             } else {
-                p.setUnit("diag"+mDataMonitorModel.mDiagOptionsValue.get(i));
+                p.setUnit("diag" + mDataMonitorModel.mDiagOptionsValue.get(i));
             }
             mDataMonitorModel.mRawDataRadios.add(p);
         }
 
-        for(int i=0; i<mDataMonitorModel.mTransformOptionsValue.size(); i++) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f );
+        for (int i = 0; i < mDataMonitorModel.mTransformOptionsValue.size(); i++) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
             PresetValueButton p = new PresetValueButton(mDataMonitorModel.mActivityContext, null, R.style.PresetLayoutButton);
             p.setLayoutParams(params);
             p.setId(i);
@@ -1851,7 +1852,7 @@ public class ObjectiveTestController {
                 p.setId(i);
                 p.setValue(key[i]);
                 p.setUnit(value[i]);
-                if(i==0) {
+                if (i == 0) {
                     p.setChecked(true);
                 }
                 mDataMonitorModel.mDataKeepRadios.add(p);
@@ -1868,7 +1869,7 @@ public class ObjectiveTestController {
                 p.setId(i);
                 p.setValue(key[i]);
                 p.setUnit(value[i]);
-                if(i==0) {
+                if (i == 0) {
                     p.setChecked(true);
                 }
                 mDataMonitorModel.mBackgroundRadios.add(p);
@@ -1885,7 +1886,7 @@ public class ObjectiveTestController {
                 p.setId(i);
                 p.setValue(key[i]);
                 p.setUnit(value[i]);
-                if(i==0) {
+                if (i == 0) {
                     p.setChecked(true);
                 }
                 mDataMonitorModel.mColorOptionRadios.add(p);
@@ -1907,13 +1908,13 @@ public class ObjectiveTestController {
         setupAreaInfoSwitch();
         setupOSRCCSwitch();
         setupCheckBP();
-        if(mDataMonitorModel.mRecordSwitchValue) {
+        if (mDataMonitorModel.mRecordSwitchValue) {
             disableAllSettings();
         }
     }
 
     private void setupDiagRadio(final HimaxApplication.WorkerHandler mWorkerHandler) {
-        for(PresetValueButton b:mDataMonitorModel.mRawDataRadios) {
+        for (PresetValueButton b : mDataMonitorModel.mRawDataRadios) {
             mDataMonitorModel.mRawDataGroup.addView(b);
         }
         mDataMonitorModel.mRawDataGroup.check(mDataMonitorModel.mDiagOption);
@@ -1922,9 +1923,9 @@ public class ObjectiveTestController {
             public void onCheckedChanged(View radioGroup, View radioButton, boolean isChecked, int checkedId) {
                 int originOption = mDataMonitorModel.mDiagOption;
 
-                if(checkedId == mDataMonitorModel.mDiagOptionsKey.size()-1) {
+                if (checkedId == mDataMonitorModel.mDiagOptionsKey.size() - 1) {
                     mDataMonitorModel.mDiagOption = 0;
-                     final ScrollView sl = createEidtItemDiagView(mDataMonitorModel.mActivityContext, mDataMonitorModel.mLayout.getHeight(),
+                    final ScrollView sl = createEidtItemDiagView(mDataMonitorModel.mActivityContext, mDataMonitorModel.mLayout.getHeight(),
                             mDataMonitorModel.mLayout.getWidth(), mDataMonitorModel.mDiagOptionsKey, mDataMonitorModel.mDiagOptionsValue);
                     AlertDialog.Builder dialog = new AlertDialog.Builder(mDataMonitorModel.mActivityContext);
                     dialog.setTitle("Edit driver node [diag] group.");
@@ -1937,10 +1938,10 @@ public class ObjectiveTestController {
                             int num = (int) sl.getTag();
                             StringBuilder sb_key = new StringBuilder();
                             StringBuilder sb_value = new StringBuilder();
-                            for(int i=0; i<num; i++) {
-                                EditText et_key = (EditText) sl.findViewById(1000+i);
-                                EditText et_value = (EditText) sl.findViewById(2000+i);
-                                if(!"".equals(et_key.getText().toString().trim()) && !"".equals(et_value.getText().toString().trim())) {
+                            for (int i = 0; i < num; i++) {
+                                EditText et_key = (EditText) sl.findViewById(1000 + i);
+                                EditText et_value = (EditText) sl.findViewById(2000 + i);
+                                if (!"".equals(et_key.getText().toString().trim()) && !"".equals(et_value.getText().toString().trim())) {
                                     sb_key.append(et_key.getText());
                                     sb_key.append(",");
                                     sb_value.append(et_value.getText());
@@ -1971,8 +1972,8 @@ public class ObjectiveTestController {
 
                 try {
                     mDataMonitorModel.mDiagOption = Integer.valueOf(mDataMonitorModel.mDiagOptionsValue.get(checkedId));
-                    if(checkedId != 0) {
-                        if(originOption == 0) {
+                    if (checkedId != 0) {
+                        if (originOption == 0) {
                             // close option to any diag option.
                             mWorkerHandler.sendEmptyMessage(MSG_DATA_MONITOR_START);
                         } else {
@@ -1988,8 +1989,9 @@ public class ObjectiveTestController {
             }
         });
     }
+
     private void setupTransformType(final HimaxApplication.WorkerHandler mWorkerHandler) {
-        for(PresetValueButton b:mDataMonitorModel.mTransformRadios) {
+        for (PresetValueButton b : mDataMonitorModel.mTransformRadios) {
             mDataMonitorModel.mTransformGroup.addView(b);
         }
         mDataMonitorModel.mDiagOption = 0;
@@ -2061,7 +2063,7 @@ public class ObjectiveTestController {
     }
 
     private void setupDataKeep() {
-        for(PresetValueButton b:mDataMonitorModel.mDataKeepRadios) {
+        for (PresetValueButton b : mDataMonitorModel.mDataKeepRadios) {
             mDataMonitorModel.mDataKeepGroup.addView(b);
         }
         mDataMonitorModel.mDataKeepGroup.check(mDataMonitorModel.mDataKeepOption);
@@ -2075,7 +2077,7 @@ public class ObjectiveTestController {
     }
 
     private void setupColorOption() {
-        for(PresetValueButton b:mDataMonitorModel.mColorOptionRadios) {
+        for (PresetValueButton b : mDataMonitorModel.mColorOptionRadios) {
             mDataMonitorModel.mColorOptionGroup.addView(b);
         }
         mDataMonitorModel.mColorOptionGroup.check(mDataMonitorModel.mColorType);
@@ -2091,14 +2093,16 @@ public class ObjectiveTestController {
         mDataMonitorModel.mColorValueBar.setMax(mDataMonitorModel.mColorBarMax);
         mDataMonitorModel.mColorValueBar.setProgress(mDataMonitorModel.mColorDataMax);
         mDataMonitorModel.mColorValueBar.incrementProgressBy(1);
-        mDataMonitorModel.mColorValueEdit.setText(mDataMonitorModel.mColorBarMax+"");
+        mDataMonitorModel.mColorValueEdit.setText(mDataMonitorModel.mColorBarMax + "");
         mDataMonitorModel.mColorValueEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
@@ -2116,31 +2120,40 @@ public class ObjectiveTestController {
 //                mDataMonitorModel.mColorValueEdit.setText((seekBar.getProgress()+2)+"");
                 mDataMonitorModel.mColorDataMax = seekBar.getProgress();
             }
+
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
     }
+
     private void setupFontValueBar() {
-        mDataMonitorModel.mFontValueBar.setProgress(mDataMonitorModel.mFontSize-3);
+        mDataMonitorModel.mFontValueBar.setProgress(mDataMonitorModel.mFontSize - 3);
         mDataMonitorModel.mFontValueBar.incrementProgressBy(1);
-        mDataMonitorModel.mFontValueEdit.setText((mDataMonitorModel.mFontSize)+"");
+        mDataMonitorModel.mFontValueEdit.setText((mDataMonitorModel.mFontSize) + "");
         mDataMonitorModel.mFontValueBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mDataMonitorModel.mFontValueEdit.setText((seekBar.getProgress()+2)+"");
-                mDataMonitorModel.mFontSize = seekBar.getProgress()+2;
+                mDataMonitorModel.mFontValueEdit.setText((seekBar.getProgress() + 2) + "");
+                mDataMonitorModel.mFontSize = seekBar.getProgress() + 2;
             }
+
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
     }
 
     private void setupBackgroundRadio(final HimaxApplication.WorkerHandler workerHandler) {
-        for(PresetValueButton b:mDataMonitorModel.mBackgroundRadios) {
+        for (PresetValueButton b : mDataMonitorModel.mBackgroundRadios) {
             mDataMonitorModel.mBackgroundGroup.addView(b);
         }
         mDataMonitorModel.mBackgroundGroup.check(mDataMonitorModel.mBackgroundOption);
@@ -2152,11 +2165,12 @@ public class ObjectiveTestController {
                 switch (checkedId) {
                     case DataMonitorConfig.SCREEN_MODE_RAW_STRING: {
                         mDataMonitorModel.mLayout.resumeScaleAndPosition();
-                        if(!mDataMonitorModel.mRecordSwitchValue) {
+                        if (!mDataMonitorModel.mRecordSwitchValue) {
                             enableAllSettings();
                         }
                         mDataMonitorModel.clearBackgroundView();
-                    } break;
+                    }
+                    break;
                     case DataMonitorConfig.SCREEN_MODE_READ_LOG: {
                         disableAllSettings();
                         mDataMonitorModel.mDiagOption = 0;
@@ -2171,9 +2185,10 @@ public class ObjectiveTestController {
                         mDataMonitorModel.mLayout.setTag(web);
                         mDataMonitorModel.mLayout.addView(web);
                         workerHandler.sendEmptyMessage(MSG_DATA_MONITOR_FIND_CSV_LOG);
-                    } break;
+                    }
+                    break;
                     default:
-                        if(!mDataMonitorModel.mRecordSwitchValue) {
+                        if (!mDataMonitorModel.mRecordSwitchValue) {
                             enableAllSettings();
                         }
                         mDataMonitorModel.clearBackgroundView();
@@ -2195,17 +2210,17 @@ public class ObjectiveTestController {
 
                 TextView tv = (TextView) mDataMonitorModel.mLayout.getTag();
 
-               if(b) {
-                  Log.d(TAG, "Enable Black");
-                   if(tv != null)
-                    tv.setTextColor(Color.WHITE);
-                   mDataMonitorModel.mLayout.setBackgroundColor(Color.BLACK);
+                if (b) {
+                    Log.d(TAG, "Enable Black");
+                    if (tv != null)
+                        tv.setTextColor(Color.WHITE);
+                    mDataMonitorModel.mLayout.setBackgroundColor(Color.BLACK);
                 } else {
-                   Log.d(TAG, "disable Black");
-                   if(tv != null)
-                    tv.setTextColor(Color.BLACK);
-                   mDataMonitorModel.mLayout.setBackgroundColor(Color.WHITE);
-               }
+                    Log.d(TAG, "disable Black");
+                    if (tv != null)
+                        tv.setTextColor(Color.BLACK);
+                    mDataMonitorModel.mLayout.setBackgroundColor(Color.WHITE);
+                }
             }
         });
     }
@@ -2215,13 +2230,13 @@ public class ObjectiveTestController {
         mDataMonitorModel.mRecordSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
-                if(b) {
+                if (b) {
                     mDataMonitorModel.mDiagOption = 0;
                     mDataMonitorModel.mRawDataGroup.check(0);
                     createDataRecordSettings(b);
                     disableAllSettings();
                 } else {
-                    if(mDataMonitorModel.mRecordSwitchValue) {
+                    if (mDataMonitorModel.mRecordSwitchValue) {
                         mDataMonitorModel.mRecordSwitchValue = b;
                         mDataMonitorModel.mNotificationManager.cancel(mDataMonitorModel.NOTIFY_ID);
                         enableAllSettings();
@@ -2237,16 +2252,17 @@ public class ObjectiveTestController {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
                 mDataMonitorModel.mLayout.isEnableDrag = b;
-                if(!b) {
+                if (!b) {
                     SharedPreferences.Editor sp = mDataMonitorModel.mActivityContext.getSharedPreferences("HIAPK", 0).edit();
                     sp.putFloat("Monitor_Scale", mDataMonitorModel.mLayout.mScale);
                     sp.putString("Monitor_Position", mDataMonitorModel.mLayout.mLeftP + "," + mDataMonitorModel.mLayout.mTopP +
-                            "," + mDataMonitorModel.mLayout.mRightP + ","+ mDataMonitorModel.mLayout.mBottomP);
+                            "," + mDataMonitorModel.mLayout.mRightP + "," + mDataMonitorModel.mLayout.mBottomP);
                     sp.commit();
                 }
             }
         });
     }
+
     private void setupAreaInfoSwitch() {
         mDataMonitorModel.mAreaInfoSwitch.setChecked(mDataMonitorModel.isShowInfo);
         mDataMonitorModel.mAreaInfoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -2264,7 +2280,7 @@ public class ObjectiveTestController {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("Steve", "boolean : " + b);
-                if(mDataMonitorModel.mOSR_CC != b) {
+                if (mDataMonitorModel.mOSR_CC != b) {
                     mDataMonitorModel.mDiagOption = 0;
                     mDataMonitorModel.mOSR_CC = b;
                     mDataMonitorModel.isNeedReDrawBackgound = true;
@@ -2292,14 +2308,14 @@ public class ObjectiveTestController {
         mDataMonitorModel.mCheckBP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
+                if (b) {
                     mDataMonitorModel.mColorValueBar.setMax(100);
                     mDataMonitorModel.mColorValueBar.setProgress(100);
                     mDataMonitorModel.mColorValueEdit.setText("100");
                 } else {
                     mDataMonitorModel.mColorValueBar.setMax(mDataMonitorModel.mColorBarMax);
                     mDataMonitorModel.mColorValueBar.setProgress(mDataMonitorModel.mColorDataMax);
-                    mDataMonitorModel.mColorValueEdit.setText(mDataMonitorModel.mColorBarMax+"");
+                    mDataMonitorModel.mColorValueEdit.setText(mDataMonitorModel.mColorBarMax + "");
                 }
 
             }
@@ -2316,7 +2332,7 @@ public class ObjectiveTestController {
         checkTimer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
+                if (b) {
                     minPicker.setEnabled(true);
                     secPicker.setEnabled(true);
                 } else {
@@ -2331,15 +2347,15 @@ public class ObjectiveTestController {
         secPicker.setMinValue(1);
         minPicker.setEnabled(false);
         secPicker.setEnabled(false);
-        for(int i=1; i<mDataMonitorModel.mDiagOptionsKey.size()-1; i++) {
+        for (int i = 1; i < mDataMonitorModel.mDiagOptionsKey.size() - 1; i++) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
             PresetValueButton p = new PresetValueButton(mDataMonitorModel.mActivityContext, null, R.style.PresetLayoutButton);
             p.setId(i);
             p.setLayoutParams(params);
             p.setValue(mDataMonitorModel.mDiagOptionsKey.get(i));
-            p.setUnit("diag"+mDataMonitorModel.mDiagOptionsValue.get(i));
+            p.setUnit("diag" + mDataMonitorModel.mDiagOptionsValue.get(i));
             diagRadio.addView(p);
-            if(i==1) {
+            if (i == 1) {
                 diagRadio.check(i);
             }
         }
@@ -2352,7 +2368,7 @@ public class ObjectiveTestController {
                     diag = Integer.valueOf(value);
                 } catch (Exception e) {
                 }
-                if(diag >= 10) {
+                if (diag >= 10) {
                     checkTimer.setChecked(true);
                     checkTimer.setEnabled(false);
                 } else {
@@ -2371,7 +2387,7 @@ public class ObjectiveTestController {
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               dialog.dismiss();
+                dialog.dismiss();
                 enableAllSettings();
                 mDataMonitorModel.mRecordSwitch.setChecked(false);
             }
@@ -2385,7 +2401,7 @@ public class ObjectiveTestController {
                 int sec = secPicker.getValue();
                 Log.d(TAG, String.format("min=%d, sec=%d, diag=%d", min, sec, Integer.valueOf(mDataMonitorModel.mDiagOptionsValue.get(checkId))));
                 mDataMonitorModel.mRecordSwitchValue = switchRecord;
-                if(!enableTimer) {
+                if (!enableTimer) {
                     min = 0;
                     sec = 0;
                 }
@@ -2410,9 +2426,9 @@ public class ObjectiveTestController {
     public boolean getMonitorAttrFromSP(Context context, String path, String name, List<String> values) {
         SharedPreferences sp = context.getSharedPreferences(path, Context.MODE_PRIVATE);
         String temp = sp.getString(name, null);
-        if(temp != null) {
+        if (temp != null) {
             String[] parse = temp.split(",");
-            for(int i=0; i<parse.length; i++) {
+            for (int i = 0; i < parse.length; i++) {
                 values.add(parse[i]);
             }
         } else {
@@ -2423,7 +2439,7 @@ public class ObjectiveTestController {
 
 
     public void bindDataMonitorLayout(BaseLayout dataLayout, Context context) {
-        if(mDataMonitorModel == null) {
+        if (mDataMonitorModel == null) {
             mDataMonitorModel = new DataMonitorModel(dataLayout, context);
         } else {
             mDataMonitorModel.mLayout = dataLayout;
@@ -2448,12 +2464,12 @@ public class ObjectiveTestController {
         int drop = DROP_FRAME_NUM;
         boolean diagResult;
 
-        while(mDataMonitorModel.mDiagOption != 0) {
+        while (mDataMonitorModel.mDiagOption != 0) {
 
             //catch frame
             int[][] frame = new int[mDataMonitorModel.mRow][mDataMonitorModel.mCol];
             int ll = (mDataMonitorModel.mRow > mDataMonitorModel.mCol) ? mDataMonitorModel.mCol : mDataMonitorModel.mRow;
-            if(mDataMonitorModel.mAreaInfo == null) {
+            if (mDataMonitorModel.mAreaInfo == null) {
                 mDataMonitorModel.mAreaInfo = new int[2][ll];
             }
 
@@ -2466,54 +2482,59 @@ public class ObjectiveTestController {
 //                return;
 //            }
 
-            if(mDataMonitorModel.isNeedReEcho) {
+            if (mDataMonitorModel.isNeedReEcho) {
                 mDataMonitorModel.isNeedReEcho = false;
                 isFirstTime = true;
                 drop = DROP_FRAME_NUM;
             }
 
-            if(drop==0) {
+            if (drop == 0) {
                 if (isFirstTime) {
                     isFirstTime = false;
                     mDataMonitorModel.mFrame = new int[mDataMonitorModel.mRow][mDataMonitorModel.mCol];
                     mDataMonitorModel.mPreviousFrame = new int[mDataMonitorModel.mRow][mDataMonitorModel.mCol];
-                    if(mDataMonitorModel.mDataKeepOption != DataMonitorConfig.DATA_KEEP_DIFF_MAX) {
+                    if (mDataMonitorModel.mDataKeepOption != DataMonitorConfig.DATA_KEEP_DIFF_MAX) {
                         copyDataFromAtoB(frame, mDataMonitorModel.mFrame, mDataMonitorModel.mCheckBP.isChecked(), mDataMonitorModel.mMaxDCValueForBP);
                     }
                     copyDataFromAtoB(frame, mDataMonitorModel.mPreviousFrame, mDataMonitorModel.mCheckBP.isChecked(), mDataMonitorModel.mMaxDCValueForBP);
                 } else {
                     for (int i = 0; i < frame.length; i++) {
                         for (int j = 0; j < frame[0].length; j++) {
-                            if(mDataMonitorModel.mFrame != null) {
-                                if(mDataMonitorModel.mCheckBP.isChecked()) {
-                                    frame[i][j] = (int)((long)frame[i][j]*100/mDataMonitorModel.mMaxDCValueForBP);
+                            if (mDataMonitorModel.mFrame != null) {
+                                if (mDataMonitorModel.mCheckBP.isChecked()) {
+                                    frame[i][j] = (int) ((long) frame[i][j] * 100 / mDataMonitorModel.mMaxDCValueForBP);
                                 }
                                 switch (mDataMonitorModel.mDataKeepOption) {
                                     case DataMonitorConfig.DATA_KEEP_NORMAL: {
                                         mDataMonitorModel.mFrame[i][j] = frame[i][j];
-                                    } break;
+                                    }
+                                    break;
                                     case DataMonitorConfig.DATA_KEEP_MAX: {
                                         if (frame[i][j] > mDataMonitorModel.mFrame[i][j]) {
                                             mDataMonitorModel.mFrame[i][j] = frame[i][j];
                                         }
-                                    } break;
+                                    }
+                                    break;
                                     case DataMonitorConfig.DATA_KEEP_MIN: {
                                         if (frame[i][j] < mDataMonitorModel.mFrame[i][j]) {
                                             mDataMonitorModel.mFrame[i][j] = frame[i][j];
                                         }
-                                    } break;
+                                    }
+                                    break;
                                     case DataMonitorConfig.DATA_KEEP_DIFF: {
                                         int diff = frame[i][j] - mDataMonitorModel.mPreviousFrame[i][j];
                                         mDataMonitorModel.mFrame[i][j] = Math.abs(diff);
                                         mDataMonitorModel.mPreviousFrame[i][j] = frame[i][j];
-                                    } break;
+                                    }
+                                    break;
                                     case DataMonitorConfig.DATA_KEEP_DIFF_MAX: {
-                                            int diff = Math.abs(frame[i][j] - mDataMonitorModel.mPreviousFrame[i][j]);
-                                            if (diff > mDataMonitorModel.mFrame[i][j]) {
-                                                mDataMonitorModel.mFrame[i][j] = diff;
-                                            }
+                                        int diff = Math.abs(frame[i][j] - mDataMonitorModel.mPreviousFrame[i][j]);
+                                        if (diff > mDataMonitorModel.mFrame[i][j]) {
+                                            mDataMonitorModel.mFrame[i][j] = diff;
+                                        }
                                         mDataMonitorModel.mPreviousFrame[i][j] = frame[i][j];
-                                    } break;
+                                    }
+                                    break;
                                     default:
                                         break;
                                 }
@@ -2534,10 +2555,10 @@ public class ObjectiveTestController {
     }
 
     private void copyDataFromAtoB(int[][] source, int[][] target, boolean isBP, long max) {
-        for(int i=0; i<source.length; i++) {
-            for(int j=0; j<source[0].length; j++) {
-                if(isBP) {
-                    source[i][j] = (int)((long)source[i][j]*100/max);
+        for (int i = 0; i < source.length; i++) {
+            for (int j = 0; j < source[0].length; j++) {
+                if (isBP) {
+                    source[i][j] = (int) ((long) source[i][j] * 100 / max);
                 }
                 target[i][j] = source[i][j];
             }
@@ -2554,14 +2575,14 @@ public class ObjectiveTestController {
 
         switch (mDataMonitorModel.mBackgroundOption) {
             case DataMonitorConfig.SCREEN_MODE_PARSED_DATA: {
-                if(mDataMonitorModel.isNeedReDrawBackgound) {
+                if (mDataMonitorModel.isNeedReDrawBackgound) {
                     mDataMonitorModel.isNeedReDrawBackgound = false;
                     mDataMonitorModel.clearBackgroundView();
                     Log.d("TT", "1");
                 }
 
-                if(mDataMonitorModel.mDiagOption != 0) {
-                    if(mDataMonitorModel.mRawDataLayout == null) {
+                if (mDataMonitorModel.mDiagOption != 0) {
+                    if (mDataMonitorModel.mRawDataLayout == null) {
 
                         ViewGroup.LayoutParams l = mDataMonitorModel.mLayout.getLayoutParams();
                         l.width = (int) (mDataMonitorModel.mLayout.getWidth());
@@ -2581,7 +2602,7 @@ public class ObjectiveTestController {
 
                         SharedPreferences sp = mDataMonitorModel.mActivityContext.getSharedPreferences("HIAPK", 0);
                         String s = sp.getString("Monitor_Position", "");
-                        if(s.length()>0) {
+                        if (s.length() > 0) {
                             String[] s_i = s.split(",");
                             try {
                                 int ll = Integer.valueOf(s_i[0]);
@@ -2589,19 +2610,19 @@ public class ObjectiveTestController {
                                 int rr = Integer.valueOf(s_i[2]);
                                 int bb = Integer.valueOf(s_i[3]);
                                 mDataMonitorModel.mLayout.setPreviousScaleAndPosition(sp.getFloat("Monitor_Scale", 1), ll, tt, rr, bb);
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 e.fillInStackTrace();
                             }
                         }
                     }
 
-                    if(!mDataMonitorModel.mLayout.isEnableDrag) {
+                    if (!mDataMonitorModel.mLayout.isEnableDrag) {
                         mDataMonitorModel.mRawDataLayout.updateText(mDataMonitorModel.mFrame, mDataMonitorModel.mColorType,
                                 mDataMonitorModel.mColorDataMax, mDataMonitorModel.mFontSize,
                                 mDataMonitorModel.mCheckBP.isChecked(), mDataMonitorModel.mAreaInfo, mDataMonitorModel.isShowInfo);
                         mDataMonitorModel.mLayout.resumeOriginPosition();
                     }
-                    if(mDataMonitorModel.mLayout.isEnableBlack) {
+                    if (mDataMonitorModel.mLayout.isEnableBlack) {
                         mDataMonitorModel.mLayout.setBackgroundColor(Color.BLACK);
 
                     } else {
@@ -2609,9 +2630,10 @@ public class ObjectiveTestController {
                     }
                 }
 
-            } break;
+            }
+            break;
             case DataMonitorConfig.SCREEN_MODE_RAW_STRING: {
-                if(mDataMonitorModel.isNeedReDrawBackgound) {
+                if (mDataMonitorModel.isNeedReDrawBackgound) {
                     mDataMonitorModel.isNeedReDrawBackgound = false;
                     mDataMonitorModel.clearBackgroundView();
                     TextView tv = new TextView(mDataMonitorModel.mActivityContext);
@@ -2632,7 +2654,7 @@ public class ObjectiveTestController {
 
                     SharedPreferences sp = mDataMonitorModel.mActivityContext.getSharedPreferences("HIAPK", 0);
                     String s = sp.getString("Monitor_Position", "");
-                    if(s.length()>0) {
+                    if (s.length() > 0) {
                         String[] s_i = s.split(",");
                         try {
                             int ll = Integer.valueOf(s_i[0]);
@@ -2640,13 +2662,13 @@ public class ObjectiveTestController {
                             int rr = Integer.valueOf(s_i[2]);
                             int bb = Integer.valueOf(s_i[3]);
                             mDataMonitorModel.mLayout.setPreviousScaleAndPosition(sp.getFloat("Monitor_Scale", 1), ll, tt, rr, bb);
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             e.fillInStackTrace();
                         }
                     }
 
 
-                    if(mDataMonitorModel.mLayout.isEnableBlack) {
+                    if (mDataMonitorModel.mLayout.isEnableBlack) {
                         tv.setTextColor(Color.WHITE);
                         mDataMonitorModel.mLayout.setBackgroundColor(Color.BLACK);
 
@@ -2656,22 +2678,25 @@ public class ObjectiveTestController {
                     }
                 }
 
-                if(!mDataMonitorModel.mLayout.isEnableDrag) {
+                if (!mDataMonitorModel.mLayout.isEnableDrag) {
                     TextView tv = (TextView) mDataMonitorModel.mLayout.getTag();
-                    if(tv != null && mDataMonitorModel.mRawDataString != null) {
+                    if (tv != null && mDataMonitorModel.mRawDataString != null) {
                         tv.setText(mDataMonitorModel.mRawDataString);
-                        if(tv.getTextSize() != mDataMonitorModel.mFontSize) {
+                        if (tv.getTextSize() != mDataMonitorModel.mFontSize) {
                             tv.setTextSize(mDataMonitorModel.mFontSize);
                         }
                     }
                 }
 
 
-            } break;
+            }
+            break;
             case DataMonitorConfig.SCREEN_MODE_TRUE_COLOR_BACKGROUND: {
-            } break;
+            }
+            break;
             case DataMonitorConfig.SCREEN_MODE_CUSTOMER_IMAGE_BACKGROUND: {
-            } break;
+            }
+            break;
         }
     }
 
@@ -2683,7 +2708,7 @@ public class ObjectiveTestController {
 
     public void setTransformInDiagArr(NodeDataSource dataSoruce, int originDiagOption) {
         int diag_arr_cmd = 0;
-        switch(mDataMonitorModel.mTransformOption){
+        switch (mDataMonitorModel.mTransformOption) {
             case 0:
                 diag_arr_cmd = 0;
                 break;
@@ -2702,18 +2727,19 @@ public class ObjectiveTestController {
         mDataMonitorModel.isNeedReDrawBackgound = true;
         mDataMonitorModel.isNeedReEcho = true;
     }
+
     private ScrollView createEidtItemDiagView(final Context context, int height, int width, List<String> itemKey, List<String> itemValue) {
-		/* Main Layer,it will include all of layer*/
+        /* Main Layer,it will include all of layer*/
         final ScrollView sl = new ScrollView(context);
-		/* Because Srcoll view just include only one linear layer
-		* we should include all layer into one linear layer*/
+        /* Because Srcoll view just include only one linear layer
+         * we should include all layer into one linear layer*/
         final LinearLayout ll = new LinearLayout(context);
-		/*layer parameter*/
+        /*layer parameter*/
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ScrollView.LayoutParams slp = new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        slp.height = height*7/10;
-        slp.width = width*7/10;
+        slp.height = height * 7 / 10;
+        slp.width = width * 7 / 10;
         slp.gravity = Gravity.CENTER;
         llp.weight = 1;
 
@@ -2745,8 +2771,8 @@ public class ObjectiveTestController {
                 EditText et_value = new EditText(context);
                 et_key.setHint("<name>");
                 et_value.setHint("<value>");
-                et_key.setId(1000+ll_per_layer.size());
-                et_value.setId(2000+ll_per_layer.size());
+                et_key.setId(1000 + ll_per_layer.size());
+                et_value.setId(2000 + ll_per_layer.size());
                 layer.addView(et_key, per_field);
                 layer.addView(et_value, per_field);
 
@@ -2757,8 +2783,8 @@ public class ObjectiveTestController {
             }
         });
         ll.addView(b);
-		/*for setting diag buttons*/
-        for (int i = 0; i < itemKey.size()-1; i++) {
+        /*for setting diag buttons*/
+        for (int i = 0; i < itemKey.size() - 1; i++) {
             LinearLayout layer = new LinearLayout(context);
             ll_per_layer.add(layer);
 
@@ -2769,9 +2795,9 @@ public class ObjectiveTestController {
 
             EditText et_key = new EditText(context);
             EditText et_value = new EditText(context);
-            et_key.setId(1000+i);
-            et_value.setId(2000+i);
-            if(i == 0) {
+            et_key.setId(1000 + i);
+            et_value.setId(2000 + i);
+            if (i == 0) {
                 et_key.setEnabled(false);
                 et_value.setEnabled(false);
             }
@@ -2804,16 +2830,16 @@ public class ObjectiveTestController {
     }
 
     public void disableAllSettings() {
-        if(mDataMonitorModel.mRawDataGroup == null) {
+        if (mDataMonitorModel.mRawDataGroup == null) {
             return;
         }
-        for(int i = 0; i<mDataMonitorModel.mRawDataGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mRawDataGroup.getChildCount(); i++) {
             mDataMonitorModel.mRawDataGroup.getChildAt(i).setEnabled(false);
         }
-        for(int i = 0; i<mDataMonitorModel.mTransformGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mTransformGroup.getChildCount(); i++) {
             mDataMonitorModel.mTransformGroup.getChildAt(i).setEnabled(false);
         }
-        for(int i = 0; i<mDataMonitorModel.mDataKeepGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mDataKeepGroup.getChildCount(); i++) {
             mDataMonitorModel.mDataKeepGroup.getChildAt(i).setEnabled(false);
         }
         mDataMonitorModel.mColorValueBar.setEnabled(false);
@@ -2825,21 +2851,21 @@ public class ObjectiveTestController {
     }
 
     public void enableAllSettings() {
-        if(mDataMonitorModel.mRawDataGroup == null) {
+        if (mDataMonitorModel.mRawDataGroup == null) {
             return;
         }
-        for(int i = 0; i<mDataMonitorModel.mRawDataGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mRawDataGroup.getChildCount(); i++) {
             mDataMonitorModel.mRawDataGroup.getChildAt(i).setEnabled(true);
         }
-        for(int i = 0; i<mDataMonitorModel.mTransformGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mTransformGroup.getChildCount(); i++) {
             mDataMonitorModel.mTransformGroup.getChildAt(i).setEnabled(true);
         }
-        for(int i = 0; i<mDataMonitorModel.mDataKeepGroup.getChildCount(); i++) {
+        for (int i = 0; i < mDataMonitorModel.mDataKeepGroup.getChildCount(); i++) {
             mDataMonitorModel.mDataKeepGroup.getChildAt(i).setEnabled(true);
         }
-        if(mDataMonitorModel.mColorValueBar != null)
+        if (mDataMonitorModel.mColorValueBar != null)
             mDataMonitorModel.mColorValueBar.setEnabled(true);
-        if(mDataMonitorModel.mFontValueBar != null)
+        if (mDataMonitorModel.mFontValueBar != null)
             mDataMonitorModel.mFontValueBar.setEnabled(true);
         mDataMonitorModel.mRecordSwitch.setChecked(mDataMonitorModel.mRecordSwitchValue);
     }
@@ -2855,11 +2881,10 @@ public class ObjectiveTestController {
         File directory = new File(path);
         File[] files = directory.listFiles();
         mDataMonitorModel.mFoundLogs.clear();
-        for (int i = 0; i < files.length; i++)
-        {
+        for (int i = 0; i < files.length; i++) {
             String name = files[i].getName();
             String[] type = name.split("\\.");
-            if("csv".equals(type[1])) {
+            if ("csv".equals(type[1])) {
                 mDataMonitorModel.mFoundLogs.add(name);
             }
         }
@@ -2872,7 +2897,7 @@ public class ObjectiveTestController {
         builderSingle.setTitle("Select Logs File");
         builderSingle.setCancelable(false);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mDataMonitorModel.mActivityContext, R.layout.himax_dialog_singlechoice);
-        for(String item : mDataMonitorModel.mFoundLogs) {
+        for (String item : mDataMonitorModel.mFoundLogs) {
             arrayAdapter.add(item);
         }
         builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -2897,13 +2922,14 @@ public class ObjectiveTestController {
     }
 
     public String testFile;
+
     public void readCSVFile(HimaxApplication.MainHandler mainHandler, String fileName) {
         testFile = fileName;
-        File file = new File(himax_config.mHXPath,fileName);
+        File file = new File(himax_config.mHXPath, fileName);
         StringBuilder text = new StringBuilder();
 
         try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
 
             while ((line = br.readLine()) != null) {
@@ -2911,8 +2937,7 @@ public class ObjectiveTestController {
                 text.append('\n');
             }
             br.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             //You'll need to add proper error handling here
             Toast.makeText(mDataMonitorModel.mActivityContext, "open file failed, caused by " + e, Toast.LENGTH_SHORT).show();
         }
@@ -2946,12 +2971,12 @@ public class ObjectiveTestController {
     public void updateRecordNotificationProgress(int progress, int max) {
         try {
             StatusBarNotification[] nn = mDataMonitorModel.mNotificationManager.getActiveNotifications();
-            if(nn.length <= 0) {
+            if (nn.length <= 0) {
                 return;
             }
             mDataMonitorModel.mNotification.setProgress(max, progress, false);
             mDataMonitorModel.mNotificationManager.notify(mDataMonitorModel.NOTIFY_ID, mDataMonitorModel.mNotification.build());
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
@@ -2963,33 +2988,35 @@ public class ObjectiveTestController {
                 .setCancelable(false).create();
         mDialog.show();
     }
+
     public void dismissProcessingDialog() {
         mDialog.dismiss();
     }
 
-    public static class OTCSaveLog{
+    public static class OTCSaveLog {
         String save_log;
+
         public OTCSaveLog() {
             save_log = new String();
         }
-        public void SetString(String in)
-        {
+
+        public void SetString(String in) {
             save_log = in;
         }
-        public void UpdateString()
-        {
+
+        public void UpdateString() {
             gSaveLog = save_log;
         }
-        public void SaveLog(String in)
-        {
+
+        public void SaveLog(String in) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
             Date builddate = new Date();
 
-            String file_name = dateFormat.format(builddate)+"_SNRLog.csv";
+            String file_name = dateFormat.format(builddate) + "_SNRLog.csv";
             File path = new File("/sdcard/");
             try {
                 File w_f = new File(path, file_name);
-                BufferedWriter f_w = new BufferedWriter( new FileWriter(w_f));
+                BufferedWriter f_w = new BufferedWriter(new FileWriter(w_f));
                 f_w.append(in);
                 f_w.flush();
                 f_w.close();

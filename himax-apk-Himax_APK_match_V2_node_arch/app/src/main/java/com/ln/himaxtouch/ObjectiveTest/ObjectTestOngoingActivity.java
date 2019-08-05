@@ -69,14 +69,14 @@ public class ObjectTestOngoingActivity extends Activity {
     private IObjectiveTestModel mTestModel;
     private boolean isPressSaved = false;
 
-    static
-    {
+    static {
         System.loadLibrary("HimaxAPK");
     }
 
     //Native function
-    public native String  writeCfg(String[] stringArray);
-    public native String  readCfg(String[] stringArray);
+    public native String writeCfg(String[] stringArray);
+
+    public native String readCfg(String[] stringArray);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class ObjectTestOngoingActivity extends Activity {
         }
 
         mToDoItem = getIntent().getIntExtra("ToDoItem", 0);
-        mToDoItemChild =  getIntent().getIntExtra("ToDoItemChild", 0);
+        mToDoItemChild = getIntent().getIntExtra("ToDoItemChild", 0);
 
         mMainLayout = (RelativeLayout) findViewById(R.id.main_layout);
 
@@ -127,11 +127,11 @@ public class ObjectTestOngoingActivity extends Activity {
                             mController.createPatternView(mMainLayout, mContext, PATTERN_CUSTOMER_FOUR, 1, true);
                             break;
                         }
-                        if(mToDoItemChild == 4) {
+                        if (mToDoItemChild == 4) {
                             mController.createPatternView(mMainLayout, mContext, PATTERN_CUSTOMER_FIVE, 1, false);
                             break;
                         }
-                        if(mToDoItemChild == 5) {
+                        if (mToDoItemChild == 5) {
                             mController.createPatternView(mMainLayout, mContext, PATTERN_CUSTOMER_SIX, 1, false);
                             break;
                         }
@@ -188,16 +188,17 @@ public class ObjectTestOngoingActivity extends Activity {
         updatePopupWindow(rootView, mSNRPopup);
         mController.mSnrModel.bindView(tv_title, tv_msg, base_raw, pb_item1, pb_item1_skip, pb_item2, pb_item2_skip, mSNRPopup);
     }
+
     private void updatePopupWindow(View rootView, PopupWindow popup) {
         popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popup.setWindowLayoutMode(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        popup.showAtLocation(rootView, Gravity.CENTER,0,0);
+        popup.showAtLocation(rootView, Gravity.CENTER, 0, 0);
         popup.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch(motionEvent.getAction()) {
+                switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                     case MotionEvent.ACTION_POINTER_DOWN:
                     case MotionEvent.ACTION_BUTTON_PRESS:
@@ -229,7 +230,7 @@ public class ObjectTestOngoingActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        if(mTestModel != null) {
+        if (mTestModel != null) {
             mController.onPauseAtObjectTestOnGoingActivity(mTestModel);
         }
 
@@ -246,13 +247,13 @@ public class ObjectTestOngoingActivity extends Activity {
     @Override
     public void onBackPressed() {
 //        if (mController.isAllowBack()) {
-            super.onBackPressed();
+        super.onBackPressed();
 //        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(!isPressSaved) {
+        if (!isPressSaved) {
             switch (mToDoItem) {
                 case ObjectiveListId.OBJECTIVE_TEST_SNR: {
                     break;
@@ -330,7 +331,7 @@ public class ObjectTestOngoingActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_VOLUME_UP && !isPressSaved) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP && !isPressSaved) {
             isPressSaved = true;
             switch (mToDoItem) {
                 case ObjectiveListId.OBJECTIVE_TEST_SNR: {

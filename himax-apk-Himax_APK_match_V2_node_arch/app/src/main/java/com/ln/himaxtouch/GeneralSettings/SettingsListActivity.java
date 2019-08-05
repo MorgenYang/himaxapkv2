@@ -19,7 +19,7 @@ import static com.ln.himaxtouch.HimaxApplication.mContext;
  * Created by 903622 on 2018/6/19.
  */
 
-public class SettingsListActivity extends Activity{
+public class SettingsListActivity extends Activity {
 
     private ListView mListView;
     private TypedArray mItemClassList;
@@ -35,8 +35,7 @@ public class SettingsListActivity extends Activity{
         TypedArray itemNameList = getResources().obtainTypedArray(R.array.setpage_item_name_list);
         mItemClassList = getResources().obtainTypedArray(R.array.setpage_item_class_list);
         String[] itemList = new String[itemNameList.length()];
-        for (int i = 0; i < itemNameList.length(); i++)
-        {
+        for (int i = 0; i < itemNameList.length(); i++) {
             itemList[i] = itemNameList.getString(i);
         }
 
@@ -50,7 +49,7 @@ public class SettingsListActivity extends Activity{
                     Intent intent = new Intent();
                     intent.setClassName(mContext, name);
                     startActivity(intent);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.fillInStackTrace();
                 }
             }

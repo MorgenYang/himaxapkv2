@@ -7,7 +7,7 @@ import android.util.Log;
 import static com.ln.himaxtouch.HimaxApplication.mNodeAcc;
 
 public class ICData {
-    private static final String TAG = "[HXTP]"+ICData.class.getName();
+    private static final String TAG = "[HXTP]" + ICData.class.getName();
 
     public static final String HX_85XX_A_SERIES_PWON = "HX85xxA";
     public static final String HX_85XX_B_SERIES_PWON = "HX85xxB";
@@ -40,7 +40,7 @@ public class ICData {
     public static final int DIAG_DC = 2;
     //    public static final int DIAG_DC_SRAM = 12;
     //used event stack temporarily, because of sram hand shack not ready.
-    public static  int DIAG_DC_SRAM = 12;
+    public static int DIAG_DC_SRAM = 12;
 
     private static final int NAME_HX83112A = 0x83112A;
     private static final int NAME_HX83102D = 0x83102D;
@@ -94,7 +94,7 @@ public class ICData {
     public static String SYS = android.os.Environment.getRootDirectory().getAbsolutePath();
     public static String diag_path = "diag";
     public static String reg_path = "register";
-    public static String f1_result_path = SDCARD+"/f1_result.csv";
+    public static String f1_result_path = SDCARD + "/f1_result.csv";
     public static String diag_arr_path = "diag_arr";
     public static String senseOnOff = "SenseOnOff";
     public static String int_en_path = "int_en";
@@ -104,7 +104,7 @@ public class ICData {
     public static String back2normal_CMD[] = {diag_path, back2normal};
     public static String rx_freq_clk_CMD[] = {reg_path, SCU_TCON_CLK_DIV_NUM};
     public static String rx_freq_clk2_CMD[] = {reg_path, TCON_SC_CLK2_PERIOD};
-    public static String hopping_CMD[][] = {{reg_path, hopping_first},{reg_path, hopping_second}, {reg_path, hopping_origin}};
+    public static String hopping_CMD[][] = {{reg_path, hopping_first}, {reg_path, hopping_second}, {reg_path, hopping_origin}};
     public static String hopping_clear_CMD[] = {reg_path, hopping_clear};
     public static String transform[] = {diag_arr_path, transform_cmd};
     public static String senseOn_CMD[] = {senseOnOff, "1"};
@@ -125,27 +125,23 @@ public class ICData {
     public static String exe_force_start_hopping[] = {reg_path, cmd_force_start_hopping};
 
 
-
-    public ICData(Context context)
-    {
+    public ICData(Context context) {
         gContext = context;
         SharedPreferences sh_settings = context.getSharedPreferences("HIAPK", 0);
         diag_path = sh_settings.getString("SETUP_DIAG_NODE", "diag");
         reg_path = sh_settings.getString("SETUP_REGISTER_NODE", "register");
     }
 
-    public static void readICIDByNode()
-    {
+    public static void readICIDByNode() {
         String rslt;
         rslt = mNodeAcc.getICIDfromDebug(mNodeAcc.getTPinfo());
         str_val_icid = rslt;
-        Log.d(TAG, "Now ICID in str="+ str_val_icid);
+        Log.d(TAG, "Now ICID in str=" + str_val_icid);
     }
 
-   public static Long readICID()
-    {
+    public static Long readICID() {
         Long rslt = Long.valueOf(0);
-        rslt = mNodeAcc.readRegister(String.format("%08X",adr_icid));
+        rslt = mNodeAcc.readRegister(String.format("%08X", adr_icid));
         Log.d(TAG, String.format("0x%08X", rslt));
 
         rslt = rslt >> 8;
@@ -154,8 +150,8 @@ public class ICData {
         val_icid = rslt.intValue();
         return rslt;
     }
-   public static Long readICID(String icid_str)
-    {
+
+    public static Long readICID(String icid_str) {
         Long rslt = Long.valueOf(0);
         rslt = mNodeAcc.readRegister(icid_str);
         Log.d(TAG, String.format("0x%08X", rslt));
@@ -165,19 +161,20 @@ public class ICData {
         val_icid = rslt.intValue();
         return rslt;
     }
+
     public static void matchICIDStr2Int() {
-        if(str_val_icid == "" || str_val_icid == null)
+        if (str_val_icid == "" || str_val_icid == null)
             readICIDByNode();
-        Log.d(TAG, "Now IC ID String="+str_val_icid);
-        if(str_val_icid.indexOf('\n') >= 0) {
+        Log.d(TAG, "Now IC ID String=" + str_val_icid);
+        if (str_val_icid.indexOf('\n') >= 0) {
             Log.d(TAG, "There is new line" + str_val_icid);
             str_val_icid = str_val_icid.substring(0, str_val_icid.indexOf('\n') - 1);
         }
-        if(str_val_icid.indexOf(HX_83102D_SERIES_PWON) >= 0) {
+        if (str_val_icid.indexOf(HX_83102D_SERIES_PWON) >= 0) {
             val_icid = NAME_HX83102D;
-        } else if(str_val_icid.indexOf(HX_83112A_SERIES_PWON) >= 0) {
+        } else if (str_val_icid.indexOf(HX_83112A_SERIES_PWON) >= 0) {
             val_icid = NAME_HX83112A;
-        } else if(str_val_icid.indexOf(HX_85XX_ES_SERIES_PWO) >= 0 || str_val_icid.indexOf(HX_85XX_ES_SERIES_PWO1) >= 0) {
+        } else if (str_val_icid.indexOf(HX_85XX_ES_SERIES_PWO) >= 0 || str_val_icid.indexOf(HX_85XX_ES_SERIES_PWO1) >= 0) {
             val_icid = NAME_HX852xES;
             DIAG_DC_SRAM = DIAG_DC;
             isOncell = true;
@@ -186,11 +183,11 @@ public class ICData {
         }
 
     }
-    public static void reInitByDiffIC(Long icid)
-    {
-        Log.d(TAG,String.format("Now icid=0x%08X", icid));
+
+    public static void reInitByDiffIC(Long icid) {
+        Log.d(TAG, String.format("Now icid=0x%08X", icid));
         Long temp = Long.valueOf(0);
-        switch(icid.intValue()) {
+        switch (icid.intValue()) {
             case NAME_HX83102D:
                 adr_tcon_dummy = 0x10007088;
                 adr_hopping = 0x10007088;
@@ -219,23 +216,23 @@ public class ICData {
 
     public static void reInitPara() {
 
-        if(adr_tcon_dummy != -1) {
+        if (adr_tcon_dummy != -1) {
             tcon_dummy_for_idle = String.format("w:x%08X:x%08X", adr_tcon_dummy, val_tcon_dummy_off);
             tcon_dummy_for_normal = String.format("w:x%08X:x%08X", adr_tcon_dummy, val_tcon_dummy_on);
             cmd_force_stop_hopping = String.format("w:x%08X:x%08X", adr_hopping, val_force_stop_hopping);
             cmd_force_start_hopping = String.format("w:x%08X:x%08X", adr_hopping, val_force_start_hopping);
 
-            Log.d(TAG, "Now tcon_dummy_for_idle="+tcon_dummy_for_idle);
-            Log.d(TAG, "Now tcon_dummy_for_normal="+tcon_dummy_for_normal);
-            Log.d(TAG, "Now cmd_force_stop_hopping="+cmd_force_stop_hopping);
-            Log.d(TAG, "Now cmd_force_start_hopping="+cmd_force_start_hopping);
+            Log.d(TAG, "Now tcon_dummy_for_idle=" + tcon_dummy_for_idle);
+            Log.d(TAG, "Now tcon_dummy_for_normal=" + tcon_dummy_for_normal);
+            Log.d(TAG, "Now cmd_force_stop_hopping=" + cmd_force_stop_hopping);
+            Log.d(TAG, "Now cmd_force_start_hopping=" + cmd_force_start_hopping);
         } else {
             tcon_dummy_for_idle = "";
             tcon_dummy_for_normal = "";
         }
 
         /* Node path Modify*/
-        IIR_CMD[0]= diag_path;
+        IIR_CMD[0] = diag_path;
         DC_CMD[0] = diag_path;
         back2normal_CMD[0] = diag_path;
         rx_freq_clk_CMD[0] = reg_path;
@@ -253,8 +250,8 @@ public class ICData {
         hopping_reg_cmd[0] = reg_path;
         en_int_cmd[0] = int_en_path;
         dis_int_cmd[0] = int_en_path;
-        for(int i = 0; i < hopping_CMD.length; i++)
-            hopping_CMD[i][0] =reg_path;
+        for (int i = 0; i < hopping_CMD.length; i++)
+            hopping_CMD[i][0] = reg_path;
         hopping_clear_CMD[0] = reg_path;
 
         tcon_dummy_for_normal_cmd[0] = reg_path;

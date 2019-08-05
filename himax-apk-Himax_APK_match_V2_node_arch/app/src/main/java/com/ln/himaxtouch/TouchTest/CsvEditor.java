@@ -72,7 +72,7 @@ public class CsvEditor {
         StringBuilder sb = new StringBuilder();
         int index = 1;
         sb.append("NUM,X,Y\n");
-        for(float[] record: records) {
+        for (float[] record : records) {
             sb.append(index);
             sb.append(",");
             sb.append(record[0]);

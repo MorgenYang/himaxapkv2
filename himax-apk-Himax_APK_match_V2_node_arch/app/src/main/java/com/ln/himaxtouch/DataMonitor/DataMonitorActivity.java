@@ -105,11 +105,11 @@ public class DataMonitorActivity extends Activity {
                 // measureRect.bottom is the position above soft keypad
                 int keypadHeight = mMainLayout.getRootView().getHeight() - measureRect.bottom;
 
-                if(mKeyboardHeight == -10000) {
+                if (mKeyboardHeight == -10000) {
                     mKeyboardHeight = keypadHeight;
                 }
 
-                if(keypadHeight > mKeyboardHeight) {
+                if (keypadHeight > mKeyboardHeight) {
                     mColorValueEdit.requestFocus();
                 } else {
                     mColorValueEdit.clearFocus();
@@ -123,7 +123,7 @@ public class DataMonitorActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mSettingsLayout.getLayoutParams();
             params.setMargins(0, 500, 0, 0);
             mSettingsLayout.setLayoutParams(params);
@@ -144,7 +144,7 @@ public class DataMonitorActivity extends Activity {
         mController.mDataMonitorModel.mFontValueEdit = mFontValueEdit;
         mController.mDataMonitorModel.mBackgroundGroup = mBackgroundGroup;
         mController.mDataMonitorModel.mRecordSwitch = mRecordSwitch;
-        mController.mDataMonitorModel.mBlackSwitch =  mBlackSwitch;
+        mController.mDataMonitorModel.mBlackSwitch = mBlackSwitch;
         mController.mDataMonitorModel.mDragSwitch = mDragSwitch;
         mController.mDataMonitorModel.mCheckBP = mCheckBP;
         mController.mDataMonitorModel.mTextMaxDC = mTextMaxDC;
@@ -166,8 +166,8 @@ public class DataMonitorActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            if(mSettingsLayout.getVisibility() == View.INVISIBLE) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (mSettingsLayout.getVisibility() == View.INVISIBLE) {
                 TransitionManager.beginDelayedTransition(mSettingsLayout);
                 mSettingsLayout.setVisibility(View.VISIBLE);
             } else {
@@ -177,7 +177,7 @@ public class DataMonitorActivity extends Activity {
             return true;
         }
 
-        if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             mObjectiveTestController.mDataMonitorModel.mDiagOption = 0;
             mObjectiveTestController.mDataMonitorModel.mOSR_CC = true;
             mObjectiveTestController.mDataMonitorModel.mOSRCCSwtich.setChecked(true);

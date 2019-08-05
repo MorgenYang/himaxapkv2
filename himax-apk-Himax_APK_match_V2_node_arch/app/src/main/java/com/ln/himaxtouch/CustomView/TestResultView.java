@@ -40,11 +40,11 @@ public class TestResultView extends View {
         float x = model.mTouchedX;
         float y = model.mTouchedY;
 
-        if(x+text_width > canvas.getWidth()) {
-            x -= (text_width+50);
+        if (x + text_width > canvas.getWidth()) {
+            x -= (text_width + 50);
         }
-        if(y+text_height > canvas.getHeight()) {
-            y -= (text_height+50);
+        if (y + text_height > canvas.getHeight()) {
+            y -= (text_height + 50);
         }
 
 
@@ -52,13 +52,13 @@ public class TestResultView extends View {
 
         canvas.drawCircle(model.mTouchedX, model.mTouchedY, 50, paint);
         canvas.drawText("Signal: ", x + 60, y + 30, paint_text);
-        canvas.drawText(df.format(model.mResult_Signal)+"", x + 200, y + 30, paint_text);
+        canvas.drawText(df.format(model.mResult_Signal) + "", x + 200, y + 30, paint_text);
         canvas.drawText("Noise: ", x + 60, y + 60, paint_text);
-        canvas.drawText(df.format(model.mResult_Noise)+"", x + 200, y + 60, paint_text);
+        canvas.drawText(df.format(model.mResult_Noise) + "", x + 200, y + 60, paint_text);
         canvas.drawText("SNR: ", x + 60, y + 90, paint_text);
-        canvas.drawText(df.format(model.mResult_SNR)+"", x + 200, y + 90, paint_text);
+        canvas.drawText(df.format(model.mResult_SNR) + "", x + 200, y + 90, paint_text);
         canvas.drawText("SNR (MAX): ", x + 60, y + 120, paint_text);
-        canvas.drawText(df.format(model.mResult_SNR_MAX)+"", x + 200, y + 120, paint_text);
+        canvas.drawText(df.format(model.mResult_SNR_MAX) + "", x + 200, y + 120, paint_text);
     }
 
 }

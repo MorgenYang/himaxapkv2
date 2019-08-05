@@ -707,7 +707,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
                 case INTEGER:
                     return Integer.valueOf((int) value);
                 case FLOAT:
-                    return Float.valueOf((float)value);
+                    return Float.valueOf((float) value);
                 case SHORT:
                     return Short.valueOf((short) value);
                 case BYTE:

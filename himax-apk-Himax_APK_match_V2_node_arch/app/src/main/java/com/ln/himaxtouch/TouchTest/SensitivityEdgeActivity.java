@@ -42,15 +42,15 @@ public class SensitivityEdgeActivity extends Activity {
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
 
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -69,19 +69,19 @@ public class SensitivityEdgeActivity extends Activity {
         int green;
         int blue;
         SharedPreferences data = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String bgc = data.getString("bg_color_text","");
+        String bgc = data.getString("bg_color_text", "");
 
-        double lcd_width = Double.parseDouble(data.getString("lcd_width_text",""));
-        double lcd_height = Double.parseDouble(data.getString("lcd_height_text",""));
-        double sen_gap = Double.parseDouble(data.getString("sen_gap_text",""));
-        double a = width/lcd_width;
-        double b = height/lcd_height;
+        double lcd_width = Double.parseDouble(data.getString("lcd_width_text", ""));
+        double lcd_height = Double.parseDouble(data.getString("lcd_height_text", ""));
+        double sen_gap = Double.parseDouble(data.getString("sen_gap_text", ""));
+        double a = width / lcd_width;
+        double b = height / lcd_height;
 
         public Sensitivity(Context context) {
             super(context);
-            paint=new Paint(Paint.DITHER_FLAG);
+            paint = new Paint(Paint.DITHER_FLAG);
             bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            canvas=new Canvas();
+            canvas = new Canvas();
             canvas.setBitmap(bitmap);
 
             paint.setStyle(Paint.Style.STROKE);
@@ -91,62 +91,63 @@ public class SensitivityEdgeActivity extends Activity {
         }
 
         @Override
-        public void onDraw(Canvas canvas){
-            red = Integer.parseInt(bgc.substring(0,3));
-            green = Integer.parseInt(bgc.substring(3,6));
+        public void onDraw(Canvas canvas) {
+            red = Integer.parseInt(bgc.substring(0, 3));
+            green = Integer.parseInt(bgc.substring(3, 6));
             blue = Integer.parseInt(bgc.substring(6));
             canvas.drawColor(Color.rgb(red, green, blue));
-            canvas.drawCircle((int)(sen_gap*a),(int)(sen_gap*b),5,paint);
+            canvas.drawCircle((int) (sen_gap * a), (int) (sen_gap * b), 5, paint);
 
             paint.setColor(Color.GREEN);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(1);
 
             Path path = new Path();
-            path.moveTo((int)(sen_gap*a),(int)(sen_gap*b));
-            path.lineTo(width - (int)(sen_gap*a),(int)(sen_gap*b));
-            path.lineTo(width - (int)(sen_gap*a),height - (int)(sen_gap*b));
-            path.lineTo((int)(sen_gap*a),height - (int)(sen_gap*b));
+            path.moveTo((int) (sen_gap * a), (int) (sen_gap * b));
+            path.lineTo(width - (int) (sen_gap * a), (int) (sen_gap * b));
+            path.lineTo(width - (int) (sen_gap * a), height - (int) (sen_gap * b));
+            path.lineTo((int) (sen_gap * a), height - (int) (sen_gap * b));
             path.close();
-            canvas.drawPath(path,paint);
+            canvas.drawPath(path, paint);
 
-            path.moveTo(width/2,(int)(sen_gap*b));
-            path.lineTo(width/2 - 40,(int)(sen_gap*b)-20);
-            path.lineTo(width/2 - 40,(int)(sen_gap*b)+20);
+            path.moveTo(width / 2, (int) (sen_gap * b));
+            path.lineTo(width / 2 - 40, (int) (sen_gap * b) - 20);
+            path.lineTo(width / 2 - 40, (int) (sen_gap * b) + 20);
             path.close();
-            canvas.drawPath(path,paint);
+            canvas.drawPath(path, paint);
 
             paint.setColor(Color.RED);
             paint.setStrokeWidth(2);
-            canvas.drawBitmap(bitmap,0,0,null);
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
-            if (event.getAction()== MotionEvent.ACTION_MOVE) {
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 canvas.drawLine(mov_x, mov_y, event.getX(), event.getY(), paint);
-                list.add(mov_x+"");
-                list.add(mov_y+"");
+                list.add(mov_x + "");
+                list.add(mov_y + "");
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_DOWN) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 segCount++;
-                if (segCount > 1){
+                if (segCount > 1) {
                     list.add("65535");
                     list.add("65535");
-                    Toast.makeText(SensitivityEdgeActivity.this,"Broken line", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SensitivityEdgeActivity.this, "Broken line", Toast.LENGTH_SHORT).show();
                 }
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_UP) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
                 invalidate();
             }
 
-            mov_x=(int) event.getX();
-            mov_y=(int) event.getY();
+            mov_x = (int) event.getX();
+            mov_y = (int) event.getY();
             return true;
         }
     }
+
     @Override
     public void onBackPressed() {
         if (!list.isEmpty()) {
@@ -163,10 +164,10 @@ public class SensitivityEdgeActivity extends Activity {
                                 } else points = points + list.get(i) + ",";
                             }
 //                            write(points);
-                            rWlog.write(points,"seg_",time);
+                            rWlog.write(points, "seg_", time);
                             SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
                             editor.putString("seg", time);
-                            editor.putString("segCount", segCount+"");
+                            editor.putString("segCount", segCount + "");
                             editor.commit();
                             Toast.makeText(SensitivityEdgeActivity.this, "data saved!", Toast.LENGTH_SHORT).show();
                             SensitivityEdgeActivity.this.finish();
@@ -179,6 +180,6 @@ public class SensitivityEdgeActivity extends Activity {
                             SensitivityEdgeActivity.this.finish();
                         }
                     }).show();
-        }else SensitivityEdgeActivity.this.finish();
+        } else SensitivityEdgeActivity.this.finish();
     }
 }

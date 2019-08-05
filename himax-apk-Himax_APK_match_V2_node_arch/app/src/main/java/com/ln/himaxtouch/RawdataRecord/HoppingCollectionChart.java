@@ -190,8 +190,8 @@ public class HoppingCollectionChart extends Activity implements View.OnClickList
 
         g_node_acc = new NodeDataSource(this);
 
-        if(mICData.val_icid == 0) {
-            Log.d(TAG,"Now is " + TAG);
+        if (mICData.val_icid == 0) {
+            Log.d(TAG, "Now is " + TAG);
             mICData.readICIDByNode();
             mICData.matchICIDStr2Int();
             mICData.reInitByDiffIC(Long.valueOf(mICData.val_icid));

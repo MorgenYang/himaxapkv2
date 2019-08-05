@@ -33,9 +33,8 @@ import static com.ln.himaxtouch.HimaxApplication.mICData;
  * Created by Einim on 2017/10/25.
  */
 
-public class HoppingNoiseGet extends Activity implements View.OnClickListener
-{
-    String total_freq[] = {"f1","f2"};
+public class HoppingNoiseGet extends Activity implements View.OnClickListener {
+    String total_freq[] = {"f1", "f2"};
 
     static EditText exe_time;
     static EditText delta_val;
@@ -66,7 +65,6 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
     int g_delta_val = 0;
 
 
-
     static NodeDataSource g_node_acc;
     static private ICData gICData;
     RawdataProcess g_data_proc = new RawdataProcess();
@@ -80,7 +78,7 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
     private static double[] mSeedFreq = new double[2];
     static TableLayout mTableTwo;
     private static Context mContext;
-    private static final int OSC_HZ = 48*1000*1000;
+    private static final int OSC_HZ = 48 * 1000 * 1000;
     private static final int STATE_PROCESSING = 0;
     private static final int STATE_FINISH = 1;
     private static final int STATE_SUB_FINISH = 2;
@@ -96,25 +94,26 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                     int state = parameter[2];
                     int subFailNum = parameter[5];
                     int elapseTime = parameter[6];
-                    int min = elapseTime/60;
-                    int sec = elapseTime%60;
-                    String minStr = (min >= 10) ? (""+min) : ("0"+min);
-                    String secStr = (sec >= 10) ? (""+sec) : ("0"+sec);;
+                    int min = elapseTime / 60;
+                    int sec = elapseTime % 60;
+                    String minStr = (min >= 10) ? ("" + min) : ("0" + min);
+                    String secStr = (sec >= 10) ? ("" + sec) : ("0" + sec);
+                    ;
                     ela_time.setText(minStr + ":" + secStr);
                     if (state == STATE_FINISH) {
-                        if(dialog_notouch.isShowing())
+                        if (dialog_notouch.isShowing())
                             dialog_notouch.dismiss();
 
                         file_path.setText(mCSV.mFileName);
                         status.setText("FINISH");
                         StringBuilder totalFreq = new StringBuilder();
-                        for(int i=0;i<mSeedFreq.length;i++) {
+                        for (int i = 0; i < mSeedFreq.length; i++) {
                             double f = mSeedFreq[i] / (double) 1000;
-                            totalFreq.append(f+", ");
+                            totalFreq.append(f + ", ");
                         }
                         total_freq_show.setText(totalFreq.toString());
 
-                        double failRate = (Double.valueOf(failframe_num.getText().toString()) / mProcessTotalFrame) * (double)  100;
+                        double failRate = (Double.valueOf(failframe_num.getText().toString()) / mProcessTotalFrame) * (double) 100;
                         DecimalFormat df = new DecimalFormat("#.00");
                         fail_rate.setText(df.format(failRate) + "%");
 
@@ -122,22 +121,21 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                         break;
                     }
                     current_frame.setText(Integer.toString(now_frame));
-                    current_freq_seed.setText(""+(current_seed+1));
+                    current_freq_seed.setText("" + (current_seed + 1));
                     double currentF = mSeedFreq[current_seed] / (double) 1000;
-                    current_freq.setText(currentF+" kHZ");
+                    current_freq.setText(currentF + " kHZ");
                     if (state == STATE_SUB_FINISH) {
                         int failNum = Integer.valueOf(failframe_num.getText().toString());
                         failNum = failNum + subFailNum;
                         failframe_num.setText(String.valueOf(failNum));
-                        String result = (subFailNum>0)?"FAIL":"PASS";
+                        String result = (subFailNum > 0) ? "FAIL" : "PASS";
                         double cf = mSeedFreq[current_seed] / (double) 1000;
-                        String[] tableData = {String.valueOf(current_seed+1), String.valueOf(cf),
+                        String[] tableData = {String.valueOf(current_seed + 1), String.valueOf(cf),
                                 String.valueOf(parameter[3]), String.valueOf(parameter[4]), result, (subFailNum + "/" + now_frame)};
                         TableRow tableRow = new TableRow(mContext);
-                        for(int c=0; c<tableData.length; c++)
-                        {
-                            TextView tv=new TextView(mContext);
-                            tv.setText(tableData[c]+"  ");
+                        for (int c = 0; c < tableData.length; c++) {
+                            TextView tv = new TextView(mContext);
+                            tv.setText(tableData[c] + "  ");
                             tableRow.addView(tv);
                         }
                         mTableTwo.addView(tableRow, new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -156,6 +154,7 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
         delta_val.setEnabled(false);
         start_btn.setEnabled(false);
     }
+
     private static void resumeView() {
         exe_time.setEnabled(true);
         delta_val.setEnabled(true);
@@ -167,10 +166,12 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
     private static final int MSG_START_CATCH_FRAMES = 2;
     private HandlerThread mWorkThread;
     private static WorkHandler mWorkHandler;
+
     private static class WorkHandler extends Handler {
         public WorkHandler(Looper l) {
             super(l);
         }
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -180,7 +181,7 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                     break;
                 case MSG_START_CATCH_FRAMES:
                     mProcessTotalFrame = 0;
-                    for (int i=0; i<mSeedFreq.length; i++) {
+                    for (int i = 0; i < mSeedFreq.length; i++) {
                         try {
                             //Transform matrix
                             g_node_acc.simpleWriteCMD(gICData.transform);
@@ -191,34 +192,34 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                             Thread.sleep(1000);
 
                             //write node for hopping
-                            Log.d("HXTPICFLOW","Enter hopping cmd");
+                            Log.d("HXTPICFLOW", "Enter hopping cmd");
                             g_node_acc.simpleWriteCMD(gICData.hopping_CMD[i]);
                             Thread.sleep(100);
 
-                            Log.d("HXTPICFLOW","sense off");
+                            Log.d("HXTPICFLOW", "sense off");
                             //other setting
                             g_node_acc.simpleWriteCMD(gICData.senseOff_CMD);
                             Thread.sleep(100);
 
-                            Log.d("HXTPICFLOW","reject idle mode");
+                            Log.d("HXTPICFLOW", "reject idle mode");
                             g_node_acc.simpleWriteCMD(gICData.idle_mode_CMD);
                             Thread.sleep(100);
 
-                            Log.d("HXTPICFLOW","disable flash reload");
+                            Log.d("HXTPICFLOW", "disable flash reload");
                             g_node_acc.simpleWriteCMD(gICData.disable_flash_reload_CMD);
                             Thread.sleep(100);
 
 
                             //decrease cc value
-                            Log.d("HXTPICFLOW","cut off CC");
-                            Log.d("HXTPICFLOW","C6 <=0x14");
+                            Log.d("HXTPICFLOW", "cut off CC");
+                            Log.d("HXTPICFLOW", "C6 <=0x14");
                             g_node_acc.simpleWriteCMD(gICData.iir_config_c4_cmd);
                             Thread.sleep(100);
                             String[] commandC4 = overrideThirdBytes(g_node_acc.simpleReadCMD(gICData.iir_config_c4_cmd),
                                     gICData.iir_config_c4_write);
                             g_node_acc.simpleWriteCMD(commandC4);
                             Thread.sleep(100);
-                            Log.d("HXTPICFLOW","CA <=0x14");
+                            Log.d("HXTPICFLOW", "CA <=0x14");
                             g_node_acc.simpleWriteCMD(gICData.iir_config_c8_cmd);
                             Thread.sleep(100);
                             String[] commandC8 = overrideThirdBytes(g_node_acc.simpleReadCMD(gICData.iir_config_c8_cmd),
@@ -231,27 +232,27 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                             // Log.d("HXTPICFLOW","Sense on");
 
                             //read node for hoppping
-                            Log.d("HXTPICFLOW","getting hopping freq");
-                            Log.d("HXTPICFLOW","First CLK Str");
+                            Log.d("HXTPICFLOW", "getting hopping freq");
+                            Log.d("HXTPICFLOW", "First CLK Str");
                             g_node_acc.simpleWriteCMD(gICData.rx_freq_clk_CMD);
                             Thread.sleep(100);
                             String first = g_node_acc.simpleReadCMD(gICData.rx_freq_clk_CMD);
                             Thread.sleep(100);
 
-                            Log.d("HXTPICFLOW","Second CLK Str");
+                            Log.d("HXTPICFLOW", "Second CLK Str");
                             g_node_acc.simpleWriteCMD(gICData.rx_freq_clk2_CMD);
                             Thread.sleep(100);
-                            String second =g_node_acc.simpleReadCMD(gICData.rx_freq_clk2_CMD);
+                            String second = g_node_acc.simpleReadCMD(gICData.rx_freq_clk2_CMD);
                             Thread.sleep(100);
 
                             long firstCLK = parsingRegisterValue(first);
-                            Log.d("HXTPICFLOW","First CLK Long"+Long.toString(firstCLK));
+                            Log.d("HXTPICFLOW", "First CLK Long" + Long.toString(firstCLK));
                             long secondCLK = parsingRegisterValue(second);
-                            Log.d("HXTPICFLOW","Second CLK Long"+Long.toString(secondCLK));
-                            double rx_frq = (OSC_HZ/firstCLK)/secondCLK;
+                            Log.d("HXTPICFLOW", "Second CLK Long" + Long.toString(secondCLK));
+                            double rx_frq = (OSC_HZ / firstCLK) / secondCLK;
                             mSeedFreq[i] = rx_frq;
 
-                            Log.d("HXTPICFLOW","Sense on");
+                            Log.d("HXTPICFLOW", "Sense on");
 
                             g_node_acc.simpleWriteCMD(gICData.senseOn_CMD);
                             Thread.sleep(100);
@@ -290,16 +291,16 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
 
         String[] temp = data.split("\n");
         String[] byteArray = temp[1].split("\\s+");
-        Log.d("HXTP","hopping cmd all ="+temp[1]);
+        Log.d("HXTP", "hopping cmd all =" + temp[1]);
         int[] bytes = new int[4];
-        for (int i=0; i<4; i++) {
-            bytes[i] = Integer.parseInt(byteArray[i].substring(2, 4),16);
+        for (int i = 0; i < 4; i++) {
+            bytes[i] = Integer.parseInt(byteArray[i].substring(2, 4), 16);
         }
-        Log.d("HXTP","hopping cmd [0]="+bytes[0]+"[1]="+bytes[1]+"[2]="+bytes[2]+"[3]="+bytes[3]);
+        Log.d("HXTP", "hopping cmd [0]=" + bytes[0] + "[1]=" + bytes[1] + "[2]=" + bytes[2] + "[3]=" + bytes[3]);
         long result;
-        result = (long)(bytes[3] << (24)) + (long)(bytes[2] << (16))
-        + (long)(bytes[1] << 8)+ (long)(bytes[0]);
-        return (result<=0)?1:result;
+        result = (long) (bytes[3] << (24)) + (long) (bytes[2] << (16))
+                + (long) (bytes[1] << 8) + (long) (bytes[0]);
+        return (result <= 0) ? 1 : result;
     }
 
     private static String[] overrideThirdBytes(String data, String typeString) {
@@ -308,30 +309,30 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
         }
         String[] temp = data.split("\n");
         String[] byteArray = temp[1].split("\\s+");
-        Log.d("HXTP","cut off cc str[0]="+byteArray[0]+"[1]="+byteArray[1]+"[2]="+byteArray[2]+"[3]="+byteArray[3]);
+        Log.d("HXTP", "cut off cc str[0]=" + byteArray[0] + "[1]=" + byteArray[1] + "[2]=" + byteArray[2] + "[3]=" + byteArray[3]);
         StringBuilder sb = new StringBuilder();
         sb.append("x");
-        for (int i=3; i>=0; i--) {
+        for (int i = 3; i >= 0; i--) {
             String[] x = byteArray[i].split("x");
-            if (i==1) {
+            if (i == 1) {
                 sb.append("14");
             } else {
                 sb.append(x[1]);
             }
 
         }
-        Log.d("HXTP"," ready to wrte ="+sb.toString());
+        Log.d("HXTP", " ready to wrte =" + sb.toString());
         sb.append("\n");
-        String[] out = new String[] {gICData.reg_path, typeString + ":" + sb.toString()};
+        String[] out = new String[]{gICData.reg_path, typeString + ":" + sb.toString()};
         return out;
     }
 
     private static void catchFrames(int execSeconds, int frqSeed) {
         mCSV.resetValue();
-        int max=-10000;
-        int min=10000;
+        int max = -10000;
+        int min = 10000;
         int failFrame = 0;
-        int num=0;
+        int num = 0;
         long startTime; //= Calendar.getInstance().getTimeInMillis();
         long currentTime;// = startTime;
         g_node_acc.simpleWriteCMD(gICData.IIR_CMD);
@@ -341,24 +342,24 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
         } catch (Exception e) {
             e.fillInStackTrace();
         }
-        if(frqSeed == 0) {
+        if (frqSeed == 0) {
             mCSV.newAnotherFileName(mContext);
         }
 
         startTime = Calendar.getInstance().getTimeInMillis();
         currentTime = startTime;
 
-        while ((currentTime-startTime) <= (execSeconds*1000)) {
+        while ((currentTime - startTime) <= (execSeconds * 1000)) {
             try {
                 Thread.sleep(100);
                 String rawdata = g_node_acc.simpleReadCMD(gICData.IIR_CMD);
 
                 mCSV.appendRawData1(mSeedFreq[frqSeed], num, rawdata,
                         Integer.valueOf(delta_val.getText().toString()), true);
-                if (max<mCSV.mMax) {
+                if (max < mCSV.mMax) {
                     max = mCSV.mMax;
                 }
-                if (min>mCSV.mMin) {
+                if (min > mCSV.mMin) {
                     min = mCSV.mMin;
                 }
                 if (mCSV.mFail) {
@@ -368,13 +369,13 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
                 num++;
                 currentTime = Calendar.getInstance().getTimeInMillis();
 
-                int elapasedTime = (int) (currentTime - startTime)/1000;
+                int elapasedTime = (int) (currentTime - startTime) / 1000;
 
                 Message msg = Message.obtain();
                 int[] parameter = new int[7]; // 0:num 1:frqSeed 2:STATE 3:max 4:min 5:failNum 6:elapsedTime
                 parameter[0] = num;
                 parameter[1] = frqSeed;
-                parameter[2] = ((currentTime-startTime) >= (execSeconds*1000)) ? STATE_SUB_FINISH : STATE_PROCESSING;
+                parameter[2] = ((currentTime - startTime) >= (execSeconds * 1000)) ? STATE_SUB_FINISH : STATE_PROCESSING;
                 parameter[3] = max;
                 parameter[4] = min;
                 parameter[5] = failFrame;
@@ -392,13 +393,13 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
 
     private String[] mTableTitle =
             {"Seed#", "Freq", "Max", "Min", "Result", "Failed/Total Frame"};
+
     private void fillTableTitle() {
         mTableTwo.removeAllViews();
-        TableRow tableRow=new TableRow(this);
-        for(int c=0; c<mTableTitle.length; c++)
-        {
-            TextView tv=new TextView(this);
-            tv.setText(mTableTitle[c]+"  ");
+        TableRow tableRow = new TableRow(this);
+        for (int c = 0; c < mTableTitle.length; c++) {
+            TextView tv = new TextView(this);
+            tv.setText(mTableTitle[c] + "  ");
             tableRow.addView(tv);
         }
         mTableTwo.addView(tableRow, new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -407,42 +408,41 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
     //END:Steve_Ke
 
     @Override
-    public void onCreate(Bundle SavedBundle)
-    {
+    public void onCreate(Bundle SavedBundle) {
         super.onCreate(SavedBundle);
         g_node_acc = new NodeDataSource(this);
 
-        if(mICData.val_icid == 0) {
+        if (mICData.val_icid == 0) {
             mICData.readICIDByNode();
             mICData.matchICIDStr2Int();
             mICData.reInitByDiffIC(Long.valueOf(mICData.val_icid));
-            
+
         }
         gICData = mICData;
-        
-        
+
+
         setContentView(R.layout.act_noiseget);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        exe_time = (EditText)findViewById(R.id.exe_time);
-        delta_val = (EditText)findViewById(R.id.delta_val);
+        exe_time = (EditText) findViewById(R.id.exe_time);
+        delta_val = (EditText) findViewById(R.id.delta_val);
 
-        ela_time = (TextView)findViewById(R.id.ela_time);
-        current_frame = (TextView)findViewById(R.id.current_frame);
-        current_freq = (TextView)findViewById(R.id.current_freq);
-        current_freq_seed = (TextView)findViewById(R.id.current_freq_seed);
-        failframe_num = (TextView)findViewById(R.id.failframe_num);
-        fail_rate = (TextView)findViewById(R.id.fail_rate);
-        file_path = (TextView)findViewById(R.id.file_path);
-        total_freq_show = (TextView)findViewById(R.id.total_freq_show);
-        status = (TextView)findViewById(R.id.status);
+        ela_time = (TextView) findViewById(R.id.ela_time);
+        current_frame = (TextView) findViewById(R.id.current_frame);
+        current_freq = (TextView) findViewById(R.id.current_freq);
+        current_freq_seed = (TextView) findViewById(R.id.current_freq_seed);
+        failframe_num = (TextView) findViewById(R.id.failframe_num);
+        fail_rate = (TextView) findViewById(R.id.fail_rate);
+        file_path = (TextView) findViewById(R.id.file_path);
+        total_freq_show = (TextView) findViewById(R.id.total_freq_show);
+        status = (TextView) findViewById(R.id.status);
 
 //        info = (TextView)findViewById(R.id.info);
 //        info2 = (TextView)findViewById(R.id.info2);
 
-        start_btn = (Button)findViewById(R.id.start_btn);
-        back_btn = (Button)findViewById(R.id.back_btn);
+        start_btn = (Button) findViewById(R.id.start_btn);
+        back_btn = (Button) findViewById(R.id.back_btn);
         start_btn.setOnClickListener(this);
         back_btn.setOnClickListener(this);
 
@@ -452,7 +452,7 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
         mWorkThread = new HandlerThread("WorkThread");
         mWorkThread.start();
         mWorkHandler = new WorkHandler(mWorkThread.getLooper());
-        mTableTwo = (TableLayout)findViewById(R.id.t2);
+        mTableTwo = (TableLayout) findViewById(R.id.t2);
         fillTableTitle();
         //BEGIN:Steve_Ke
     }
@@ -465,36 +465,28 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        if(v == start_btn)
-        {
-            if(exe_time.getText().toString()== null || exe_time.getText().toString().isEmpty()) {
+        if (v == start_btn) {
+            if (exe_time.getText().toString() == null || exe_time.getText().toString().isEmpty()) {
 //                                Toast.makeText(NoiseGet.this, "execute time is null!", Toast.LENGTH_LONG).show();
-            }
-            else if(delta_val.getText().toString()== null || delta_val.getText().toString().isEmpty()) {
+            } else if (delta_val.getText().toString() == null || delta_val.getText().toString().isEmpty()) {
                 Toast.makeText(HoppingNoiseGet.this, "Delta field is null!", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
 
                 forbidView();
                 g_delta_val = Integer.parseInt(delta_val.getText().toString());
 
                 Toast.makeText(HoppingNoiseGet.this, "Click volume up to start or down to reset.", Toast.LENGTH_LONG).show();
             }
-        }
-        else if(v == back_btn)
-        {
+        } else if (v == back_btn) {
             finish();
         }
     }
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if(keyCode==KeyEvent.KEYCODE_VOLUME_UP)
-        {
-            if(g_delta_val == 0)
-            {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (g_delta_val == 0) {
                 Toast.makeText(HoppingNoiseGet.this, "delta value fail", Toast.LENGTH_LONG).show();
                 return true;
             }
@@ -517,11 +509,8 @@ public class HoppingNoiseGet extends Activity implements View.OnClickListener
 
 
             return true;
-        }
-        else if(keyCode==KeyEvent.KEYCODE_VOLUME_DOWN)
-        {
-            if(g_delta_val == 0)
-            {
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (g_delta_val == 0) {
                 Toast.makeText(HoppingNoiseGet.this, "delta value fail", Toast.LENGTH_LONG).show();
                 return true;
             }

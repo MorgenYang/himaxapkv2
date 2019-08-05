@@ -30,8 +30,7 @@ public class HimaxListAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.main_list_item, null);

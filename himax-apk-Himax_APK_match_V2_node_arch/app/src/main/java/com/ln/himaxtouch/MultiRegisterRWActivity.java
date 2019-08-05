@@ -29,12 +29,12 @@ import java.util.Arrays;
  */
 
 
-public class MultiRegisterRWActivity extends Activity implements View.OnClickListener
-{
-    public native String  writeCfg(String[] stringArray);
-    public native String  readCfg(String[] stringArray);
-    static
-    {
+public class MultiRegisterRWActivity extends Activity implements View.OnClickListener {
+    public native String writeCfg(String[] stringArray);
+
+    public native String readCfg(String[] stringArray);
+
+    static {
         System.loadLibrary("reg_rw_multi");
     }
 
@@ -48,8 +48,8 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
     String command[];
     String mWrite_command[];
     int command_delay[];
-    int tempselect=0;
-    int num=0;
+    int tempselect = 0;
+    int num = 0;
 
     TextView permission;
     TextView title;
@@ -81,14 +81,13 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
 
 
     @Override
-    protected void onCreate(Bundle saveInstanceState)
-    {
+    protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_multi_register_rw);
 
         sh_settings = this.getSharedPreferences("HIAPK", 0);
         proc_dir_node = sh_settings.getString("SETUP_DIR_NODE", "/proc/android_touch/");
-        proc_register_node = proc_dir_node+sh_settings.getString("SETUP_REGISTER_NODE", "register");
+        proc_register_node = proc_dir_node + sh_settings.getString("SETUP_REGISTER_NODE", "register");
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -106,107 +105,85 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
             permission.setText("Permission Success");
         }
 
-        diff2part = new LinearLayout.LayoutParams(screen_width/2, ViewGroup.LayoutParams.WRAP_CONTENT);
+        diff2part = new LinearLayout.LayoutParams(screen_width / 2, ViewGroup.LayoutParams.WRAP_CONTENT);
         wrap_content = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         width_match_parent = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         cmd_num_layer = (LinearLayout) findViewById(R.id.cmd_num_layer);
-        show_input_scroll_layer = (ScrollView)findViewById(R.id.input_cmd_layer);
+        show_input_scroll_layer = (ScrollView) findViewById(R.id.input_cmd_layer);
 
         title = (TextView) findViewById(R.id.title);
         cmd_num = (EditText) findViewById(R.id.cmd_num);
         cmd_num.setLayoutParams(diff2part);
-        cmd_num_btn = (Button)findViewById(R.id.cmd_num_btn);
+        cmd_num_btn = (Button) findViewById(R.id.cmd_num_btn);
         cmd_num_btn.setLayoutParams(diff2part);
         cmd_num_btn.setOnClickListener(this);
-
-
 
 
     }
 
     @Override
-    public void onClick(View v)
-    {
-        if(v==cmd_num_btn)
-        {
+    public void onClick(View v) {
+        if (v == cmd_num_btn) {
 
 
-            try{
-                num=Integer.decode(cmd_num.getText().toString());
-            }
-            catch (NumberFormatException e)
-            {
+            try {
+                num = Integer.decode(cmd_num.getText().toString());
+            } catch (NumberFormatException e) {
                 Log.d("Himax ", e.toString());
-                Toast.makeText(MultiRegisterRWActivity.this,"It is not Decimal number",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiRegisterRWActivity.this, "It is not Decimal number", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(num<0)
-            {
-                Toast.makeText(MultiRegisterRWActivity.this,"It is negtive number",Toast.LENGTH_SHORT).show();
+            if (num < 0) {
+                Toast.makeText(MultiRegisterRWActivity.this, "It is negtive number", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(MultiRegisterRWActivity.this,"number "+Integer.toString(num),Toast.LENGTH_SHORT).show();
+            Toast.makeText(MultiRegisterRWActivity.this, "number " + Integer.toString(num), Toast.LENGTH_SHORT).show();
             show_input_view();
 
         }
-        if(v==run_comand)
-        {
+        if (v == run_comand) {
             //Toast.makeText(this,"run go"+Integer.toString(rw_select_id[0]),Toast.LENGTH_SHORT).show();
-            if(num!=0)
-            {
+            if (num != 0) {
 
-                if(checkNull(rw_select_id)!=0)
-                {
-                    int check =checkNull(rw_select_id);
-                    Toast.makeText(this,"("+Integer.toString(check)+")R/W choose One.",Toast.LENGTH_SHORT).show();
+                if (checkNull(rw_select_id) != 0) {
+                    int check = checkNull(rw_select_id);
+                    Toast.makeText(this, "(" + Integer.toString(check) + ")R/W choose One.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                for(int i=0;i<num;i++)
-                {
-                    if(cmd_input[i].getText().toString().isEmpty())
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")command is empty or fail.",Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < num; i++) {
+                    if (cmd_input[i].getText().toString().isEmpty()) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")command is empty or fail.", Toast.LENGTH_SHORT).show();
                         return;
-                    }
-                    else if(!StringIsHex(cmd_input[i].getText().toString()))
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")command is not HEX \n Plz check it again!.",Toast.LENGTH_SHORT).show();
+                    } else if (!StringIsHex(cmd_input[i].getText().toString())) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")command is not HEX \n Plz check it again!.", Toast.LENGTH_SHORT).show();
                         return;
-                    }
-                    else if(cmd_input[i].length()!=2 && cmd_input[i].length()!=4  && cmd_input[i].length()!=8)
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")command is wrong size.",Toast.LENGTH_SHORT).show();
+                    } else if (cmd_input[i].length() != 2 && cmd_input[i].length() != 4 && cmd_input[i].length() != 8) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")command is wrong size.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if(rw_select_id[i] == 1 && write_cmd_input[i].length()==0)
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")write command is wrong size.",Toast.LENGTH_SHORT).show();
-                        return ;
-                    }
-                    else if(!StringIsHex(write_cmd_input[i].getText().toString()))
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")write command is not HEX \n Plz check it again!.",Toast.LENGTH_SHORT).show();
+                    if (rw_select_id[i] == 1 && write_cmd_input[i].length() == 0) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")write command is wrong size.", Toast.LENGTH_SHORT).show();
                         return;
-                    }
-                    else if(write_cmd_input[i].length()%2!=0 || write_cmd_input[i].length()>8)
-                    {
+                    } else if (!StringIsHex(write_cmd_input[i].getText().toString())) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")write command is not HEX \n Plz check it again!.", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (write_cmd_input[i].length() % 2 != 0 || write_cmd_input[i].length() > 8) {
 
-                        Toast.makeText(this,"("+Integer.toString(i)+")write command is wrong size.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")write command is wrong size.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
 
-                    if(delay_input[i].getText().toString().isEmpty())
-                    {
-                        Toast.makeText(this,"("+Integer.toString(i)+")Delay time is empty or fail.",Toast.LENGTH_SHORT).show();
+                    if (delay_input[i].getText().toString().isEmpty()) {
+                        Toast.makeText(this, "(" + Integer.toString(i) + ")Delay time is empty or fail.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    command[i]= cmd_input[i].getText().toString();
+                    command[i] = cmd_input[i].getText().toString();
                     mWrite_command[i] = write_cmd_input[i].getText().toString();
                     //Toast.makeText(this,command[0],Toast.LENGTH_SHORT).show();
-                    command_delay[i]=Integer.parseInt(delay_input[i].getText().toString());
+                    command_delay[i] = Integer.parseInt(delay_input[i].getText().toString());
                     //Toast.makeText(this,"String "+delay_input[i].getText().toString()+" "+command_delay[i],Toast.LENGTH_SHORT).show();
                 }
 
@@ -215,18 +192,17 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
                 intent2show.putExtra("rw_select", rw_select_id);
                 intent2show.putExtra("command", command);
                 intent2show.putExtra("write_command", mWrite_command);
-                intent2show.putExtra("delay",command_delay);
+                intent2show.putExtra("delay", command_delay);
 
                 startActivity(intent2show);
             }
-
 
 
         }
     }
 
     int check_permission() {
-        int read_result=0;
+        int read_result = 0;
 
         String write_register_command[] = {proc_register_node, "r:xf6"};
         String regiter_result[] = {proc_register_node};
@@ -235,11 +211,11 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
         String register_writer = write_command(write_register_command);
         String register_Result = retry_readcfg(3, regiter_result);
 
-        if ((register_Result == null || register_Result.length() == 0) )
+        if ((register_Result == null || register_Result.length() == 0))
             return 0;
         int register_write_r = register_writer.matches("[\\w\\W\\s\\S.]*fail[\\w\\W\\s\\S.]*") ? 1 : 0;
         // Toast.makeText(getApplicationContext(), Result+Integer.toString(write_r), Toast.LENGTH_SHORT).show();
-        if ( register_Result.length() > 0 && register_write_r == 0)
+        if (register_Result.length() > 0 && register_write_r == 0)
             return 1;
         return 0;
     }
@@ -259,45 +235,40 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
     }
 
 
-    String retry_readcfg(int retry,String[] command)
-    {
-        String result="";
+    String retry_readcfg(int retry, String[] command) {
+        String result = "";
 
-        while(retry>0)
-        {
-            result= readCfg(command);
-            if(result==null || result=="" || result.length()==0)
-            {
+        while (retry > 0) {
+            result = readCfg(command);
+            if (result == null || result == "" || result.length() == 0) {
                 retry--;
-                if(retry==0)
-                    result="";
+                if (retry == 0)
+                    result = "";
                 continue;
-            }
-            else
+            } else
                 break;
         }
         return result;
     }
 
-    void show_input_view()
-    {
+    void show_input_view() {
         show_input_scroll_layer.removeAllViews();
 
 
         rw_select_id = new int[num];
-        Arrays.fill(rw_select_id,-1);
+        Arrays.fill(rw_select_id, -1);
 
         command = new String[num];
-        Arrays.fill(command,null);
+        Arrays.fill(command, null);
 
         mWrite_command = new String[num];
-        Arrays.fill(mWrite_command,null);
+        Arrays.fill(mWrite_command, null);
 
         command_delay = new int[num];
-        Arrays.fill(command_delay,-1);
+        Arrays.fill(command_delay, -1);
 
         // run_comand = (Button)findViewById(R.id.run_command_btn);
-        run_comand =new Button(this);
+        run_comand = new Button(this);
         run_comand.findViewById(R.id.run_command_btn);
         run_comand.setBackgroundColor(Color.parseColor("#00AAAA"));
         run_comand.setText("Run Command");
@@ -308,7 +279,7 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
         show_input_linear_layer.setLayoutParams(width_match_parent);
         show_input_linear_layer.setOrientation(LinearLayout.VERTICAL);
 
-        show_input_cmd_layer =new LinearLayout[num];
+        show_input_cmd_layer = new LinearLayout[num];
         show_input_write_cmd_layer = new LinearLayout[num];
         show_input_delay_layer = new LinearLayout[num];
         show_input_rw_select_layer = new LinearLayout[num];
@@ -330,15 +301,14 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
         diff_layer = new LinearLayout[num];
         diff_line = new Button[num];
 
-        for(int i=0;i<num;i++)
-        {
+        for (int i = 0; i < num; i++) {
             show_input_cmd_layer[i] = new LinearLayout(MultiRegisterRWActivity.this);
             show_input_write_cmd_layer[i] = new LinearLayout(MultiRegisterRWActivity.this);
             show_input_delay_layer[i] = new LinearLayout(MultiRegisterRWActivity.this);
             show_input_rw_select_layer[i] = new LinearLayout(MultiRegisterRWActivity.this);
-            diff_layer[i] =new LinearLayout(MultiRegisterRWActivity.this);
+            diff_layer[i] = new LinearLayout(MultiRegisterRWActivity.this);
 
-            rw_select[i]= new RadioGroup(MultiRegisterRWActivity.this);
+            rw_select[i] = new RadioGroup(MultiRegisterRWActivity.this);
 
             show_input_rw_select_layer[i].setLayoutParams(width_match_parent);
             show_input_cmd_layer[i].setLayoutParams(width_match_parent);
@@ -415,7 +385,7 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
 
             diff_line[i] = new Button(MultiRegisterRWActivity.this);
             diff_line[i].setBackgroundColor(Color.parseColor("#009FCC"));
-            diff_line[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,50 ));
+            diff_line[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 50));
             diff_layer[i].addView(diff_line[i]);
 
             show_input_rw_select_layer[i].setOrientation(LinearLayout.HORIZONTAL);
@@ -425,7 +395,7 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
             show_input_linear_layer.addView(show_input_cmd_layer[i]);
             show_input_linear_layer.addView(show_input_write_cmd_layer[i]);
             show_input_linear_layer.addView(show_input_delay_layer[i]);
-            show_input_linear_layer.addView( diff_layer[i]);
+            show_input_linear_layer.addView(diff_layer[i]);
 
         }
 
@@ -439,57 +409,53 @@ public class MultiRegisterRWActivity extends Activity implements View.OnClickLis
         show_input_scroll_layer.addView(show_input_linear_layer);
     }
 
-    int checkNull(int array[])
-    {
+    int checkNull(int array[]) {
         int checked;
-        for(int i=0;i<array.length;i++)
-            if(array[i]<0)
+        for (int i = 0; i < array.length; i++)
+            if (array[i] < 0)
                 return i;
         return 0;
     }
-    int checkNull(String array[])
-    {
+
+    int checkNull(String array[]) {
         int checked;
-        for(int i=0;i<array.length;i++)
-            if(array[i]==null)
+        for (int i = 0; i < array.length; i++)
+            if (array[i] == null)
                 return i;
         return 0;
     }
-    private boolean StringIsHex(String input)
-    {
-        int counter=0;
-        for(int i=0;i<input.length();i++)
-        {
-            if(input.substring(i, i+1).equals("0") ||
-                    input.substring(i, i+1).equals("1") ||
-                    input.substring(i, i+1).equals("2") ||
-                    input.substring(i, i+1).equals("3") ||
-                    input.substring(i, i+1).equals("4") ||
-                    input.substring(i, i+1).equals("5") ||
-                    input.substring(i, i+1).equals("6") ||
-                    input.substring(i, i+1).equals("7") ||
-                    input.substring(i, i+1).equals("8") ||
-                    input.substring(i, i+1).equals("9") ||
-                    input.substring(i, i+1).equals("A") ||
-                    input.substring(i, i+1).equals("a") ||
-                    input.substring(i, i+1).equals("B") ||
-                    input.substring(i, i+1).equals("b") ||
-                    input.substring(i, i+1).equals("C") ||
-                    input.substring(i, i+1).equals("c") ||
-                    input.substring(i, i+1).equals("D") ||
-                    input.substring(i, i+1).equals("d") ||
-                    input.substring(i, i+1).equals("E") ||
-                    input.substring(i, i+1).equals("e") ||
-                    input.substring(i, i+1).equals("F") ||
-                    input.substring(i, i+1).equals("f"))
-            {
+
+    private boolean StringIsHex(String input) {
+        int counter = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.substring(i, i + 1).equals("0") ||
+                    input.substring(i, i + 1).equals("1") ||
+                    input.substring(i, i + 1).equals("2") ||
+                    input.substring(i, i + 1).equals("3") ||
+                    input.substring(i, i + 1).equals("4") ||
+                    input.substring(i, i + 1).equals("5") ||
+                    input.substring(i, i + 1).equals("6") ||
+                    input.substring(i, i + 1).equals("7") ||
+                    input.substring(i, i + 1).equals("8") ||
+                    input.substring(i, i + 1).equals("9") ||
+                    input.substring(i, i + 1).equals("A") ||
+                    input.substring(i, i + 1).equals("a") ||
+                    input.substring(i, i + 1).equals("B") ||
+                    input.substring(i, i + 1).equals("b") ||
+                    input.substring(i, i + 1).equals("C") ||
+                    input.substring(i, i + 1).equals("c") ||
+                    input.substring(i, i + 1).equals("D") ||
+                    input.substring(i, i + 1).equals("d") ||
+                    input.substring(i, i + 1).equals("E") ||
+                    input.substring(i, i + 1).equals("e") ||
+                    input.substring(i, i + 1).equals("F") ||
+                    input.substring(i, i + 1).equals("f")) {
                 counter++;
-            }
-            else
+            } else
                 return false;
 
         }
-        if(counter==(input.length()))
+        if (counter == (input.length()))
             return true;
         return false;
     }

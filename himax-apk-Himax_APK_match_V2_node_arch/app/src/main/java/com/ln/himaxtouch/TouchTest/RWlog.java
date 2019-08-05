@@ -16,7 +16,7 @@ import java.io.PrintStream;
 
 public class RWlog {
 
-    public static void saveResult(String content, String name){
+    public static void saveResult(String content, String name) {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             String save_path = Environment.getExternalStorageDirectory().toString()
@@ -44,7 +44,7 @@ public class RWlog {
         }
     }
 
-    public static void write(String content, String title, String time){
+    public static void write(String content, String title, String time) {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             String save_path = Environment.getExternalStorageDirectory().toString()
@@ -72,8 +72,8 @@ public class RWlog {
         }
     }
 
-    public static void copyFile(String title, String time, String newName){
-        try{
+    public static void copyFile(String title, String time, String newName) {
+        try {
             String save_path = Environment.getExternalStorageDirectory().toString()
                     + File.separator
                     + himax_config.mTouchTest_tmp_dir_str
@@ -84,7 +84,7 @@ public class RWlog {
             File oldFile = new File(save_path);
             String oldAbsolutePath = oldFile.getAbsolutePath();
             String oldRoot = oldAbsolutePath.substring(0, oldAbsolutePath.length() - 29);
-            String newPath =  Environment.getExternalStorageDirectory().toString()
+            String newPath = Environment.getExternalStorageDirectory().toString()
                     + File.separator
                     + himax_config.mTouchTest_out_dir_str
                     + File.separator
@@ -92,25 +92,25 @@ public class RWlog {
                     + ".txt";
             int s = 0;
             int r;
-            if (oldFile.exists()){
+            if (oldFile.exists()) {
                 InputStream inputStream = new FileInputStream(oldAbsolutePath);
                 FileOutputStream fs = new FileOutputStream(newPath);
                 byte[] buffer = new byte[1024];
-                while ((r = inputStream.read(buffer))!= -1){
+                while ((r = inputStream.read(buffer)) != -1) {
                     s += r;
                     System.out.println(s);
-                    fs.write(buffer,0,r);
+                    fs.write(buffer, 0, r);
                 }
                 inputStream.close();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static boolean delete(String name){
-        File file = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+"/HimaxAPK/"+name);
-        if (file == null || !file.exists() || file.isDirectory()){
+    public static boolean delete(String name) {
+        File file = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/HimaxAPK/" + name);
+        if (file == null || !file.exists() || file.isDirectory()) {
             return false;
         }
         file.delete();

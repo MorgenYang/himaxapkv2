@@ -127,23 +127,23 @@ public class DataMonitorModel implements IObjectiveTestModel {
 
     public void setupNotifcation(Context context, int diag, int min, int sec, boolean isNeedStartPending) {
         mNotification = null;
-        Intent intentStart= new Intent(context, HimaxApplication.RecordServiceReceiver.class);
+        Intent intentStart = new Intent(context, HimaxApplication.RecordServiceReceiver.class);
         intentStart.setAction(ACTION_RECORD_START);
         int[] param1 = new int[4];
         param1[0] = diag;
         param1[1] = mTransformOption;
         param1[2] = mDataKeepOption;
-        param1[3] = ((min*60) + sec);
+        param1[3] = ((min * 60) + sec);
         intentStart.putExtra("record", param1);
 
-        Intent intentStop= new Intent(context, HimaxApplication.RecordServiceReceiver.class);
+        Intent intentStop = new Intent(context, HimaxApplication.RecordServiceReceiver.class);
         intentStop.setAction(ACTION_RECORD_FINISH);
 
         StringBuilder sb = new StringBuilder();
 
-        if(mBackgroundRecordInfo == null) {
+        if (mBackgroundRecordInfo == null) {
             sb.append("1.");
-            sb.append(mDiagOptionsKey.get(mDiagOptionsValue.indexOf(diag+"")));
+            sb.append(mDiagOptionsKey.get(mDiagOptionsValue.indexOf(diag + "")));
             sb.append("\n");
             sb.append("2.");
             sb.append(mTransformOptionsKey.get(mTransformOption) + " " + mTransformOptionsValue.get(mTransformOption));
@@ -156,10 +156,10 @@ public class DataMonitorModel implements IObjectiveTestModel {
             sb.append("4.");
             Date currentTime = Calendar.getInstance().getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-            mPathToWrite = mHXPath + mDiagOptionsKey.get(mDiagOptionsValue.indexOf(diag+"")) + "_" + sdf.format(currentTime) + ".csv";
+            mPathToWrite = mHXPath + mDiagOptionsKey.get(mDiagOptionsValue.indexOf(diag + "")) + "_" + sdf.format(currentTime) + ".csv";
             sb.append(mPathToWrite);
             sb.append("\n");
-            if(min==0 && sec==0) {
+            if (min == 0 && sec == 0) {
                 sb.append("5.");
                 sb.append("recording time: non-stop");
             } else {
@@ -171,15 +171,15 @@ public class DataMonitorModel implements IObjectiveTestModel {
                 sb.append(" sec");
             }
             mBackgroundRecordInfo = sb.toString();
-            Log.d(TAG, "if "+mBackgroundRecordInfo);
+            Log.d(TAG, "if " + mBackgroundRecordInfo);
         } else {
-            Log.d(TAG, "else "+mBackgroundRecordInfo);
+            Log.d(TAG, "else " + mBackgroundRecordInfo);
             sb.append(mBackgroundRecordInfo);
         }
 
 
-        PendingIntent pendingStart = PendingIntent.getBroadcast(context,0,intentStart,PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pendingStop = PendingIntent.getBroadcast(context,0,intentStop,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingStart = PendingIntent.getBroadcast(context, 0, intentStart, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingStop = PendingIntent.getBroadcast(context, 0, intentStop, PendingIntent.FLAG_UPDATE_CURRENT);
         String id = "channel_1";
         String description = "143";
         int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -188,19 +188,19 @@ public class DataMonitorModel implements IObjectiveTestModel {
         channel.enableVibration(true);
         mNotification = new Notification.Builder(mActivityContext, id)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_launcher))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
                 .setContentTitle("Record Raw Data Service")
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setStyle(new Notification.BigTextStyle().bigText(sb.toString()));
-        if(isNeedStartPending) {
-            mNotification.addAction(R.drawable.custom_btn_hint_blue,"start (delay 3 secs)",pendingStart);
+        if (isNeedStartPending) {
+            mNotification.addAction(R.drawable.custom_btn_hint_blue, "start (delay 3 secs)", pendingStart);
         } else {
             mNotification.setProgress(100, 0, false);
         }
-        mNotification.addAction(R.drawable.custom_btn_hint_blue,"finish",pendingStop);
+        mNotification.addAction(R.drawable.custom_btn_hint_blue, "finish", pendingStop);
 
-        if(mNotificationManager == null) {
+        if (mNotificationManager == null) {
             mNotificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(channel);
@@ -216,9 +216,9 @@ public class DataMonitorModel implements IObjectiveTestModel {
 
     @Override
     public void unbindViews() {
-        if(mLayout != null) {
+        if (mLayout != null) {
             View background = mLayout.findViewById(mBackgroundViewId);
-            if(background != null) {
+            if (background != null) {
                 mLayout.removeView(background);
                 mLayout.removeView(mRawDataLayout);
             }
@@ -236,7 +236,8 @@ public class DataMonitorModel implements IObjectiveTestModel {
         mDataKeepGroup.removeAllViews();
         mDataKeepGroup.clearCheck();
         mDataKeepGroup = null;
-        mColorOptionGroup.removeAllViews();;
+        mColorOptionGroup.removeAllViews();
+        ;
         mColorOptionGroup.clearCheck();
         mColorOptionGroup = null;
         mColorValueBar = null;

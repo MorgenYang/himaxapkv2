@@ -21,12 +21,13 @@ import android.widget.TextView;
 /**
  * Created by Einim on 2016/8/24.
  */
-public class Show_MultiRegisterRWActivity extends Activity{
+public class Show_MultiRegisterRWActivity extends Activity {
 
-    public native String  writeCfg(String[] stringArray);
-    public native String  readCfg(String[] stringArray);
-    static
-    {
+    public native String writeCfg(String[] stringArray);
+
+    public native String readCfg(String[] stringArray);
+
+    static {
         System.loadLibrary("reg_rw_multi");
     }
 
@@ -37,7 +38,7 @@ public class Show_MultiRegisterRWActivity extends Activity{
     public int screen_width;
     public int screen_height;
 
-    int total=0;
+    int total = 0;
     ScrollView Result_View;
     LinearLayout result_show_include[];
     LinearLayout result_layer;
@@ -58,8 +59,7 @@ public class Show_MultiRegisterRWActivity extends Activity{
     String processed_result[] = new String[128];
 
     @Override
-    protected void onCreate(Bundle saveInstanceState)
-    {
+    protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_show_multi_register_rw);
 
@@ -70,22 +70,22 @@ public class Show_MultiRegisterRWActivity extends Activity{
         screen_height = size.y;
 
         Bundle input = getIntent().getExtras();
-        rw_select=input.getIntArray("rw_select");
-        command=input.getStringArray("command");
+        rw_select = input.getIntArray("rw_select");
+        command = input.getStringArray("command");
         write_command = input.getStringArray("write_command");
-        delay=input.getIntArray("delay");
+        delay = input.getIntArray("delay");
 
         width_match_parent = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         all_wrap_content = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         sh_settings = this.getSharedPreferences("HIAPK", 0);
         proc_dir_node = sh_settings.getString("SETUP_DIR_NODE", "/proc/android_touch/");
-        proc_register_node = proc_dir_node+sh_settings.getString("SETUP_REGISTER_NODE", "register");
+        proc_register_node = proc_dir_node + sh_settings.getString("SETUP_REGISTER_NODE", "register");
 
         total = command.length;
 
-        Result_View = (ScrollView)findViewById(R.id.Result_View);
-        result_layer = (LinearLayout)findViewById(R.id.result_layer);
+        Result_View = (ScrollView) findViewById(R.id.Result_View);
+        result_layer = (LinearLayout) findViewById(R.id.result_layer);
 
         result_show_include = new LinearLayout[total];
         result_show = new GridView[total];
@@ -96,6 +96,7 @@ public class Show_MultiRegisterRWActivity extends Activity{
         Show_Result();
 
     }
+
     void waiting(int ms) {
         try {
             Thread.sleep(ms);
@@ -103,6 +104,7 @@ public class Show_MultiRegisterRWActivity extends Activity{
             Log.d("[himax]", "wainting: fail");
         }
     }
+
     String write_command(String[] command) {
         String write_in = writeCfg(command);
         return write_in;
@@ -110,71 +112,62 @@ public class Show_MultiRegisterRWActivity extends Activity{
     }
 
 
-    String retry_readcfg(int retry,String[] command)
-    {
-        String result="";
+    String retry_readcfg(int retry, String[] command) {
+        String result = "";
 
-        while(retry>0)
-        {
-            result= readCfg(command);
-            if(result==null || result=="" || result.length()==0)
-            {
+        while (retry > 0) {
+            result = readCfg(command);
+            if (result == null || result == "" || result.length() == 0) {
                 retry--;
-                if(retry==0)
-                    result="";
+                if (retry == 0)
+                    result = "";
                 continue;
-            }
-            else
+            } else
                 break;
         }
         return result;
     }
-    void parsing_result(String result)
-    {
+
+    void parsing_result(String result) {
         int now = result.indexOf('\n');
 
-        for(int i=0;i<128;i++)
-        {
-            if(i%16==15)
-            {
-                int str_start = now+1;
-                int str_end = result.indexOf('\n',str_start);
-                processed_result[i]=result.substring(str_start,str_end);
+        for (int i = 0; i < 128; i++) {
+            if (i % 16 == 15) {
+                int str_start = now + 1;
+                int str_end = result.indexOf('\n', str_start);
+                processed_result[i] = result.substring(str_start, str_end);
                 now = str_end;
-            }
-            else{
-                int str_start = now+1;
-                int str_end = result.indexOf(' ',str_start);
-                processed_result[i]=result.substring(str_start,str_end);
+            } else {
+                int str_start = now + 1;
+                int str_end = result.indexOf(' ', str_start);
+                processed_result[i] = result.substring(str_start, str_end);
                 now = str_end;
             }
 
         }
     }
 
-    public class Result_adapter extends ArrayAdapter<String>
-    {
+    public class Result_adapter extends ArrayAdapter<String> {
         String[] objects;
         Context context;
 
-        public  Result_adapter(Context context, int textViewResourceId, String[] objects)
-        {
-            super(context,textViewResourceId,objects);
-            this.context=context;
-            this.objects=objects;
+        public Result_adapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            this.context = context;
+            this.objects = objects;
 
         }
 
         public View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
             TextView tv;
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                tv = (TextView)inflater.inflate(R.layout.processed_result_list,parent,false);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                tv = (TextView) inflater.inflate(R.layout.processed_result_list, parent, false);
             } else {
                 tv = (TextView) convertView;
             }
             tv.setText(objects[position]);
-            if (position%2==0)
+            if (position % 2 == 0)
                 tv.setBackgroundColor(Color.parseColor("#FF8888"));
             else
                 tv.setBackgroundColor(Color.parseColor("#66FF66"));
@@ -182,43 +175,40 @@ public class Show_MultiRegisterRWActivity extends Activity{
             return tv;
         }
     }
-    String format_hex(String org)
-    {
-        if(org.length()>1)
+
+    String format_hex(String org) {
+        if (org.length() > 1)
             return org;
         else
-            return "0"+org;
+            return "0" + org;
     }
-    private String mReadRegisterNode(String[] command)
-    {
+
+    private String mReadRegisterNode(String[] command) {
         String result = "";
 
         result = write_command(command);
-        Log.d("HXTP","Write result:"+result);
-        try{
+        Log.d("HXTP", "Write result:" + result);
+        try {
             Thread.sleep(30);
-        }
-        catch(Exception e) {
-            Log.e("HXTP",e.toString());
+        } catch (Exception e) {
+            Log.e("HXTP", e.toString());
         }
         result = retry_readcfg(3, command);
-        Log.d("HXTP","Read result:"+result);
+        Log.d("HXTP", "Read result:" + result);
         return result;
     }
-    void Show_Result()
-    {
-        for(int i=0;i<command.length;i++)
-        {
-            String cmd_show_str="";
-            String delay_show_str="";
-            String result="";
 
-            result_show_include[i] =new LinearLayout(this);
+    void Show_Result() {
+        for (int i = 0; i < command.length; i++) {
+            String cmd_show_str = "";
+            String delay_show_str = "";
+            String result = "";
+
+            result_show_include[i] = new LinearLayout(this);
             result_show[i] = new GridView(this);
             result_command[i] = new Button(this);
             result_delay[i] = new Button(this);
             //write_result[i] = new TextView(this);
-
 
 
             result_show_include[i].setLayoutParams(width_match_parent);
@@ -229,18 +219,17 @@ public class Show_MultiRegisterRWActivity extends Activity{
             result_show_include[i].setOrientation(LinearLayout.VERTICAL);
 
 
-            if(rw_select[i]==0) {
+            if (rw_select[i] == 0) {
 
-                cmd_show_str="("+Integer.toString(i)+")"+" r:x"+command[i];
-                delay_show_str="("+Integer.toString(i)+")"+"  Delay:"+Integer.toString(delay[i])+" ms";
+                cmd_show_str = "(" + Integer.toString(i) + ")" + " r:x" + command[i];
+                delay_show_str = "(" + Integer.toString(i) + ")" + "  Delay:" + Integer.toString(delay[i]) + " ms";
                 // Toast.makeText(this, Integer.toString(delay[0]), Toast.LENGTH_SHORT).show();
                 result_command[i].setBackgroundColor(Color.parseColor("#AA7700"));
                 result_delay[i].setBackgroundColor(Color.parseColor("#CC6600"));
 
-                String cmd[] = {proc_register_node, "r:x"+command[i] + "\n"};
+                String cmd[] = {proc_register_node, "r:x" + command[i] + "\n"};
 
                 result = mReadRegisterNode(cmd);
-
 
 
                 parsing_result(result);
@@ -269,14 +258,12 @@ public class Show_MultiRegisterRWActivity extends Activity{
                 result_layer.addView(result_show_include[i]);
 
                 waiting(delay[i]);
-            }
-            else
-            {
-                cmd_show_str="("+Integer.toString(i)+")"+" w:x"+command[i]+":x"+write_command[i];
-                delay_show_str="("+Integer.toString(i)+")"+"  Delay:"+Integer.toString(delay[i])+" ms";
+            } else {
+                cmd_show_str = "(" + Integer.toString(i) + ")" + " w:x" + command[i] + ":x" + write_command[i];
+                delay_show_str = "(" + Integer.toString(i) + ")" + "  Delay:" + Integer.toString(delay[i]) + " ms";
                 result_command[i].setBackgroundColor(Color.parseColor("#008888"));
                 result_delay[i].setBackgroundColor(Color.parseColor("#007799"));
-                String cmd[] = {proc_register_node, "w:x"+command[i]+":x"+write_command[i] + "\n"};
+                String cmd[] = {proc_register_node, "w:x" + command[i] + ":x" + write_command[i] + "\n"};
 
                 result = mReadRegisterNode(cmd);
 
@@ -307,8 +294,6 @@ public class Show_MultiRegisterRWActivity extends Activity{
                 write_result[i].setTextSize(20);*/
 
 
-
-
                 result_show_include[i].addView(result_command[i]);
                 result_show_include[i].addView(result_show[i]);
                 result_show_include[i].addView(result_delay[i]);
@@ -316,7 +301,7 @@ public class Show_MultiRegisterRWActivity extends Activity{
 
                 waiting(delay[i]);
             }
-            Log.d("HXTP","cmd["+Integer.toString(i)+"]="+command[i]);
+            Log.d("HXTP", "cmd[" + Integer.toString(i) + "]=" + command[i]);
         }
 
         //Result_View.addView(result_layer);

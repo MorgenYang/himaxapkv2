@@ -44,6 +44,7 @@ public class TrackPatternTestView extends View {
 
 
     private Rect r = new Rect();
+
     private void drawCenter(Canvas canvas, Paint paint, String text, float shiftY) {
         canvas.getClipBounds(r);
         int cHeight = r.height();
@@ -52,6 +53,6 @@ public class TrackPatternTestView extends View {
         paint.getTextBounds(text, 0, text.length(), r);
         float x = cWidth / 2f - r.width() / 2f - r.left;
         float y = cHeight / 2f + r.height() / 2f - r.bottom;
-        canvas.drawText(text, x, y+shiftY, paint);
+        canvas.drawText(text, x, y + shiftY, paint);
     }
 }

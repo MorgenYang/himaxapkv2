@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by 903622 on 2018/4/16.
  */
 
-public class BoardModel implements IObjectiveTestModel{
+public class BoardModel implements IObjectiveTestModel {
 
     public RelativeLayout mLayout;
     public int mBackgroundViewId = 0;
@@ -35,9 +35,9 @@ public class BoardModel implements IObjectiveTestModel{
 
     @Override
     public void unbindViews() {
-        if(mLayout != null) {
+        if (mLayout != null) {
             View background = mLayout.findViewById(mBackgroundViewId);
-            if(background != null) {
+            if (background != null) {
                 mLayout.removeView(background);
             }
         }

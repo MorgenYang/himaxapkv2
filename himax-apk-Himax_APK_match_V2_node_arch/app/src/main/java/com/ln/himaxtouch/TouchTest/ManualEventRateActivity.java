@@ -33,21 +33,22 @@ public class ManualEventRateActivity extends Activity {
     String time;
     String points = "";
     List<String> list = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
 
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -69,25 +70,25 @@ public class ManualEventRateActivity extends Activity {
         int green;
         int blue;
         SharedPreferences data = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String bgc = data.getString("bg_color_text","");
+        String bgc = data.getString("bg_color_text", "");
 
-        double lcd_width = Double.parseDouble(data.getString("lcd_width_text",""));
-        double lcd_height = Double.parseDouble(data.getString("lcd_height_text",""));
-        double a = width/lcd_width;
-        double b = height/lcd_height;
+        double lcd_width = Double.parseDouble(data.getString("lcd_width_text", ""));
+        double lcd_height = Double.parseDouble(data.getString("lcd_height_text", ""));
+        double a = width / lcd_width;
+        double b = height / lcd_height;
 
         public Manual(Context context) {
             super(context);
-            paint=new Paint(Paint.DITHER_FLAG);
+            paint = new Paint(Paint.DITHER_FLAG);
             bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            canvas=new Canvas();
+            canvas = new Canvas();
             canvas.setBitmap(bitmap);
         }
 
         @Override
-        public void onDraw(Canvas canvas){
-            red = Integer.parseInt(bgc.substring(0,3));
-            green = Integer.parseInt(bgc.substring(3,6));
+        public void onDraw(Canvas canvas) {
+            red = Integer.parseInt(bgc.substring(0, 3));
+            green = Integer.parseInt(bgc.substring(3, 6));
             blue = Integer.parseInt(bgc.substring(6));
             canvas.drawColor(Color.rgb(red, green, blue));
 
@@ -95,35 +96,36 @@ public class ManualEventRateActivity extends Activity {
             paint.setStrokeWidth(1);
             paint.setTextSize(30);
 
-            canvas.drawText("Point:"+"("+mov_x+","+mov_y+")",50,100,paint);
-            canvas.drawText("Event Rate:"+"("+(current - pre)+","+"p/s)",300,100,paint);
-            canvas.drawText("Min Event Rate:"+"("+"p/s)",300,135,paint);
-            canvas.drawText("Max Event Rate:"+"("+"p/s)",300,170,paint);
+            canvas.drawText("Point:" + "(" + mov_x + "," + mov_y + ")", 50, 100, paint);
+            canvas.drawText("Event Rate:" + "(" + (current - pre) + "," + "p/s)", 300, 100, paint);
+            canvas.drawText("Min Event Rate:" + "(" + "p/s)", 300, 135, paint);
+            canvas.drawText("Max Event Rate:" + "(" + "p/s)", 300, 170, paint);
 
             paint.setColor(Color.RED);
             paint.setStrokeWidth(2);
-            canvas.drawBitmap(bitmap,0,0,null);
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
-            if (event.getAction()== MotionEvent.ACTION_MOVE) {
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 pre = event.getEventTime();
-                list.add(pre+"");
+                list.add(pre + "");
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_DOWN) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_UP) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
                 invalidate();
             }
             current = event.getEventTime();
-            mov_x=(int) event.getX();
-            mov_y=(int) event.getY();
+            mov_x = (int) event.getX();
+            mov_y = (int) event.getY();
             return true;
         }
     }
+
     @Override
     public void onBackPressed() {
         if (!list.isEmpty()) {
@@ -133,13 +135,13 @@ public class ManualEventRateActivity extends Activity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             for (int i = 0; i < list.size(); i++) {
-                                if (i == list.size()-1){
+                                if (i == list.size() - 1) {
                                     points = points + list.get(i);
-                                }else
-                                    points = points + list.get(i) +"\n";
+                                } else
+                                    points = points + list.get(i) + "\n";
                             }
 //                            write(points);
-                            rWlog.write(points,"rat_",time);
+                            rWlog.write(points, "rat_", time);
                             SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
                             editor.putString("rate", time);
                             editor.commit();
@@ -154,6 +156,6 @@ public class ManualEventRateActivity extends Activity {
                             ManualEventRateActivity.this.finish();
                         }
                     }).show();
-        }else ManualEventRateActivity.this.finish();
+        } else ManualEventRateActivity.this.finish();
     }
 }

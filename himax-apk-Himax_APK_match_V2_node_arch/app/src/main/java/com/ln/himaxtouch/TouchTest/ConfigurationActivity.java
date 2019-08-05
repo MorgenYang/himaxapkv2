@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.ln.himaxtouch.R;
 import com.ln.himaxtouch.TouchTestActivity;
 
-public class ConfigurationActivity extends Activity implements View.OnClickListener{
+public class ConfigurationActivity extends Activity implements View.OnClickListener {
 
     TextView lcdView;
     public int screenWidth;
@@ -27,16 +27,16 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
     EditText bg_color_text;
     EditText lcd_height_text;
     EditText lcd_width_text;
-//    EditText accuracy_total_test_times_text;
+    //    EditText accuracy_total_test_times_text;
     EditText accuracy_center_threshold_text;
     EditText accuracy_edge_threshold_text;
     EditText accuracy_click_num_text;
-//    EditText linearity_each_line_times_text;
+    //    EditText linearity_each_line_times_text;
 //    EditText linearity_total_test_times_text;
     EditText lineation_center_threshold_text;
     EditText lineation_edge_threshold_text;
     EditText test_bar_radius_text;
-//    EditText loop_times_text;
+    //    EditText loop_times_text;
 //    EditText long_test_times_text;
     EditText sen_gap_text;
 
@@ -46,16 +46,16 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
     public String bg_color;
     public String lcd_height;
     public String lcd_width;
-//    public String accuracy_total_test_times;
+    //    public String accuracy_total_test_times;
     public String accuracy_center_threshold;
     public String accuracy_edge_threshold;
     public String accuracy_click_num;
-//    public String linearity_each_line_times;
+    //    public String linearity_each_line_times;
 //    public String linearity_total_test_times;
     public String lineation_center_threshold;
     public String lineation_edge_threshold;
     public String test_bar_radius;
-//    public String loop_times;
+    //    public String loop_times;
 //    public String long_test_times;
     public String sen_gap;
     public boolean key;
@@ -66,7 +66,7 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_configuration);
 
         //get touch resolution and set resolution
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
         screenWidth = rmetrics.widthPixels;
@@ -94,27 +94,26 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
         vir_key = (CheckBox) findViewById(R.id.vir_key);
 
 
-
         //read default value
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        bg_color = getData.getString("bg_color_text","");
-        lcd_height = getData.getString("lcd_height_text","");
-        lcd_width = getData.getString("lcd_width_text","");
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        bg_color = getData.getString("bg_color_text", "");
+        lcd_height = getData.getString("lcd_height_text", "");
+        lcd_width = getData.getString("lcd_width_text", "");
 //        accuracy_total_test_times = getData.getString("accuracy_total_test_times_text","");
-        accuracy_center_threshold = getData.getString("accuracy_center_threshold_text","");
-        accuracy_edge_threshold = getData.getString("accuracy_edge_threshold_text","");
-        accuracy_click_num = getData.getString("accuracy_click_num_text","");
+        accuracy_center_threshold = getData.getString("accuracy_center_threshold_text", "");
+        accuracy_edge_threshold = getData.getString("accuracy_edge_threshold_text", "");
+        accuracy_click_num = getData.getString("accuracy_click_num_text", "");
 //        linearity_each_line_times = getData.getString("linearity_each_line_times_text","");
 //        linearity_total_test_times = getData.getString("linearity_total_test_times_text","");
-        lineation_center_threshold = getData.getString("lineation_center_threshold_text","");
-        lineation_edge_threshold = getData.getString("lineation_edge_threshold_text","");
-        test_bar_radius = getData.getString("test_bar_radius_text","");
+        lineation_center_threshold = getData.getString("lineation_center_threshold_text", "");
+        lineation_edge_threshold = getData.getString("lineation_edge_threshold_text", "");
+        test_bar_radius = getData.getString("test_bar_radius_text", "");
 //        loop_times = getData.getString("loop_times_text","");
 //        long_test_times = getData.getString("long_test_times_text","");
-        sen_gap = getData.getString("sen_gap_text","");
-        key = getData.getBoolean("vir_key",false);
+        sen_gap = getData.getString("sen_gap_text", "");
+        key = getData.getBoolean("vir_key", false);
 
-        if (bg_color.equals("")){
+        if (bg_color.equals("")) {
             //set default value
             bg_color_text.setText("111111111");
             accuracy_center_threshold_text.setText("1");
@@ -124,7 +123,7 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
             lineation_edge_threshold_text.setText("1.5");
             test_bar_radius_text.setText("3");
             sen_gap_text.setText("3");
-        }else {
+        } else {
             //fill latest value
             bg_color_text.setText(bg_color);
             lcd_height_text.setText(lcd_height);
@@ -147,6 +146,7 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
 
         save_BTN.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
         //get fill text
@@ -167,53 +167,52 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
         sen_gap = sen_gap_text.getText().toString();
         key = vir_key.isChecked();
 
-        if (    bg_color.equals("")
-                ||lcd_height.equals("")
-                ||lcd_width.equals("")
+        if (bg_color.equals("")
+                || lcd_height.equals("")
+                || lcd_width.equals("")
 //                ||accuracy_total_test_times.equals("")
-                ||accuracy_center_threshold.equals("")
-                ||accuracy_edge_threshold.equals("")
-                ||accuracy_click_num.equals("")
+                || accuracy_center_threshold.equals("")
+                || accuracy_edge_threshold.equals("")
+                || accuracy_click_num.equals("")
 //                ||linearity_each_line_times.equals("")
 //                ||linearity_total_test_times.equals("")
-                ||lineation_center_threshold.equals("")
-                ||lineation_edge_threshold.equals("")
-                ||test_bar_radius.equals("")
+                || lineation_center_threshold.equals("")
+                || lineation_edge_threshold.equals("")
+                || test_bar_radius.equals("")
 //                ||loop_times.equals("")
 //                ||long_test_times.equals("")
-                ||sen_gap.equals(""))
-        {
-            Toast.makeText(ConfigurationActivity.this,"some value is empty!",Toast.LENGTH_LONG).show();
+                || sen_gap.equals("")) {
+            Toast.makeText(ConfigurationActivity.this, "some value is empty!", Toast.LENGTH_LONG).show();
             return;
         }
         int red;
         int green;
         int blue;
         String bgc = bg_color;
-        if (bgc.length()!=9){
-            Toast.makeText(ConfigurationActivity.this,"Color is not 9 number,please check!",Toast.LENGTH_LONG).show();
+        if (bgc.length() != 9) {
+            Toast.makeText(ConfigurationActivity.this, "Color is not 9 number,please check!", Toast.LENGTH_LONG).show();
             return;
         }
-        red = Integer.parseInt(bgc.substring(0,3));
-        green = Integer.parseInt(bgc.substring(3,6));
+        red = Integer.parseInt(bgc.substring(0, 3));
+        green = Integer.parseInt(bgc.substring(3, 6));
         blue = Integer.parseInt(bgc.substring(6));
-        if (red > 255 || green > 255 || blue > 255 ){
-            Toast.makeText(ConfigurationActivity.this,bgc + "  Wrong Number! Enter Again!",Toast.LENGTH_LONG).show();
+        if (red > 255 || green > 255 || blue > 255) {
+            Toast.makeText(ConfigurationActivity.this, bgc + "  Wrong Number! Enter Again!", Toast.LENGTH_LONG).show();
             return;
         }
         double center = Double.parseDouble(accuracy_center_threshold);
         double edge = Double.parseDouble(accuracy_edge_threshold);
         double radius = Double.parseDouble(test_bar_radius);
-        if(center > radius || edge > radius){
-            Toast.makeText(ConfigurationActivity.this,"ACC center threshold OR edge threshold Wrong Number!",Toast.LENGTH_LONG).show();
+        if (center > radius || edge > radius) {
+            Toast.makeText(ConfigurationActivity.this, "ACC center threshold OR edge threshold Wrong Number!", Toast.LENGTH_LONG).show();
             return;
         }
-        if(Double.parseDouble(test_bar_radius)>10){
-            Toast.makeText(ConfigurationActivity.this,"Radius:" + test_bar_radius + "should <= 10!",Toast.LENGTH_LONG).show();
+        if (Double.parseDouble(test_bar_radius) > 10) {
+            Toast.makeText(ConfigurationActivity.this, "Radius:" + test_bar_radius + "should <= 10!", Toast.LENGTH_LONG).show();
             return;
         }
-        if(Double.parseDouble(lcd_height) > 500 || Double.parseDouble(lcd_width) > 500){
-            Toast.makeText(ConfigurationActivity.this,"LCD (mm) too large!",Toast.LENGTH_LONG).show();
+        if (Double.parseDouble(lcd_height) > 500 || Double.parseDouble(lcd_width) > 500) {
+            Toast.makeText(ConfigurationActivity.this, "LCD (mm) too large!", Toast.LENGTH_LONG).show();
             return;
         }
         SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
@@ -239,7 +238,7 @@ public class ConfigurationActivity extends Activity implements View.OnClickListe
 
         //save Complete goto TouchTestActivity ui
         Intent intent = new Intent();
-        intent.setClass(ConfigurationActivity.this,TouchTestActivity.class);
+        intent.setClass(ConfigurationActivity.this, TouchTestActivity.class);
         startActivity(intent);
     }
 }

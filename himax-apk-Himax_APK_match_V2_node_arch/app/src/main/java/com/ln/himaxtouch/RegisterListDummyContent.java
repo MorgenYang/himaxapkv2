@@ -11,42 +11,36 @@ import java.util.List;
  */
 public class RegisterListDummyContent {
 
-	/**
-	 * An array of sample (dummy) items.
-	 */
-	public static List<RegisterListDummyItem> ITEMS = new ArrayList<RegisterListDummyItem>();
+    /**
+     * An array of sample (dummy) items.
+     */
+    public static List<RegisterListDummyItem> ITEMS = new ArrayList<RegisterListDummyItem>();
 
-	static 
-	{
-		for(int i=0;i<128;i++)
-		{
-			addItem(new RegisterListDummyItem(String.valueOf(i),"00"));
-		}
-	}
+    static {
+        for (int i = 0; i < 128; i++) {
+            addItem(new RegisterListDummyItem(String.valueOf(i), "00"));
+        }
+    }
 
-	private static void addItem(RegisterListDummyItem item) 
-	{
-		ITEMS.add(item);
-	}
+    private static void addItem(RegisterListDummyItem item) {
+        ITEMS.add(item);
+    }
 
-	/**
-	 * A dummy item representing a piece of content.
-	 */
-	public static class RegisterListDummyItem 
-	{
-		public String id;
-		public String content;
+    /**
+     * A dummy item representing a piece of content.
+     */
+    public static class RegisterListDummyItem {
+        public String id;
+        public String content;
 
-		public RegisterListDummyItem(String id, String content) 
-		{
-			this.id = id;
-			this.content = content;
-		}
+        public RegisterListDummyItem(String id, String content) {
+            this.id = id;
+            this.content = content;
+        }
 
-		@Override
-		public String toString() 
-		{
-			return content;
-		}
-	}
+        @Override
+        public String toString() {
+            return content;
+        }
+    }
 }

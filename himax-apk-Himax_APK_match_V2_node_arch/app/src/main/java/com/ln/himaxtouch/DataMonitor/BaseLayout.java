@@ -41,7 +41,7 @@ public class BaseLayout extends RelativeLayout {
     }
 
     public BaseLayout(Context context, AttributeSet attrs) {
-       super(context, attrs);
+        super(context, attrs);
         mScaleGestureDetector = new ScaleGestureDetector(context,
                 new ScaleGestureListener());
     }
@@ -76,9 +76,9 @@ public class BaseLayout extends RelativeLayout {
     }
 
     public void resumeOriginPosition() {
-        if(this.getScaleX() != 1) {
-            if(mLeftP != this.getLeft() || mTopP != this.getTop() || mRightP != this.getRight() || mBottomP != this.getBottom()) {
-                this.layout(mLeftP,mTopP,mRightP,mBottomP);
+        if (this.getScaleX() != 1) {
+            if (mLeftP != this.getLeft() || mTopP != this.getTop() || mRightP != this.getRight() || mBottomP != this.getBottom()) {
+                this.layout(mLeftP, mTopP, mRightP, mBottomP);
             }
         }
     }
@@ -109,8 +109,8 @@ public class BaseLayout extends RelativeLayout {
                     case MotionEvent.ACTION_MOVE:
                         if (!isZooming) {
                             float scale = getScaleX();
-                            final float xDistance = (event.getX() - mDownX)*scale;
-                            final float yDistance = (event.getY() - mDownY)*scale;
+                            final float xDistance = (event.getX() - mDownX) * scale;
+                            final float yDistance = (event.getY() - mDownY) * scale;
                             if (xDistance != 0 && yDistance != 0) {
                                 mLeftP = (int) (getLeft() + xDistance);
                                 mRightP = mLeftP + mWidth;
@@ -155,15 +155,15 @@ public class BaseLayout extends RelativeLayout {
             if (currentSpan < previousSpan) {
                 // 缩小
                 float temp = mPreScale - (previousSpan - currentSpan) / 3000;
-                if(temp >= MINSCALE) {
+                if (temp >= MINSCALE) {
                     mScale = temp;
                 } else {
-                    mScale = (float)  MINSCALE;
+                    mScale = (float) MINSCALE;
                 }
             } else {
                 // 放大
                 float temp = mPreScale - (previousSpan - currentSpan) / 3000;
-                if(temp <= MAXSCALE) {
+                if (temp <= MAXSCALE) {
                     mScale = temp;
                 } else {
                     mScale = (float) MAXSCALE;
@@ -191,25 +191,25 @@ public class BaseLayout extends RelativeLayout {
 
     private void checkLayoutMargin(float scale) {
         //horizontal margin
-        int marginW = (int) (getWidth() * (1-scale) / 2);
-        if(mLeftP < -marginW) {
+        int marginW = (int) (getWidth() * (1 - scale) / 2);
+        if (mLeftP < -marginW) {
             mLeftP = -marginW;
             mRightP = mLeftP + getWidth();
         }
-        if(mRightP > marginW + getWidth()) {
+        if (mRightP > marginW + getWidth()) {
             mRightP = marginW + getWidth();
             mLeftP = mRightP - getWidth();
         }
 
         //vertical margin
-        int maringH = (int) (getHeight() * (1-scale) / 2);
-        if(mTopP < -maringH) {
+        int maringH = (int) (getHeight() * (1 - scale) / 2);
+        if (mTopP < -maringH) {
             mTopP = -maringH;
             mBottomP = mTopP + getHeight();
         }
-        if(mBottomP > maringH + getHeight()) {
+        if (mBottomP > maringH + getHeight()) {
             mBottomP = maringH + getHeight();
-            mTopP = mBottomP -getHeight();
+            mTopP = mBottomP - getHeight();
         }
 
 

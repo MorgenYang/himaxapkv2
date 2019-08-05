@@ -40,15 +40,15 @@ public class HorizontalActivity extends Activity {
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
         //get display info
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -68,28 +68,28 @@ public class HorizontalActivity extends Activity {
         int green;
         int blue;
         SharedPreferences data = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String bgc = data.getString("bg_color_text","");
+        String bgc = data.getString("bg_color_text", "");
 
-        double lcd_width = Double.parseDouble(data.getString("lcd_width_text",""));
-        double lcd_height = Double.parseDouble(data.getString("lcd_height_text",""));
-        double a = width/lcd_width;
-        double b = height/lcd_height;
+        double lcd_width = Double.parseDouble(data.getString("lcd_width_text", ""));
+        double lcd_height = Double.parseDouble(data.getString("lcd_height_text", ""));
+        double a = width / lcd_width;
+        double b = height / lcd_height;
 
-        double lineation_center_threshold = Double.parseDouble(data.getString("lineation_center_threshold_text",""));
-        double lineation_edge_threshold = Double.parseDouble(data.getString("lineation_edge_threshold_text",""));
-        double radius = Double.parseDouble(data.getString("test_bar_radius_text",""));
-        int center = (int) (lineation_center_threshold*b);
+        double lineation_center_threshold = Double.parseDouble(data.getString("lineation_center_threshold_text", ""));
+        double lineation_edge_threshold = Double.parseDouble(data.getString("lineation_edge_threshold_text", ""));
+        double radius = Double.parseDouble(data.getString("test_bar_radius_text", ""));
+        int center = (int) (lineation_center_threshold * b);
 
-        int firstLineY = (int)(radius*b);
-        int edgeX = (int)(radius*a);
-        int d = (int)((height - 2*firstLineY)/4);
-        int edgeY = (int)(lineation_edge_threshold * b);
+        int firstLineY = (int) (radius * b);
+        int edgeX = (int) (radius * a);
+        int d = (int) ((height - 2 * firstLineY) / 4);
+        int edgeY = (int) (lineation_edge_threshold * b);
 
         public Horizontal(Context context) {
             super(context);
-            paint=new Paint(Paint.DITHER_FLAG);
+            paint = new Paint(Paint.DITHER_FLAG);
             bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            canvas=new Canvas();
+            canvas = new Canvas();
             canvas.setBitmap(bitmap);
 
             paint.setStyle(Paint.Style.STROKE);
@@ -99,9 +99,9 @@ public class HorizontalActivity extends Activity {
         }
 
         @Override
-        public void onDraw(Canvas canvas){
-            red = Integer.parseInt(bgc.substring(0,3));
-            green = Integer.parseInt(bgc.substring(3,6));
+        public void onDraw(Canvas canvas) {
+            red = Integer.parseInt(bgc.substring(0, 3));
+            green = Integer.parseInt(bgc.substring(3, 6));
             blue = Integer.parseInt(bgc.substring(6));
             canvas.drawColor(Color.rgb(red, green, blue));
 
@@ -109,79 +109,79 @@ public class HorizontalActivity extends Activity {
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(1);
             //first line
-            canvas.drawLine(0,firstLineY,width,firstLineY,paint);
-            canvas.drawLine(0,firstLineY+edgeY,width,firstLineY+edgeY,paint);
-            canvas.drawLine(0,firstLineY-edgeY,width,firstLineY-edgeY,paint);
+            canvas.drawLine(0, firstLineY, width, firstLineY, paint);
+            canvas.drawLine(0, firstLineY + edgeY, width, firstLineY + edgeY, paint);
+            canvas.drawLine(0, firstLineY - edgeY, width, firstLineY - edgeY, paint);
             //second line
-            canvas.drawLine(0,firstLineY+d,width,firstLineY+d,paint);
-            canvas.drawLine(0,firstLineY+d-edgeY,edgeX,firstLineY+d-edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+d-center,width-edgeX,firstLineY+d-center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+d-edgeY,width,firstLineY+d-edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+d-edgeY,width-edgeX,firstLineY+d-center,paint);
-            canvas.drawLine(edgeX,firstLineY+d-center,edgeX,firstLineY+d-edgeY,paint);
-            canvas.drawLine(0,firstLineY+d+edgeY,edgeX,firstLineY+d+edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+d+center,width-edgeX,firstLineY+d+center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+d+edgeY,width,firstLineY+d+edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+d+edgeY,width-edgeX,firstLineY+d+center,paint);
-            canvas.drawLine(edgeX,firstLineY+d+center,edgeX,firstLineY+d+edgeY,paint);
+            canvas.drawLine(0, firstLineY + d, width, firstLineY + d, paint);
+            canvas.drawLine(0, firstLineY + d - edgeY, edgeX, firstLineY + d - edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + d - center, width - edgeX, firstLineY + d - center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + d - edgeY, width, firstLineY + d - edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + d - edgeY, width - edgeX, firstLineY + d - center, paint);
+            canvas.drawLine(edgeX, firstLineY + d - center, edgeX, firstLineY + d - edgeY, paint);
+            canvas.drawLine(0, firstLineY + d + edgeY, edgeX, firstLineY + d + edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + d + center, width - edgeX, firstLineY + d + center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + d + edgeY, width, firstLineY + d + edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + d + edgeY, width - edgeX, firstLineY + d + center, paint);
+            canvas.drawLine(edgeX, firstLineY + d + center, edgeX, firstLineY + d + edgeY, paint);
             //third line
-            canvas.drawLine(0,firstLineY+2*d,width,firstLineY+2*d,paint);
-            canvas.drawLine(0,firstLineY+2*d-edgeY,edgeX,firstLineY+2*d-edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+2*d-center,width-edgeX,firstLineY+2*d-center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+2*d-edgeY,width,firstLineY+2*d-edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+2*d-edgeY,width-edgeX,firstLineY+2*d-center,paint);
-            canvas.drawLine(edgeX,firstLineY+2*d-center,edgeX,firstLineY+2*d-edgeY,paint);
-            canvas.drawLine(0,firstLineY+2*d+edgeY,edgeX,firstLineY+2*d+edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+2*d+center,width-edgeX,firstLineY+2*d+center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+2*d+edgeY,width,firstLineY+2*d+edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+2*d+edgeY,width-edgeX,firstLineY+2*d+center,paint);
-            canvas.drawLine(edgeX,firstLineY+2*d+center,edgeX,firstLineY+2*d+edgeY,paint);
+            canvas.drawLine(0, firstLineY + 2 * d, width, firstLineY + 2 * d, paint);
+            canvas.drawLine(0, firstLineY + 2 * d - edgeY, edgeX, firstLineY + 2 * d - edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + 2 * d - center, width - edgeX, firstLineY + 2 * d - center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 2 * d - edgeY, width, firstLineY + 2 * d - edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 2 * d - edgeY, width - edgeX, firstLineY + 2 * d - center, paint);
+            canvas.drawLine(edgeX, firstLineY + 2 * d - center, edgeX, firstLineY + 2 * d - edgeY, paint);
+            canvas.drawLine(0, firstLineY + 2 * d + edgeY, edgeX, firstLineY + 2 * d + edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + 2 * d + center, width - edgeX, firstLineY + 2 * d + center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 2 * d + edgeY, width, firstLineY + 2 * d + edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 2 * d + edgeY, width - edgeX, firstLineY + 2 * d + center, paint);
+            canvas.drawLine(edgeX, firstLineY + 2 * d + center, edgeX, firstLineY + 2 * d + edgeY, paint);
             //fourth line
-            canvas.drawLine(0,firstLineY+3*d,width,firstLineY+3*d,paint);
-            canvas.drawLine(0,firstLineY+3*d-edgeY,edgeX,firstLineY+3*d-edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+3*d-center,width-edgeX,firstLineY+3*d-center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+3*d-edgeY,width,firstLineY+3*d-edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+3*d-edgeY,width-edgeX,firstLineY+3*d-center,paint);
-            canvas.drawLine(edgeX,firstLineY+3*d-center,edgeX,firstLineY+3*d-edgeY,paint);
-            canvas.drawLine(0,firstLineY+3*d+edgeY,edgeX,firstLineY+3*d+edgeY,paint);
-            canvas.drawLine(edgeX,firstLineY+3*d+center,width-edgeX,firstLineY+3*d+center,paint);
-            canvas.drawLine(width-edgeX,firstLineY+3*d+edgeY,width,firstLineY+3*d+edgeY,paint);
-            canvas.drawLine(width-edgeX,firstLineY+3*d+edgeY,width-edgeX,firstLineY+3*d+center,paint);
-            canvas.drawLine(edgeX,firstLineY+3*d+center,edgeX,firstLineY+3*d+edgeY,paint);
+            canvas.drawLine(0, firstLineY + 3 * d, width, firstLineY + 3 * d, paint);
+            canvas.drawLine(0, firstLineY + 3 * d - edgeY, edgeX, firstLineY + 3 * d - edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + 3 * d - center, width - edgeX, firstLineY + 3 * d - center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 3 * d - edgeY, width, firstLineY + 3 * d - edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 3 * d - edgeY, width - edgeX, firstLineY + 3 * d - center, paint);
+            canvas.drawLine(edgeX, firstLineY + 3 * d - center, edgeX, firstLineY + 3 * d - edgeY, paint);
+            canvas.drawLine(0, firstLineY + 3 * d + edgeY, edgeX, firstLineY + 3 * d + edgeY, paint);
+            canvas.drawLine(edgeX, firstLineY + 3 * d + center, width - edgeX, firstLineY + 3 * d + center, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 3 * d + edgeY, width, firstLineY + 3 * d + edgeY, paint);
+            canvas.drawLine(width - edgeX, firstLineY + 3 * d + edgeY, width - edgeX, firstLineY + 3 * d + center, paint);
+            canvas.drawLine(edgeX, firstLineY + 3 * d + center, edgeX, firstLineY + 3 * d + edgeY, paint);
             //fifth line
-            canvas.drawLine(0,height-firstLineY,width,height-firstLineY,paint);
-            canvas.drawLine(0,height-firstLineY+edgeY,width,height-firstLineY+edgeY,paint);
-            canvas.drawLine(0,height-firstLineY-edgeY,width,height-firstLineY-edgeY,paint);
+            canvas.drawLine(0, height - firstLineY, width, height - firstLineY, paint);
+            canvas.drawLine(0, height - firstLineY + edgeY, width, height - firstLineY + edgeY, paint);
+            canvas.drawLine(0, height - firstLineY - edgeY, width, height - firstLineY - edgeY, paint);
 
             paint.setColor(Color.RED);
             paint.setStrokeWidth(2);
-            canvas.drawBitmap(bitmap,0,0,null);
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
-            if (event.getAction()== MotionEvent.ACTION_MOVE) {
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 canvas.drawLine(mov_x, mov_y, event.getX(), event.getY(), paint);
-                list.add(mov_x+"");
-                list.add(mov_y+"");
+                list.add(mov_x + "");
+                list.add(mov_y + "");
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_DOWN) {
-                if (count > 0){
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (count > 0) {
                     list.add("65535");
                     list.add("65535");
                 }
                 count++;
-                if (count > 5){
-                    Toast.makeText(HorizontalActivity.this,"should be only 5 lines", Toast.LENGTH_SHORT).show();
+                if (count > 5) {
+                    Toast.makeText(HorizontalActivity.this, "should be only 5 lines", Toast.LENGTH_SHORT).show();
                 }
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_UP) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
                 invalidate();
             }
-            mov_x=(int) event.getX();
-            mov_y=(int) event.getY();
+            mov_x = (int) event.getX();
+            mov_y = (int) event.getY();
             return true;
         }
     }
@@ -194,29 +194,29 @@ public class HorizontalActivity extends Activity {
                     .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < list.size(); i++) {
-                            if (i == (list.size() - 1)) {
-                                points += list.get(i);
-                            } else if (i % 2 == 1) {
-                                points = points + list.get(i) + "\n";
-                            } else points = points + list.get(i) + ",";
-                        }
+                            for (int i = 0; i < list.size(); i++) {
+                                if (i == (list.size() - 1)) {
+                                    points += list.get(i);
+                                } else if (i % 2 == 1) {
+                                    points = points + list.get(i) + "\n";
+                                } else points = points + list.get(i) + ",";
+                            }
 //                            write(points);
-                        rWlog.write(points,"hor_",time);
-                        SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
-                        editor.putString("hor", time);
-                        editor.putString("horCount",count+"");
-                        editor.commit();
-                        Toast.makeText(HorizontalActivity.this, "data saved!", Toast.LENGTH_SHORT).show();
-                        HorizontalActivity.this.finish();
+                            rWlog.write(points, "hor_", time);
+                            SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
+                            editor.putString("hor", time);
+                            editor.putString("horCount", count + "");
+                            editor.commit();
+                            Toast.makeText(HorizontalActivity.this, "data saved!", Toast.LENGTH_SHORT).show();
+                            HorizontalActivity.this.finish();
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                        HorizontalActivity.this.finish();
+                            HorizontalActivity.this.finish();
                         }
                     }).show();
-        }else HorizontalActivity.this.finish();
+        } else HorizontalActivity.this.finish();
     }
 }

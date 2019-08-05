@@ -260,21 +260,21 @@ public class TestResultActivity extends Activity {
                                     flag = false;
                                 } else {
                                     if (distance[i] > accuracy_edge_threshold * a) {
-                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) +"(pix)/"+df.format(distance[i]/a)+ "(mm)--fail\n");
+                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)--fail\n");
                                         flag = false;
                                     } else
-                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)\n");
+                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)\n");
                                 }
-                            } else if ((i >= 3 && i < 5)||i == 6 || (i > 7 && i < 10)) {
+                            } else if ((i >= 3 && i < 5) || i == 6 || (i > 7 && i < 10)) {
                                 if (countPoint[i] == 0) {
                                     textView.append("[center] ------ miss\n");
                                     flag = false;
                                 } else {
                                     if (distance[i] > accuracy_center_threshold * a) {
-                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)--fail\n");
+                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)--fail\n");
                                         flag = false;
                                     } else
-                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)\n");
+                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)\n");
                                 }
                             }
                         }
@@ -579,10 +579,10 @@ public class TestResultActivity extends Activity {
                                     flag = false;
                                 } else {
                                     if (distance[i] > accuracy_edge_threshold * a) {
-                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)-fail\n");
+                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)-fail\n");
                                         flag = false;
                                     } else
-                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)\n");
+                                        textView.append("[ edge ](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)\n");
                                 }
                             } else if ((i >= 9 && i < 15) || (i >= 18 && i < 21) || (i >= 24 && i < 30)) {
                                 if (distance[i] == 0) {
@@ -590,10 +590,10 @@ public class TestResultActivity extends Activity {
                                     flag = false;
                                 } else {
                                     if (distance[i] > accuracy_center_threshold * a) {
-                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)-fail\n");
+                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)-fail\n");
                                         flag = false;
                                     } else
-                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/"+df.format(distance[i]/a)+"(mm)\n");
+                                        textView.append("[center](" + pointX[i] + "," + pointY[i] + ")dis:" + df1.format(distance[i]) + "(pix)/" + df.format(distance[i] / a) + "(mm)\n");
                                 }
                             }
                         }
@@ -676,10 +676,10 @@ public class TestResultActivity extends Activity {
                                     / Math.sqrt(width * width + height * height))) + "");
                         }
                     }
-                    himax_config.mLogPrinter('e',"list size="+Integer.toString(list.size()));
+                    himax_config.mLogPrinter('e', "list size=" + Integer.toString(list.size()));
                     String distanceDia = "";
                     for (int i = 0; i < list.size(); i++) {
-                        himax_config.mLogPrinter('e',"now index="+Integer.toString(i)+"points.length="+Integer.toString(points.length));
+                        himax_config.mLogPrinter('e', "now index=" + Integer.toString(i) + "points.length=" + Integer.toString(points.length));
                         if (point[i][0].equals("65535")) {
                             if (i < points.length - 1 && Integer.parseInt(point[i - 1][1]) < Integer.parseInt(point[i + 1][1])) {
                                 //edge
@@ -712,20 +712,20 @@ public class TestResultActivity extends Activity {
                                 || width - Double.parseDouble(point[i][0]) <= test_bar_radius * a
                                 || height - Double.parseDouble(point[i][1]) <= test_bar_radius * a * height / width) {
                             if (Double.parseDouble(list.get(i) + "") / a > lineation_edge_threshold) {
-                                distanceDia = "[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)-fail" + "\n";
+                                distanceDia = "[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)-fail" + "\n";
                                 textView.append(distanceDia);
                                 flag = false;
                             } else {
-                                distanceDia = "[ edge ](" + points[i] + ")dis:" + list.get(i) +"(pix)/"+ df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n";
+                                distanceDia = "[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n";
                                 textView.append(distanceDia);
                             }
                         } else {
                             if (Double.parseDouble(list.get(i) + "") / a > lineation_center_threshold) {
-                                distanceDia = "[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)-fail\n";
+                                distanceDia = "[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)-fail\n";
                                 textView.append(distanceDia);
                                 flag = false;
                             } else {
-                                distanceDia = "[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n";
+                                distanceDia = "[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n";
                                 textView.append(distanceDia);
                             }
                         }
@@ -849,10 +849,10 @@ public class TestResultActivity extends Activity {
                                 continue;
                             }
                             if (Double.parseDouble(list.get(i) + "") / a > lineation_edge_threshold) {
-                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                 flag = false;
                             } else
-                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                         }
                         if ((i <= two - 1 && i > line1PointNum)
                                 || (i <= three - 1 && i > two)
@@ -865,16 +865,16 @@ public class TestResultActivity extends Activity {
                             if (Integer.parseInt(point[i][0]) < test_bar_radius * a
                                     || (Integer.parseInt(point[i][0]) < width && Integer.parseInt(point[i][0]) > width - test_bar_radius * a)) {
                                 if (Double.parseDouble(list.get(i) + "") / a > lineation_edge_threshold) {
-                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                     flag = false;
                                 } else
-                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                             } else {
                                 if (Double.parseDouble(list.get(i) + "") / a > lineation_center_threshold) {
-                                    textView.append("[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                    textView.append("[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                     flag = false;
                                 } else
-                                    textView.append("[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                    textView.append("[center](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                             }
                         }
                     }
@@ -997,10 +997,10 @@ public class TestResultActivity extends Activity {
                                 continue;
                             }
                             if (Double.parseDouble(list.get(i) + "") / a > lineation_edge_threshold) {
-                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                 flag = false;
                             } else
-                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                         }
                         if ((i <= two - 1 && i > line1PointNum)
                                 || (i <= three - 1 && i > two)
@@ -1013,16 +1013,16 @@ public class TestResultActivity extends Activity {
                             if (Integer.parseInt(point[i][1]) < test_bar_radius * a
                                     || (Integer.parseInt(point[i][1]) < height && Integer.parseInt(point[i][1]) > height - test_bar_radius * a)) {
                                 if (Double.parseDouble(list.get(i) + "") / a > lineation_edge_threshold) {
-                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                     flag = false;
                                 } else
-                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                    textView.append("[ edge ](" + points[i] + ")dis:" + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                             } else {
                                 if (Double.parseDouble(list.get(i) + "") / a > lineation_center_threshold) {
-                                    textView.append("[center](" + points[i] + ")dis: " + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)--fail\n");
+                                    textView.append("[center](" + points[i] + ")dis: " + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)--fail\n");
                                     flag = false;
                                 } else
-                                    textView.append("[center](" + points[i] + ")dis: " + list.get(i) + "(pix)/"+df.format(Double.parseDouble(list.get(i))/a)+"(mm)\n");
+                                    textView.append("[center](" + points[i] + ")dis: " + list.get(i) + "(pix)/" + df.format(Double.parseDouble(list.get(i)) / a) + "(mm)\n");
                             }
                         }
                     }
@@ -1245,12 +1245,12 @@ public class TestResultActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String reName = editor.getText().toString();
-                        String[] time = {accTime,diaTime,horTime,verTime,senTime,segTime,mtwoTime,megTime,rateTime};
-                        String[] testName = {"acc","dia","hor","ver","sen","seg","two","meg","rat"};
-                        for (int i = 0;i < 9;i++){
-                            if (check == i){
-                                RWlog.copyFile(testName[i]+"_",time[i],reName);
-                                Toast.makeText(TestResultActivity.this, testName[i] +" named success", Toast.LENGTH_SHORT).show();
+                        String[] time = {accTime, diaTime, horTime, verTime, senTime, segTime, mtwoTime, megTime, rateTime};
+                        String[] testName = {"acc", "dia", "hor", "ver", "sen", "seg", "two", "meg", "rat"};
+                        for (int i = 0; i < 9; i++) {
+                            if (check == i) {
+                                RWlog.copyFile(testName[i] + "_", time[i], reName);
+                                Toast.makeText(TestResultActivity.this, testName[i] + " named success", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -1267,8 +1267,8 @@ public class TestResultActivity extends Activity {
                 dialog.setTitle("Save result");
                 dialog.setIcon(R.drawable.ic_launcher);
                 dialog.setView(editor);
-                String[] testName = {"acc","dia","hor","ver","sen","seg","mtwo","meg","rate"};
-                for (int i = 0;i < 9;i++){
+                String[] testName = {"acc", "dia", "hor", "ver", "sen", "seg", "mtwo", "meg", "rate"};
+                for (int i = 0; i < 9; i++) {
                     if (check == i)
                         dialog.setMessage("Enter " + testName[i] + " name and save");
                 }
@@ -1276,8 +1276,8 @@ public class TestResultActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String reName = editor.getText().toString();
-                        for (int i = 0;i < 9;i++){
-                            if (check == i){
+                        for (int i = 0; i < 9; i++) {
+                            if (check == i) {
                                 String testResult = textView.getText().toString();
                                 RWlog.saveResult(testResult, reName);
                             }

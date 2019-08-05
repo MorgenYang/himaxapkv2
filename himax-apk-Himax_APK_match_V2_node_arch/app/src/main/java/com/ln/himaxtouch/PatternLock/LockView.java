@@ -23,12 +23,12 @@ import java.util.List;
 /**
  * Created by zzj on 2016/11/15.
  */
-public class  LockView extends View {
+public class LockView extends View {
 
     private String TAG = "LockView";
 
     private Point[][] points = new Point[3][3];
-    private boolean isInit, isSelectPoint, isFinsh,moveNoPint;
+    private boolean isInit, isSelectPoint, isFinsh, moveNoPint;
 
     private float width, height, offsetsX, offsetsY, bitmapR, eventX, eventY;
 
@@ -42,6 +42,7 @@ public class  LockView extends View {
     private Bitmap pointNormal, pointPressed, pointError, linePressed, lineError;
 
     private onPatternChangeListener onPatternChangeListener;
+
     public LockView(Context context) {
         super(context);
     }
@@ -61,39 +62,40 @@ public class  LockView extends View {
         }
         canvasPoints(canvas);
 
-        if(pointList.size()>0){
+        if (pointList.size() > 0) {
 
             Point a = pointList.get(0);
-            for(int i = 0  ;i<pointList.size();i++){
+            for (int i = 0; i < pointList.size(); i++) {
                 Point b = pointList.get(i);
-                lineCanvas(canvas,a,b);
+                lineCanvas(canvas, a, b);
                 a = b;
             }
 
-            if(moveNoPint){
-                lineCanvas(canvas,a,new Point(eventX,eventY));
+            if (moveNoPint) {
+                lineCanvas(canvas, a, new Point(eventX, eventY));
             }
         }
     }
 
-    private void lineCanvas(Canvas canvas,Point a,Point b){
-        float lineLenght = (float) Point.distance(a,b);
+    private void lineCanvas(Canvas canvas, Point a, Point b) {
+        float lineLenght = (float) Point.distance(a, b);
 
-        float degrees = getDegrees(a,b);
+        float degrees = getDegrees(a, b);
 
-        canvas.rotate(degrees,a.x,a.y);
+        canvas.rotate(degrees, a.x, a.y);
 
-        if(a.state == Point.STATE_PRESSED) {
-            matrix.setScale(lineLenght/linePressed.getWidth(),1);
-            matrix.postTranslate(a.x-linePressed.getWidth()/2,a.y-linePressed.getHeight()/2);
-            canvas.drawBitmap(linePressed,matrix,paint);
+        if (a.state == Point.STATE_PRESSED) {
+            matrix.setScale(lineLenght / linePressed.getWidth(), 1);
+            matrix.postTranslate(a.x - linePressed.getWidth() / 2, a.y - linePressed.getHeight() / 2);
+            canvas.drawBitmap(linePressed, matrix, paint);
         } else {
-            matrix.setScale(lineLenght/lineError.getWidth(),1);
-            matrix.postTranslate(a.x-lineError.getWidth()/2,a.y-lineError.getHeight()/2);
-            canvas.drawBitmap(lineError,matrix,paint);
+            matrix.setScale(lineLenght / lineError.getWidth(), 1);
+            matrix.postTranslate(a.x - lineError.getWidth() / 2, a.y - lineError.getHeight() / 2);
+            canvas.drawBitmap(lineError, matrix, paint);
         }
-        canvas.rotate(-degrees,a.x,a.y);
+        canvas.rotate(-degrees, a.x, a.y);
     }
+
     private void canvasPoints(Canvas canvas) {
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[i].length; j++) {
@@ -101,9 +103,9 @@ public class  LockView extends View {
                 if (point.state == Point.STATE_NORMAL) {
                     canvas.drawBitmap(pointNormal, point.x - bitmapR, point.y - bitmapR, paint);
                 } else if (point.state == Point.STATE_PRESSED) {
-                    canvas.drawBitmap(pointPressed, point.x-bitmapR, point.y- bitmapR, paint);
+                    canvas.drawBitmap(pointPressed, point.x - bitmapR, point.y - bitmapR, paint);
                 } else {
-                    canvas.drawBitmap(pointError, point.x- bitmapR, point.y- bitmapR, paint);
+                    canvas.drawBitmap(pointError, point.x - bitmapR, point.y - bitmapR, paint);
                 }
             }
         }
@@ -119,7 +121,7 @@ public class  LockView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
-                if(onPatternChangeListener!=null){
+                if (onPatternChangeListener != null) {
                     onPatternChangeListener.onPatternStart(true);
                 }
                 resetPoint();
@@ -132,9 +134,9 @@ public class  LockView extends View {
                 if (isSelectPoint) {
                     point = checkSelectPoint();
 
-                    if(point == null){
+                    if (point == null) {
                         moveNoPint = true;
-                    }else {
+                    } else {
                     }
                 }
                 break;
@@ -160,14 +162,14 @@ public class  LockView extends View {
                 resetPoint();
             } else if (pointList.size() > 1 && pointList.size() < 4) {
                 errorPoint();
-                if(onPatternChangeListener!=null){
+                if (onPatternChangeListener != null) {
                     onPatternChangeListener.onPatternChange(null);
                 }
             } else if (pointList.size() >= 4) {
                 String password = "";
-                if(onPatternChangeListener!=null){
-                    for(int i = 0;i<pointList.size();i++){
-                        password = password+pointList.get(i).index;
+                if (onPatternChangeListener != null) {
+                    for (int i = 0; i < pointList.size(); i++) {
+                        password = password + pointList.get(i).index;
                     }
                     onPatternChangeListener.onPatternChange(password);
                 }
@@ -182,6 +184,7 @@ public class  LockView extends View {
         return (float) Math.toDegrees(Math.atan2(pointB.y - pointA.y, pointB.x - pointA.x));
 
     }
+
     private boolean crossPoint(Point point) {
         if (pointList.contains(point)) {
             return true;
@@ -191,7 +194,7 @@ public class  LockView extends View {
     }
 
     public void resetPoint() {
-        for(int i = 0;i<pointList.size();i++){
+        for (int i = 0; i < pointList.size(); i++) {
             Point point = pointList.get(i);
             point.state = Point.STATE_NORMAL;
         }
@@ -250,8 +253,8 @@ public class  LockView extends View {
 
 
         int index = 1;
-        for(Point[] points : this.points){
-            for(Point point : points){
+        for (Point[] points : this.points) {
+            for (Point point : points) {
                 point.index = index;
                 index++;
             }
@@ -286,19 +289,20 @@ public class  LockView extends View {
         }
 
 
-        public static double distance(Point a,Point b){
-            return Math.sqrt(Math.abs(a.x-b.x)*Math.abs(a.x-b.x)+Math.abs(a.y-b.y)*Math.abs(a.y-b.y));
+        public static double distance(Point a, Point b) {
+            return Math.sqrt(Math.abs(a.x - b.x) * Math.abs(a.x - b.x) + Math.abs(a.y - b.y) * Math.abs(a.y - b.y));
         }
 
     }
 
-    public static interface onPatternChangeListener{
+    public static interface onPatternChangeListener {
         void onPatternChange(String passwordstr);
+
         void onPatternStart(boolean isClick);
     }
 
-    public void setPatternChangeListener(onPatternChangeListener onPatternChangeListener){
-        if(onPatternChangeListener!=null){
+    public void setPatternChangeListener(onPatternChangeListener onPatternChangeListener) {
+        if (onPatternChangeListener != null) {
             this.onPatternChangeListener = onPatternChangeListener;
         }
     }

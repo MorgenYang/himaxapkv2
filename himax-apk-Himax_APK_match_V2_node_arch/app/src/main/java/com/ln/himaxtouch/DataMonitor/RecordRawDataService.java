@@ -24,11 +24,11 @@ import static com.ln.himaxtouch.HimaxApplication.mMainHandler;
  */
 
 public class RecordRawDataService extends Service {
-    private static final String TAG="[HXTP]RecordRawServ";
+    private static final String TAG = "[HXTP]RecordRawServ";
 
     private final Messenger mMesseneger = new Messenger(new MessengerHandler());
 
-   // private HimaxApplication mApplication;
+    // private HimaxApplication mApplication;
     private static ObjectiveTestController mController;
 
     public final static int MSG_RECORD_START = 0;
@@ -43,7 +43,7 @@ public class RecordRawDataService extends Service {
     public static NodeDataSource mDataSource;
     public static CSVAccess mCSV;
     public static Handler mBackgroundHandler;
-    private static  boolean isKeepCatch = false;
+    private static boolean isKeepCatch = false;
     public static int[][] mFrame;
     public static int[][] mPreviousFrame;
 
@@ -65,52 +65,57 @@ public class RecordRawDataService extends Service {
 
             long beginmSecs = System.currentTimeMillis();
 
-            while(isKeepCatch) {
+            while (isKeepCatch) {
                 //catch data and save file.
                 int[][] frame = new int[row][col];
                 StringBuilder raw = new StringBuilder();
                 diagResult = mDataSource.readSpecificDiag(mDiagValue, frame, isFirstTime, raw, mDiagArrValue, true, null);
 
-                if(drop==0) {
+                if (drop == 0) {
 
                     if (isFirstTime) {
                         isFirstTime = false;
                         mFrame = new int[row][col];
                         mPreviousFrame = new int[row][col];
-                        if(mDataKeepOption != DataMonitorConfig.DATA_KEEP_DIFF_MAX) {
+                        if (mDataKeepOption != DataMonitorConfig.DATA_KEEP_DIFF_MAX) {
                             copyDataFromAtoB(frame, mFrame);
                         }
                         copyDataFromAtoB(frame, mPreviousFrame);
                     } else {
                         for (int i = 0; i < frame.length; i++) {
                             for (int j = 0; j < frame[0].length; j++) {
-                                if(mFrame != null) {
+                                if (mFrame != null) {
                                     switch (mDataKeepOption) {
                                         case DataMonitorConfig.DATA_KEEP_NORMAL: {
                                             mFrame[i][j] = frame[i][j];
-                                        } break;
+                                        }
+                                        break;
                                         case DataMonitorConfig.DATA_KEEP_MAX: {
                                             if (frame[i][j] > mFrame[i][j]) {
                                                 mFrame[i][j] = frame[i][j];
                                             }
-                                        } break;
+                                        }
+                                        break;
                                         case DataMonitorConfig.DATA_KEEP_MIN: {
                                             if (frame[i][j] < mFrame[i][j]) {
                                                 mFrame[i][j] = frame[i][j];
                                             }
-                                        } break;
+                                        }
+                                        break;
                                         case DataMonitorConfig.DATA_KEEP_DIFF: {
                                             int diff = frame[i][j] - mPreviousFrame[i][j];
                                             mFrame[i][j] = Math.abs(diff);
                                             mPreviousFrame[i][j] = frame[i][j];
-                                        } break;
+                                        }
+                                        break;
                                         case DataMonitorConfig.DATA_KEEP_DIFF_MAX: {
                                             int diff = Math.abs(frame[i][j] - mPreviousFrame[i][j]);
                                             if (diff > mFrame[i][j]) {
                                                 mFrame[i][j] = diff;
                                             }
                                             mPreviousFrame[i][j] = frame[i][j];
-                                        } break;
+                                        }
+                                        break;
                                         default:
                                             break;
                                     }
@@ -118,7 +123,7 @@ public class RecordRawDataService extends Service {
                             }
                         }
                     }
-                    if(diagResult) {
+                    if (diagResult) {
                         StringBuilder insertString = new StringBuilder();
                         transferDataToString(insertString, mFrame);
                         mCSV.append_line(mWritePath, insertString.toString());
@@ -133,15 +138,15 @@ public class RecordRawDataService extends Service {
 
                 long endmSecs = System.currentTimeMillis();
 
-                if(mRecordingSecs != 0 && (endmSecs-beginmSecs) > (mRecordingSecs*1000)) {
+                if (mRecordingSecs != 0 && (endmSecs - beginmSecs) > (mRecordingSecs * 1000)) {
                     isKeepCatch = false;
                     diagResult = mDataSource.readSpecificDiag(0, frame, true, raw, true);
                     mDataSource.sensingOffAndOn();
                     mApplication.mMainHandler.sendEmptyMessage(MSG_CANCEL_RECORDING_NOTIFICATION);
                 }
-                if(mRecordingSecs != 0) {
-                    int percentage = (int) ((endmSecs-beginmSecs)/(mRecordingSecs*10));
-                    if(percentage % 10 == 1) {
+                if (mRecordingSecs != 0) {
+                    int percentage = (int) ((endmSecs - beginmSecs) / (mRecordingSecs * 10));
+                    if (percentage % 10 == 1) {
                         Log.d("NIM190722", "if MSG_UPDATE_NOTIFICATION_PROGRESS:update");
                         Message m = Message.obtain();
                         m.what = MSG_UPDATE_NOTIFICATION_PROGRESS;
@@ -150,7 +155,7 @@ public class RecordRawDataService extends Service {
                     }
                 }
 
-             }
+            }
         }
     };
 
@@ -158,10 +163,10 @@ public class RecordRawDataService extends Service {
     private static void transferDataToString(StringBuilder sb, int[][] frame) {
         sb.append("Parsed Data\n");
         sb.append("Start\n");
-        for(int i=0; i<frame.length; i++) {
-            for(int j=0; j<frame[0].length; j++) {
+        for (int i = 0; i < frame.length; i++) {
+            for (int j = 0; j < frame[0].length; j++) {
                 sb.append(frame[i][j]);
-                if(j < frame[0].length-1) {
+                if (j < frame[0].length - 1) {
                     sb.append(",");
                 }
             }
@@ -172,8 +177,8 @@ public class RecordRawDataService extends Service {
     }
 
     private static void copyDataFromAtoB(int[][] a, int[][] b) {
-        for(int i=0; i<a.length; i++) {
-            for(int j=0; j<a[0].length; j++) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
                 b[i][j] = a[i][j];
             }
         }
@@ -187,18 +192,20 @@ public class RecordRawDataService extends Service {
                     Bundle b = msg.getData();
                     int[] params = b.getIntArray("record");
                     mWritePath = b.getString("path");
-                    Log.d(TAG, "path:"+mWritePath);
+                    Log.d(TAG, "path:" + mWritePath);
                     mDiagValue = params[0];
                     mDiagArrValue = params[1];
                     mDataKeepOption = params[2];
                     mRecordingSecs = params[3];
                     isKeepCatch = true;
                     mBackgroundHandler.post(mRunnable);
-                } break;
+                }
+                break;
                 case MSG_RECORD_END: {
                     isKeepCatch = false;
                     mController.mDataMonitorModel.mBackgroundRecordInfo = null;
-                } break;
+                }
+                break;
                 default:
                     break;
             }

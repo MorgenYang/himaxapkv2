@@ -11,7 +11,7 @@ import com.ln.himaxtouch.ObjectiveTest.IObjectiveTestModel;
  * Created by 903622 on 2018/4/25.
  */
 
-public class PSensorTestModel implements IObjectiveTestModel{
+public class PSensorTestModel implements IObjectiveTestModel {
 
     public boolean isTerminated = true;
     public TextView mTV_Status;
@@ -41,19 +41,19 @@ public class PSensorTestModel implements IObjectiveTestModel{
 
     public void setBrightnessInPercentage(long sensingValue) {
         mSensingValue = sensingValue;
-        if(sensingValue >= mMAX_SENSING_VALUE) {
+        if (sensingValue >= mMAX_SENSING_VALUE) {
             mBrightness = 0;
             return;
         }
-        if(sensingValue <= mMIN_SENSING_VALUE) {
+        if (sensingValue <= mMIN_SENSING_VALUE) {
             mBrightness = 100;
             return;
         }
 
-        double temp = (double) (sensingValue-mMIN_SENSING_VALUE) /  (double) (mMAX_SENSING_VALUE-mMIN_SENSING_VALUE);
-        int brightness_temp = 100-(int)(temp*100);
+        double temp = (double) (sensingValue - mMIN_SENSING_VALUE) / (double) (mMAX_SENSING_VALUE - mMIN_SENSING_VALUE);
+        int brightness_temp = 100 - (int) (temp * 100);
 
-        if(Math.abs(mBrightness-brightness_temp) > mHysteresis) {
+        if (Math.abs(mBrightness - brightness_temp) > mHysteresis) {
             mBrightness = brightness_temp;
         }
 

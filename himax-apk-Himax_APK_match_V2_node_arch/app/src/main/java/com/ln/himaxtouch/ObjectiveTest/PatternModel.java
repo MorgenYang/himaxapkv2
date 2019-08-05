@@ -9,7 +9,7 @@ import com.ln.himaxtouch.CustomView.ObjectivePatternView;
  * Created by 903622 on 2018/4/19.
  */
 
-public class PatternModel implements IObjectiveTestModel{
+public class PatternModel implements IObjectiveTestModel {
 
     public ObjectivePatternView.Cell[][] mPatternCells;
     private static final int RESOLUTION_DEFAULT = 20;
@@ -28,7 +28,7 @@ public class PatternModel implements IObjectiveTestModel{
 
     public void createFitScaleCells(int layout_width, int layout_length) {
         int max_resolution = (layout_length > layout_width) ? layout_width : layout_length;
-        mResolution -= (layout_length > layout_width) ? (layout_width%mResolution) : (layout_length%mResolution);
+        mResolution -= (layout_length > layout_width) ? (layout_width % mResolution) : (layout_length % mResolution);
         if (mResolution > max_resolution) {
             mResolution = max_resolution;
         }
@@ -55,9 +55,9 @@ public class PatternModel implements IObjectiveTestModel{
 
     @Override
     public void unbindViews() {
-        if(mLayout != null) {
+        if (mLayout != null) {
             View v = (View) mLayout.findViewById(mTrackViewId);
-            if(v != null) {
+            if (v != null) {
                 mLayout.removeView(v);
             }
             mLayout = null;

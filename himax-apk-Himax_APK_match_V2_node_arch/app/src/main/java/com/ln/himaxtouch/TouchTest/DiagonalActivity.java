@@ -40,15 +40,15 @@ public class DiagonalActivity extends Activity {
         DateFormat df = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
         time = df.format(new Date());
 
-        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics rmetrics = new DisplayMetrics();
         display.getRealMetrics(rmetrics);
-        SharedPreferences getData = getSharedPreferences("data",MODE_PRIVATE);
-        checked = getData.getBoolean("vir_key",true);
-        if (!checked){
+        SharedPreferences getData = getSharedPreferences("data", MODE_PRIVATE);
+        checked = getData.getBoolean("vir_key", true);
+        if (!checked) {
             width = rmetrics.widthPixels;
             height = rmetrics.heightPixels;
-        }else {
+        } else {
             width = display.getWidth();
             height = display.getHeight();
         }
@@ -67,21 +67,21 @@ public class DiagonalActivity extends Activity {
         int green;
         int blue;
         SharedPreferences data = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String bgc = data.getString("bg_color_text","");
+        String bgc = data.getString("bg_color_text", "");
 
-        double lcd_width = Double.parseDouble(data.getString("lcd_width_text",""));
-        double a = width/lcd_width;
+        double lcd_width = Double.parseDouble(data.getString("lcd_width_text", ""));
+        double a = width / lcd_width;
 
         //get acc info
-        double lineation_center_threshold = Double.parseDouble(data.getString("lineation_center_threshold_text",""));
-        double cy = Math.sqrt(height*height+width*width)*lineation_center_threshold*a/width;
-        double cx = Math.sqrt(height*height+width*width)*lineation_center_threshold*a/height;
+        double lineation_center_threshold = Double.parseDouble(data.getString("lineation_center_threshold_text", ""));
+        double cy = Math.sqrt(height * height + width * width) * lineation_center_threshold * a / width;
+        double cx = Math.sqrt(height * height + width * width) * lineation_center_threshold * a / height;
 
         public Diagonal(Context context) {
             super(context);
-            paint=new Paint(Paint.DITHER_FLAG);
+            paint = new Paint(Paint.DITHER_FLAG);
             bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            canvas=new Canvas();
+            canvas = new Canvas();
             canvas.setBitmap(bitmap);
 
             paint.setStyle(Paint.Style.STROKE);
@@ -91,53 +91,53 @@ public class DiagonalActivity extends Activity {
         }
 
         @Override
-        public void onDraw(Canvas canvas){
-            red = Integer.parseInt(bgc.substring(0,3));
-            green = Integer.parseInt(bgc.substring(3,6));
+        public void onDraw(Canvas canvas) {
+            red = Integer.parseInt(bgc.substring(0, 3));
+            green = Integer.parseInt(bgc.substring(3, 6));
             blue = Integer.parseInt(bgc.substring(6));
             canvas.drawColor(Color.rgb(red, green, blue));
             paint.setColor(Color.GREEN);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(1);
 
-            canvas.drawLine(0,0,width,height,paint);
-            canvas.drawLine(0,(int)cy,width-(int)cx,height,paint);//左下
+            canvas.drawLine(0, 0, width, height, paint);
+            canvas.drawLine(0, (int) cy, width - (int) cx, height, paint);//左下
 
-            canvas.drawLine((int)cx,0,width,height-(int)cy,paint);//右上
+            canvas.drawLine((int) cx, 0, width, height - (int) cy, paint);//右上
 
-            canvas.drawLine(width-(int)cx,0,0,height-(int)cy,paint);//右上
+            canvas.drawLine(width - (int) cx, 0, 0, height - (int) cy, paint);//右上
 
-            canvas.drawLine(width,(int)cy,(int)cx,height,paint);//右下
+            canvas.drawLine(width, (int) cy, (int) cx, height, paint);//右下
 
-            canvas.drawLine(width,0,0,height,paint);
+            canvas.drawLine(width, 0, 0, height, paint);
             paint.setColor(Color.RED);
             paint.setStrokeWidth(2);
-            canvas.drawBitmap(bitmap,0,0,null);
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
 
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
+        public boolean onTouchEvent(MotionEvent event) {
 
-            if (event.getAction()== MotionEvent.ACTION_MOVE) {
-                list.add(mov_x+"");
-                list.add(mov_y+"");
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                list.add(mov_x + "");
+                list.add(mov_y + "");
                 canvas.drawLine(mov_x, mov_y, event.getX(), event.getY(), paint);
                 invalidate();
             }
-            if (event.getAction()== MotionEvent.ACTION_DOWN) {
-                if (diaCount > 0){
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (diaCount > 0) {
                     list.add("65535");
                     list.add("65535");
                 }
                 diaCount++;
-                if (diaCount > 2){
-                    Toast.makeText(DiagonalActivity.this,"fail", Toast.LENGTH_SHORT).show();
+                if (diaCount > 2) {
+                    Toast.makeText(DiagonalActivity.this, "fail", Toast.LENGTH_SHORT).show();
                 }
                 invalidate();
             }
-            mov_x=(int) event.getX();
-            mov_y=(int) event.getY();
+            mov_x = (int) event.getX();
+            mov_y = (int) event.getY();
             return true;
         }
     }
@@ -158,12 +158,12 @@ public class DiagonalActivity extends Activity {
                                 } else points = points + list.get(i) + ",";
                             }
 //                            write(points);
-                            rWlog.write(points,"dia_",time);
+                            rWlog.write(points, "dia_", time);
                             SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
                             editor.putString("dia", time);
-                            editor.putString("diaCount",diaCount+"");
+                            editor.putString("diaCount", diaCount + "");
                             editor.commit();
-                            Toast.makeText(DiagonalActivity.this,"data saved!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DiagonalActivity.this, "data saved!", Toast.LENGTH_SHORT).show();
                             DiagonalActivity.this.finish();
                         }
                     })
@@ -174,6 +174,6 @@ public class DiagonalActivity extends Activity {
                             DiagonalActivity.this.finish();
                         }
                     }).show();
-        }else DiagonalActivity.this.finish();
+        } else DiagonalActivity.this.finish();
     }
 }
